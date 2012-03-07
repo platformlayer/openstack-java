@@ -1,16 +1,14 @@
 package org.openstack.client.cli.commands;
 
-import org.openstack.client.common.OpenstackComputeClient;
+import org.openstack.model.compute.KeyPair;
 
 public class ListKeypairs extends OpenstackCliCommandRunnerBase {
-    public ListKeypairs() {
-        super("list", "keypairs");
-    }
+	public ListKeypairs() {
+		super("list", "keypairs");
+	}
 
-    @Override
-    public Object runCommand() throws Exception {
-        OpenstackComputeClient tenant = getComputeClient();
-        return tenant.root().keyPairs().list();
-    }
-
+	@Override
+	public Object runCommand() throws Exception {
+		return getOpenstackService().listItems(KeyPair.class, true);
+	}
 }

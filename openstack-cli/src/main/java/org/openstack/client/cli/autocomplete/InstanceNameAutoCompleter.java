@@ -16,8 +16,7 @@ public class InstanceNameAutoCompleter extends SimpleArgumentAutoCompleter {
 		List<String> strings = Lists.newArrayList();
 
 		OpenstackCliContext context = (OpenstackCliContext) contextObject;
-		Iterable<Server> servers = context.getCache().getInstances(true);
-		for (Server server : servers) {
+		for (Server server : context.getCache().listItems(Server.class, true)) {
 			strings.add(server.getId());
 			strings.add(server.getName());
 		}

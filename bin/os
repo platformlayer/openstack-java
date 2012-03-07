@@ -85,38 +85,24 @@ if [[ "$PROFILE" == "" ]]; then
 	PROFILE=openstack
 fi
 
-. ~/.credentials/${PROFILE}
-
 if [[ "$FORMAT" == "" ]]; then
 	FORMAT=${DEFAULT_FORMAT}
 fi
 
-args=(--format "${FORMAT}" --username "${OS_USERNAME}" --password "${OS_PASSWORD}" --server "${OS_AUTH_URL}")
-
-if [[ "$OS_TENANT_NAME" != "" ]]; then
-args=("${args[@]}" --tenant "${OS_TENANT_NAME}" )
+if [[ "$CONFIG_FILE" == "" ]]; then
+	CONFIG_FILE=~/.credentials/${PROFILE}
 fi
+
+args=(--format "${FORMAT}" --config -)
+
 
 export NAILGUN_PORT=2102
 cmd=(${NAILGUN} org.openstack.client.cli.OpenstackCli)
 
 if [[ "${FORMAT}" == "action" ]]; then
-	action=`${cmd[@]} ${args[@]} "${@}"`
+	action=`${cmd[@]} ${args[@]} "${@}"  < ${CONFIG_FILE}`
 	do_action ${action}
 else
-	${cmd[@]} ${args[@]} "${@}"
+	${cmd[@]} ${args[@]} "${@}" < ${CONFIG_FILE}
 fi
 
-
-#USE_NAILGUN=1
-
-#if [[ "${1}" == "create-image" ]]; then
-#	USE_NAILGUN=0
-#fi
-
-
-#if [[ ${USE_NAILGUN} == "1" ]]; then
-#	NAILGUN_PORT=2102 ${NAILGUN} org.openstack.client.cli.OpenstackCli  "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}"
-#else
-#	java -jar ${BASEDIR}/openstack-cli-standalone.jar --format "${FORMAT}" --username "${OS_USERNAME}" --password "${OS_PASSWORD}" --tenant "${OS_TENANT_NAME}" --server "${OS_AUTH_URL}" "${1}" "${2}" "${3}" "${4}" "${5}" "${6}" "${7}"
-#fi

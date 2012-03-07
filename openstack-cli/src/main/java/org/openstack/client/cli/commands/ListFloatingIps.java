@@ -1,17 +1,15 @@
 package org.openstack.client.cli.commands;
 
-import org.openstack.client.common.OpenstackComputeClient;
+import org.openstack.model.compute.FloatingIp;
 
 public class ListFloatingIps extends OpenstackCliCommandRunnerBase {
-    public ListFloatingIps() {
-        super("list", "floatingips");
-    }
+	public ListFloatingIps() {
+		super("list", "floatingips");
+	}
 
-    @Override
-    public Object runCommand() throws Exception {
-        OpenstackComputeClient compute = getComputeClient();
-
-        return compute.root().floatingIps().list();
-    }
+	@Override
+	public Object runCommand() throws Exception {
+		return getCache().listItems(FloatingIp.class, false);
+	}
 
 }

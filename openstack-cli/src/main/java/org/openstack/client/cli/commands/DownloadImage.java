@@ -25,7 +25,7 @@ public class DownloadImage extends OpenstackCliCommandRunnerBase {
 			throw new IllegalArgumentException("Cannot find image: " + imageName.getKey());
 		}
 
-		OpenstackImageClient client = context.buildImageClient();
+		OpenstackImageClient client = context.getImageClient();
 		InputStream is = client.root().images().image(imageId).openStream();
 		try {
 			Io.copyStreams(is, System.out);

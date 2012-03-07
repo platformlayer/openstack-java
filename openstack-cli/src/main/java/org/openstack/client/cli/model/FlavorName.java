@@ -19,7 +19,7 @@ public class FlavorName extends StringWrapper {
 
 	public String findImageId(OpenstackCliContext context) throws OpenstackException {
 		List<Flavor> matches = Lists.newArrayList();
-		for (Flavor flavor : context.getCache().getFlavors(true)) {
+		for (Flavor flavor : context.getCache().listItems(Flavor.class, true)) {
 			if (flavor.getName().equals(getKey())) {
 				matches.add(flavor);
 			} else if (flavor.getName().equals(getKey())) {

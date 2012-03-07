@@ -4,15 +4,15 @@ import org.openstack.client.common.OpenstackComputeClient;
 
 public class CreateFloatingIp extends OpenstackCliCommandRunnerBase {
 
-    public CreateFloatingIp() {
-        super("create", "floatingip");
-    }
+	public CreateFloatingIp() {
+		super("create", "floatingip");
+	}
 
-    @Override
-    public Object runCommand() throws Exception {
-        OpenstackComputeClient compute = getComputeClient();
+	@Override
+	public Object runCommand() throws Exception {
+		OpenstackComputeClient compute = getContext().getComputeClient();
 
-        return compute.root().floatingIps().create();
-    }
+		return compute.root().floatingIps().create();
+	}
 
 }

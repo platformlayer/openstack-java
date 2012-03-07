@@ -30,7 +30,7 @@ public class CreateImage extends OpenstackCliCommandRunnerBase {
 
 		OpenstackCliContext context = getContext();
 
-		OpenstackImageClient imageClient = context.buildImageClient();
+		OpenstackImageClient imageClient = context.getImageClient();
 
 		Image imageTemplate = new Image();
 		imageTemplate.setName(name);

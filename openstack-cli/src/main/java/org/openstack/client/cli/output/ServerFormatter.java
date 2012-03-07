@@ -3,8 +3,8 @@ package org.openstack.client.cli.output;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
+import org.openstack.client.OpenstackService;
 import org.openstack.client.cli.OpenstackCliContext;
-import org.openstack.client.common.OpenstackSession;
 import org.openstack.client.extensions.Extension;
 import org.openstack.client.extensions.ExtensionRegistry;
 import org.openstack.client.extensions.ExtensionValues;
@@ -28,15 +28,15 @@ public class ServerFormatter extends SimpleFormatter<Server> {
 	public void visit(Server server, OutputSink sink) throws IOException {
 		LinkedHashMap<String, Object> values = Maps.newLinkedHashMap();
 
-		OpenstackSession session = OpenstackCliContext.get().getOpenstackSession();
+		OpenstackService service = OpenstackCliContext.get().getOpenstackService();
 
-		Flavor flavor = session.resolveFlavor(server.getFlavor());
+		Flavor flavor = service.resolveFlavor(server.getFlavor());
 		String flavorName = null;
 		if (flavor != null) {
 			flavorName = flavor.getName();
 		}
 
-		Image image = session.resolveImage(server.getImage());
+		Image image = service.resolveImage(server.getImage());
 		String imageName = null;
 		if (image != null) {
 			imageName = image.getName();

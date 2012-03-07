@@ -6,21 +6,21 @@ import org.openstack.client.common.OpenstackComputeClient;
 import org.openstack.model.compute.Server;
 
 public class ListMetadata extends OpenstackCliCommandRunnerBase {
-    @Argument(index = 0)
-    public InstanceName instanceName;
+	@Argument(index = 0)
+	public InstanceName instanceName;
 
-    public ListMetadata() {
-        super("list", "instancemetadata");
-    }
+	public ListMetadata() {
+		super("list", "instancemetadata");
+	}
 
-    @Override
-    public Object runCommand() throws Exception {
-        OpenstackComputeClient compute = getComputeClient();
+	@Override
+	public Object runCommand() throws Exception {
+		OpenstackComputeClient compute = getContext().getComputeClient();
 
-        String instanceId = instanceName.findInstanceId(getContext());
+		String instanceId = instanceName.findInstanceId(getContext());
 
-        Server server = compute.root().servers().server(instanceId).show();
-        return server.getMetadata().getItems();
-    }
+		Server server = compute.root().servers().server(instanceId).show();
+		return server.getMetadata().getItems();
+	}
 
 }

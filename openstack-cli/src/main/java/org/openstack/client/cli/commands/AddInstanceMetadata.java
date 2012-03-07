@@ -8,37 +8,37 @@ import org.openstack.model.compute.Metadata.Item;
 import org.openstack.model.compute.Server;
 
 public class AddInstanceMetadata extends OpenstackCliCommandRunnerBase {
-    @Argument(index = 0)
-    public InstanceName instanceName;
+	@Argument(index = 0)
+	public InstanceName instanceName;
 
-    @Argument(index = 1)
-    public String key;
-    
-    @Argument(index = 2)
-    public String value;
+	@Argument(index = 1)
+	public String key;
 
-    public AddInstanceMetadata() {
-        super("add", "instancemetadata");
-    }
+	@Argument(index = 2)
+	public String value;
 
-    @Override
-    public Object runCommand() throws Exception {
-        OpenstackComputeClient compute = getComputeClient();
+	public AddInstanceMetadata() {
+		super("add", "instancemetadata");
+	}
 
-        String instanceId = instanceName.findInstanceId(getContext());
+	@Override
+	public Object runCommand() throws Exception {
+		OpenstackComputeClient compute = getContext().getComputeClient();
 
-        Server server = new Server();
-        Metadata metadata = server.getMetadata();
-        if (metadata == null) {
-            metadata = new Metadata();
-            server.setMetadata(metadata);
-        }
-        Item item = new Item();
-        item.setKey(key);
-        item.setValue(value);
-        metadata.getItems().add(item);
+		String instanceId = instanceName.findInstanceId(getContext());
 
-        return compute.root().servers().server(instanceId).update(server);
-    }
+		Server server = new Server();
+		Metadata metadata = server.getMetadata();
+		if (metadata == null) {
+			metadata = new Metadata();
+			server.setMetadata(metadata);
+		}
+		Item item = new Item();
+		item.setKey(key);
+		item.setValue(value);
+		metadata.getItems().add(item);
+
+		return compute.root().servers().server(instanceId).update(server);
+	}
 
 }

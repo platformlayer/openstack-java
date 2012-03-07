@@ -19,7 +19,7 @@ public class InstanceName extends StringWrapper {
 
 	public String findInstanceId(OpenstackCliContext context) throws OpenstackException {
 		List<Server> matches = Lists.newArrayList();
-		for (Server instance : context.getCache().getInstances(true)) {
+		for (Server instance : context.getCache().listItems(Server.class, true)) {
 			if (instance.getName().equals(getKey())) {
 				matches.add(instance);
 			} else if (instance.getId().equals(getKey())) {
