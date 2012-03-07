@@ -54,7 +54,12 @@ public class CreateImage extends OpenstackCliCommandRunnerBase {
 
 		// This command will probably be faster _not_ in nailgun mode
 		InputStream imageStream = new NoCloseInputStream(System.in);
-		return imageClient.root().images().addImage(imageStream, -1, imageTemplate);
+
+		Image image = imageClient.root().images().addImage(imageStream, -1, imageTemplate);
+
+		getCache().invalidateCache(Image.class);
+
+		return image;
 	}
 
 }

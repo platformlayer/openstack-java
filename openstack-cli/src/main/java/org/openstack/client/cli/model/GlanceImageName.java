@@ -18,7 +18,7 @@ public class GlanceImageName extends StringWrapper {
 		super(key);
 	}
 
-	public String findImageId(OpenstackCliContext context) throws OpenstackException {
+	public Image resolve(OpenstackCliContext context) throws OpenstackException {
 		List<Image> matches = Lists.newArrayList();
 		for (Image image : context.getCache().getGlanceImages(true)) {
 			if (Objects.equal(image.getName(), getKey())) {
@@ -35,6 +35,6 @@ public class GlanceImageName extends StringWrapper {
 			throw new IllegalArgumentException("Image name is ambiguous");
 		}
 
-		return matches.get(0).getId();
+		return matches.get(0);
 	}
 }
