@@ -25,4 +25,6 @@ public interface OpenstackService {
 	Flavor resolveFlavor(Flavor flavor);
 
 	Image resolveImage(Image image);
+
+	<T> void delete(T item);
 }

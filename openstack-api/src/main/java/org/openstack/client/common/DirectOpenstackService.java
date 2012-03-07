@@ -1,6 +1,5 @@
 package org.openstack.client.common;
 
-import java.util.List;
 import java.util.Map;
 
 import org.openstack.client.OpenstackService;
@@ -14,10 +13,8 @@ import org.openstack.model.compute.Image;
 import org.openstack.model.compute.KeyPair;
 import org.openstack.model.compute.SecurityGroup;
 import org.openstack.model.compute.Server;
-import org.openstack.model.identity.Access;
 import org.openstack.model.identity.Service;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class DirectOpenstackService implements OpenstackService {
@@ -55,6 +52,7 @@ public class DirectOpenstackService implements OpenstackService {
 		if (itemClass == SecurityGroup.class) {
 			return (Iterable<T>) computeRoot().securityGroups().list().getList();
 		}
+
 		if (itemClass == KeyPair.class) {
 			return (Iterable<T>) computeRoot().keyPairs().list();
 		}
@@ -106,4 +104,22 @@ public class DirectOpenstackService implements OpenstackService {
 	public Image resolveImage(Image image) {
 		return session.resolveImage(image);
 	}
+
+	@Override
+	public <T> void delete(T item) {
+		Class<? extends Object> itemClass = item.getClass();
+
+		if (itemClass == Image.class) {
+			Image image = (Image) item;
+			computeRoot().images().image(image.getId()).delete();
+		}
+
+		if (itemClass == SecurityGroup.class) {
+			SecurityGroup securityGroup = (SecurityGroup) item;
+			computeRoot().securityGroups().securityGroup(securityGroup.getId()).delete();
+		}
+
+		throw new IllegalArgumentException("Unknown type: " + itemClass);
+	}
+
 }

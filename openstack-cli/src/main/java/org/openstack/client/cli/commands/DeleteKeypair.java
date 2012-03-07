@@ -17,5 +17,4 @@ public class DeleteKeypair extends OpenstackCliCommandRunnerBase {
 		tenant.root().keyPairs().keypair(id).delete();
 		return id;
 	}
-
 }
