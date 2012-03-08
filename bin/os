@@ -113,11 +113,17 @@ else
 fi
 
 if [[ "${FORMAT}" == "action" ]]; then
-	action=`${cmd[@]} ${args[@]} "${@}" < ${CONFIG_FILE}`
+	if [[ "${USE_NAILGUN}" == "1" ]]; then
+		action=`${cmd[@]} ${args[@]} "${@}" < ${CONFIG_FILE}`
+	else
+		action=`${cmd[@]} ${args[@]} "${@}"`
+	fi
 	do_action ${action}
-elif [[ "${USE_NAILGUN}" == "1" ]]; then
-	${cmd[@]} ${args[@]} "${@}" < ${CONFIG_FILE}
 else
-	${cmd[@]} ${args[@]} "${@}"
+	if [[ "${USE_NAILGUN}" == "1" ]]; then
+		${cmd[@]} ${args[@]} "${@}" < ${CONFIG_FILE}
+	else
+		${cmd[@]} ${args[@]} "${@}"
+	fi
 fi
 

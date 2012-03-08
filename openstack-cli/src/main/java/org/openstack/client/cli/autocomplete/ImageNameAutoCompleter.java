@@ -18,6 +18,7 @@ public class ImageNameAutoCompleter extends SimpleArgumentAutoCompleter {
 		OpenstackCliContext osContext = (OpenstackCliContext) context;
 		for (Image image : osContext.getCache().getImages(true)) {
 			strings.add(image.getName());
+			strings.add(image.getId());
 		}
 
 		addSuffix(strings, " ");

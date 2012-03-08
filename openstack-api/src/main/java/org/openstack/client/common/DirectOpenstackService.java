@@ -114,6 +114,11 @@ public class DirectOpenstackService implements OpenstackService {
 			computeRoot().images().image(image.getId()).delete();
 		}
 
+		if (itemClass == org.openstack.model.image.Image.class) {
+			org.openstack.model.image.Image image = (org.openstack.model.image.Image) item;
+			computeRoot().images().image(image.getId()).delete();
+		}
+
 		if (itemClass == SecurityGroup.class) {
 			SecurityGroup securityGroup = (SecurityGroup) item;
 			computeRoot().securityGroups().securityGroup(securityGroup.getId()).delete();
