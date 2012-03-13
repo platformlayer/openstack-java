@@ -79,13 +79,14 @@
     </dependencyManagement>
 
     <build>
+<!--
         <extensions>
             <extension>
                 <groupId>org.openstack</groupId>
                 <artifactId>org.openstack.maven</artifactId>
             </extension>
         </extensions>
-
+-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
