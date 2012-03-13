@@ -1,4 +1,4 @@
-package org.openstack.model.compute;
+package org.openstack.model.common;
 
 import java.util.Iterator;
 import java.util.List;

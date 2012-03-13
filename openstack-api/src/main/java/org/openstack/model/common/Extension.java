@@ -1,6 +1,4 @@
-package org.openstack.model.compute;
-
-import java.util.Date;
+package org.openstack.model.common;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

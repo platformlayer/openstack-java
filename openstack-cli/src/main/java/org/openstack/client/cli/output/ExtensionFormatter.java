@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.openstack.model.compute.Extension;
+import org.openstack.model.common.Extension;
 import org.openstack.model.identity.ServiceEndpoint;
 
 import com.fathomdb.cli.formatter.SimpleFormatter;

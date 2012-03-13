@@ -1,6 +1,6 @@
 package org.openstack.client.cli.commands;
 
-import org.openstack.model.compute.Extension;
+import org.openstack.model.common.Extension;
 
 public class ListExtensions extends OpenstackCliCommandRunnerBase {
 	public ListExtensions() {

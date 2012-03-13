@@ -2,8 +2,8 @@ package org.openstack.client.compute;
 
 import org.openstack.client.OpenstackException;
 import org.openstack.client.common.OpenstackComputeClient;
-import org.openstack.model.compute.Extension;
-import org.openstack.model.compute.ExtensionList;
+import org.openstack.model.common.Extension;
+import org.openstack.model.common.ExtensionList;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

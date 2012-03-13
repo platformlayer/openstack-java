@@ -5,7 +5,7 @@ import java.util.List;
 import org.openstack.client.AbstractOpenStackTest;
 import org.openstack.client.OpenstackException;
 import org.openstack.client.common.OpenstackComputeClient;
-import org.openstack.model.compute.Extension;
+import org.openstack.model.common.Extension;
 import org.openstack.model.compute.Flavor;
 import org.openstack.model.compute.Image;
 import org.testng.SkipException;
