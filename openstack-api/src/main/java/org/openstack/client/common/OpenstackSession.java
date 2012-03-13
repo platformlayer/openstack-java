@@ -194,16 +194,15 @@ public abstract class OpenstackSession implements Serializable {
 		return new OpenstackStorageClient(this);
 	}
 
-	public void authenticate(String authURL, OpenstackCredentials credentials) {
-		authenticate(authURL, credentials, false);
+	public void authenticate(OpenstackCredentials credentials) throws OpenstackException {
+		authenticate(credentials, false);
 	}
 
-	public void authenticate(String authURL, OpenstackCredentials credentials, boolean storeCredentials) {
+	public void authenticate(OpenstackCredentials credentials, boolean storeCredentials) throws OpenstackException {
 		if (storeCredentials) {
 			this.credentials = credentials;
 		}
 		this.access = null;
-		identityConfig.setAuthenticationURL(authURL);
 		Access access = getAuthenticationClient().authenticate(credentials);
 		this.access = access;
 	}
@@ -302,14 +301,14 @@ public abstract class OpenstackSession implements Serializable {
 		return null;
 	}
 
-	public Image resolveImage(Image image) {
+	public Image resolveImage(Image image) throws OpenstackException {
 		if (image == null)
 			return null;
 
 		return getLinkResolver().resolveImage(image.getId(), image.getLinks());
 	}
 
-	public Flavor resolveFlavor(Flavor flavor) {
+	public Flavor resolveFlavor(Flavor flavor) throws OpenstackException {
 		if (flavor == null)
 			return null;
 
@@ -324,10 +323,10 @@ public abstract class OpenstackSession implements Serializable {
 		return credentials != null;
 	}
 
-	public void reauthenticate() {
+	public void reauthenticate() throws OpenstackException {
 		if (credentials == null) {
 			throw new IllegalStateException("Credentials were not saved");
 		}
-		authenticate(identityConfig.getAuthenticationURL(), credentials, false);
+		authenticate(credentials, false);
 	}
 }

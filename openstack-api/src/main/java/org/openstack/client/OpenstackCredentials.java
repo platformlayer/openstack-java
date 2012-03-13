@@ -1,19 +1,25 @@
 package org.openstack.client;
 
-public class OpenstackCredentials {
+import java.io.Serializable;
+
+public class OpenstackCredentials implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	final String authUrl;
 	final String username;
 	final String password;
-	String tenant;
+	final String tenant;
 
-	public OpenstackCredentials(String username, String password) {
+	public OpenstackCredentials(String authUrl, String username, String password, String tenant) {
+		this.authUrl = authUrl;
 		this.username = username;
 		this.password = password;
-	}
-
-	public OpenstackCredentials(String username, String password, String tenant) {
-		this(username, password);
 		this.tenant = tenant;
 	}
+
+//	public OpenstackCredentials(String authUrl, String username, String password) {
+//		this(authUrl, username, password, null);
+//	}
 
 	public String getUsername() {
 		return username;
@@ -27,8 +33,11 @@ public class OpenstackCredentials {
 		return tenant;
 	}
 
-	public void setTenant(String tenant) {
-		this.tenant = tenant;
+	public String getAuthUrl() {
+		return authUrl;
 	}
-
+	
+	public OpenstackCredentials withTenant(String tenant) {
+		return new OpenstackCredentials(tenant, username, password, tenant);
+	}
 }

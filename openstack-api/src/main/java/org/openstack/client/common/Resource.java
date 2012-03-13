@@ -31,6 +31,7 @@ public class Resource {
 	protected void initialize(OpenstackSession session, String resource) {
 		if (this.session != null)
 			throw new IllegalStateException("Double initialization");
+		
 		this.session = session;
 		this.resource = resource;
 	}

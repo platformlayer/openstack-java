@@ -1,6 +1,5 @@
 package org.openstack.client.common;
 
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -10,8 +9,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.openstack.client.OpenstackAuthenticationException;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
 
 public abstract class RequestBuilder {
 	static final Logger log = Logger.getLogger(RequestBuilder.class.getName());
@@ -24,6 +25,8 @@ public abstract class RequestBuilder {
 	protected String method = "GET";
 	protected Object body;
 
+	protected Multimap<String, String> queryParameters = HashMultimap.create();
+	
 	private final OpenstackSession session;
 
 	public RequestBuilder(OpenstackSession session, String resourceUrl) {
@@ -134,6 +137,14 @@ public abstract class RequestBuilder {
 
 	public void post() {
 		post(Void.class, null);
+	}
+
+	public void addQueryParameter(String key, String value) {
+		queryParameters.put(key, value);
+	}
+
+	public void clearAcceptTypes() {
+		acceptTypes.clear();
 	}
 
 }

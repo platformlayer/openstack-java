@@ -2,6 +2,7 @@ package org.openstack.model.compute;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="zones", namespace="http://docs.rackspacecloud.com/servers/api/v1.0")
 @XmlAccessorType(XmlAccessType.NONE)
-public class ZoneList implements Serializable {
+public class ZoneList implements Serializable, Iterable<Zone> {
 
 	@XmlElement(name="zone", namespace="http://docs.rackspacecloud.com/servers/api/v1.0")
 	private List<Zone> list = new ArrayList<Zone>();
@@ -24,6 +25,11 @@ public class ZoneList implements Serializable {
 
 	public void setList(List<Zone> list) {
 		this.list = list;
+	}
+
+	@Override
+	public Iterator<Zone> iterator() {
+		return list.iterator();
 	}
 	
 }

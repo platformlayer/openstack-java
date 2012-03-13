@@ -1,5 +1,6 @@
 package org.openstack.model.storage;
 
+import java.io.File;
 import java.util.Date;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class ObjectProperties {
 	private Long contentLength;
 
 	@JsonProperty("etag")
-	private String etag;
+	private String eTag;
 
 	@JsonProperty("content-type")
 	private String contentType;
@@ -66,12 +67,12 @@ public class ObjectProperties {
 		this.contentLength = contentLength;
 	}
 
-	public String getEtag() {
-		return etag;
+	public String getETag() {
+		return eTag;
 	}
 
-	public void setEtag(String etag) {
-		this.etag = etag;
+	public void setETag(String eTag) {
+		this.eTag = eTag;
 	}
 
 	public String getContentType() {
@@ -89,8 +90,12 @@ public class ObjectProperties {
 	@Override
 	public String toString() {
 		return "ObjectProperties [name=" + name + ", date=" + date + ", lastModified=" + lastModified
-				+ ", contentLength=" + contentLength + ", etag=" + etag + ", contentType=" + contentType
+				+ ", contentLength=" + contentLength + ", etag=" + eTag + ", contentType=" + contentType
 				+ ", customProperties=" + customProperties + "]";
 	}
 
+	public Date getLastModifiedDate() {
+		return lastModified;
+	}
+	
 }

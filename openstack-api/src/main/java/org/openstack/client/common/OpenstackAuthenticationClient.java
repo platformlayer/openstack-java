@@ -20,7 +20,11 @@ public class OpenstackAuthenticationClient {
 
 	public Access authenticate(OpenstackCredentials credentials) throws OpenstackException {
 		IdentityResource identity = new IdentityResource();
-		identity.initialize(session, session.getIdentityConfig().getAuthenticationURL());
+		String authUrl = credentials.getAuthUrl();
+		if (Strings.isNullOrEmpty(authUrl)) {
+			throw new IllegalArgumentException("AuthUrl is required");
+		}
+		identity.initialize(session, authUrl);
 
 		Authentication authentication = new Authentication();
 		Authentication.PasswordCredentials passwordCredentials = new Authentication.PasswordCredentials();

@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+// TODO: Rename to KeyPairInfo?
+
 @XmlRootElement(name="keypair", namespace="")
 @XmlAccessorType(XmlAccessType.NONE)
 public class KeyPair implements Serializable {
@@ -54,6 +56,14 @@ public class KeyPair implements Serializable {
 	public String toString() {
 		return "KeyPair [name=" + name + ", publicKey=" + publicKey
 				+ ", fingerprint=" + fingerprint + "]";
+	}
+
+	public String getPrivateKey() {
+		return privateKey;
+	}
+
+	public void setPrivateKey(String privateKey) {
+		this.privateKey = privateKey;
 	}
 	
 }

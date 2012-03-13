@@ -79,6 +79,13 @@
     </dependencyManagement>
 
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.openstack</groupId>
+                <artifactId>org.openstack.maven</artifactId>
+            </extension>
+        </extensions>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -105,5 +112,18 @@
         </plugins>
 
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>openstack-release</id>
+            <name>OpenStack Release Repository</name>
+            <url>openstack://maven.openstack.org/release</url>
+        </repository>
+        <snapshotRepository>
+            <id>openstack-snapshot</id>
+            <name>OpenStack Snapshot Repository</name>
+            <url>openstack://maven.openstack.org/snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>

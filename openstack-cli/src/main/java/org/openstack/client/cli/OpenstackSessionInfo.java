@@ -30,8 +30,8 @@ public class OpenstackSessionInfo {
 		session.setLinkResolver(new CachingLinkResolver(session));
 
 		if (!session.isAuthenticated()) {
-			OpenstackCredentials credentials = new OpenstackCredentials(username, password, tenantId);
-			session.authenticate(authUrl, credentials, true);
+			OpenstackCredentials credentials = new OpenstackCredentials(authUrl, username, password, tenantId);
+			session.authenticate(credentials, true);
 		}
 
 		return session;

@@ -15,8 +15,9 @@ public class Test {
 
 	public static void main(String[] args) {
 		OpenstackSession session = OpenstackSession.create().with(Feature.VERBOSE);
-		OpenstackCredentials credentials = new OpenstackCredentials("admin", "woorea");
-		session.authenticate("http://192.168.1.49:5000/v2.0", credentials);
+		String authUrl = "http://192.168.1.49:5000/v2.0";
+		OpenstackCredentials credentials = new OpenstackCredentials(authUrl, "admin", "woorea", null);
+		session.authenticate(credentials);
 
 		// X-Auth-Token has been set on session object
 
@@ -29,8 +30,8 @@ public class Test {
 
 		// I will choose the first tenant
 		for (Tenant tenant : tenants) {
-			credentials.setTenant(tenant.getName());
-			session.authenticate("http://192.168.1.49:5000/v2.0", credentials);
+			OpenstackCredentials tenantCredentials = credentials.withTenant(tenant.getName());
+			session.authenticate(tenantCredentials);
 			break;
 		}
 

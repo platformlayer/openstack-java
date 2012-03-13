@@ -14,7 +14,7 @@ public class OpenstackTestContext {
 	private boolean glanceEnabled;
 	private boolean swiftEnabled;
 
-	public OpenstackSession connect(String url, OpenstackCredentials credentials, String format, boolean verbose) {
+	public OpenstackSession connect(OpenstackCredentials credentials, String format, boolean verbose) {
 		session = OpenstackSession.create();
 		if (verbose) {
 			session.with(OpenstackSession.Feature.VERBOSE);
@@ -30,7 +30,7 @@ public class OpenstackTestContext {
 			}
 		}
 
-		session.authenticate(url, credentials, false);
+		session.authenticate(credentials, false);
 		return session;
 	}
 
@@ -74,8 +74,8 @@ public class OpenstackTestContext {
 		context.glanceEnabled = glanceEnabled;
 		context.swiftEnabled = swiftEnabled;
 
-		OpenstackCredentials credentials = new OpenstackCredentials(username, secret, tenant);
-		context.connect(url, credentials, format, verbose);
+		OpenstackCredentials credentials = new OpenstackCredentials(url, username, secret, tenant);
+		context.connect(credentials, format, verbose);
 		return context;
 	}
 
