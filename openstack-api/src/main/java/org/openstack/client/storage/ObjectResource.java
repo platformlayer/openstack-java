@@ -29,7 +29,7 @@ public class ObjectResource extends StorageResourceBase {
 		HeadResponse response = resource().head();
 		int httpStatus = response.getStatus();
 		if (httpStatus == 200) {
-			ObjectProperties properties = SwiftHeaderUtils.unmarshalHeaders(response);
+			ObjectProperties properties = SwiftHeaderUtils.unmarshalObjectHeaders(response);
 			return properties;
 		}
 

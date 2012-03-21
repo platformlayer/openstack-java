@@ -1,6 +1,5 @@
 package org.openstack.model.storage;
 
-import java.io.File;
 import java.util.Date;
 import java.util.Map;
 
