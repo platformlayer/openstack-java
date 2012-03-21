@@ -22,6 +22,7 @@
             </resource>
         </resources>
 
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -35,14 +36,12 @@
             </plugin>
         </plugins>
 
-<!--
 		 <extensions>
 			<extension>
 				<groupId>org.openstack</groupId>
 				<artifactId>org.openstack.maven</artifactId>
 			</extension>
 		</extensions>
--->
     </build>
     <dependencies>
         <dependency>

@@ -50,4 +50,8 @@ public class OpenstackCache {
 		return getCachedList(SecurityGroup.class, useCache);
 	}
 
+	public void invalidateAll() {
+		cachedLists.clear();
+	}
+
 }

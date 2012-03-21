@@ -57,7 +57,7 @@ public abstract class OpenstackSession implements Serializable {
 
 	private OpenStackImageConfig imageConfig;
 
-	Access access;
+	protected Access access;
 
 	transient LinkResolver linkResolver;
 
@@ -328,5 +328,9 @@ public abstract class OpenstackSession implements Serializable {
 			throw new IllegalStateException("Credentials were not saved");
 		}
 		authenticate(credentials, false);
+	}
+
+	public Access getAccess() {
+		return access;
 	}
 }

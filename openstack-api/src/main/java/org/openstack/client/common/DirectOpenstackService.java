@@ -109,22 +109,18 @@ public class DirectOpenstackService implements OpenstackService {
 	public <T> void delete(T item) {
 		Class<? extends Object> itemClass = item.getClass();
 
-		if (itemClass == Image.class) {
+		if (itemClass == org.openstack.model.compute.Image.class) {
 			Image image = (Image) item;
 			computeRoot().images().image(image.getId()).delete();
-		}
-
-		if (itemClass == org.openstack.model.image.Image.class) {
+		} else if (itemClass == org.openstack.model.image.Image.class) {
 			org.openstack.model.image.Image image = (org.openstack.model.image.Image) item;
 			computeRoot().images().image(image.getId()).delete();
-		}
-
-		if (itemClass == SecurityGroup.class) {
+		} else if (itemClass == SecurityGroup.class) {
 			SecurityGroup securityGroup = (SecurityGroup) item;
 			computeRoot().securityGroups().securityGroup(securityGroup.getId()).delete();
+		} else {
+			throw new IllegalArgumentException("Unknown type: " + itemClass);
 		}
-
-		throw new IllegalArgumentException("Unknown type: " + itemClass);
 	}
 
 }

@@ -1,5 +1,6 @@
 package org.openstack.client.storage;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +41,10 @@ public class OpenstackStorageClient {
 		return root().containers().id(containerName).objects().putObject(file, properties);
 	}
 
+	public ObjectProperties putObject(String containerName, String objectName, byte[] data) throws OpenstackException, IOException {
+		return putObject(containerName, objectName, new ByteArrayInputStream(data), data.length);
+	}
+	
 	public ObjectProperties putObject(String containerName, String objectName, InputStream objectData, long contentLength) throws OpenstackException, IOException {
 		ObjectProperties properties = new ObjectProperties();
 		properties.setName(objectName);
