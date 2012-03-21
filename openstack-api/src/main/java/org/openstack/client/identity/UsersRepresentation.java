@@ -2,18 +2,17 @@ package org.openstack.client.identity;
 
 import java.util.List;
 
+import org.openstack.client.common.OpenstackSession;
 import org.openstack.model.identity.User;
 import org.openstack.model.identity.UserList;
 
-import com.sun.jersey.api.client.Client;
-
 public class UsersRepresentation {
 		
-	private Client client;
+	private OpenstackSession client;
 	
 	private UserList model;
 
-	public UsersRepresentation(Client client, UserList model) {
+	public UsersRepresentation(OpenstackSession client, UserList model) {
 		this.client = client;
 		this.model = model;
 	}

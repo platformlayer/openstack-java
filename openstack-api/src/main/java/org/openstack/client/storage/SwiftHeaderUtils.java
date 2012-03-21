@@ -11,9 +11,6 @@ import org.openstack.client.internals.SimpleClassInfo;
 import org.openstack.client.internals.SimpleClassInfo.FieldInfo;
 import org.openstack.model.storage.ObjectProperties;
 
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource.Builder;
-
 class SwiftHeaderUtils {
 	static final Logger log = Logger.getLogger(SwiftHeaderUtils.class.getName());
 

@@ -4,8 +4,6 @@ import org.openstack.client.common.RequestBuilder;
 import org.openstack.model.storage.Account;
 import org.openstack.model.storage.Container;
 
-import com.sun.jersey.api.client.WebResource.Builder;
-
 public class ContainersResource extends StorageResourceBase {
 
 	// GET /account List containers

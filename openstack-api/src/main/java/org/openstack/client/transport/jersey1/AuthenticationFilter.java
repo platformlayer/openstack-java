@@ -1,40 +1,31 @@
-package org.openstack.client.common;
+package org.openstack.client.transport.jersey1;
 
 import java.util.logging.Logger;
 
+import org.openstack.client.transport.AuthenticationToken;
 import org.openstack.model.identity.Access;
-import org.openstack.model.identity.Access.Token;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.filter.ClientFilter;
 
-class OpenstackAuthenticationFilter extends ClientFilter {
-	static final Logger log = Logger.getLogger(OpenstackAuthenticationFilter.class.getName());
+class AuthenticationFilter extends ClientFilter {
+	static final Logger log = Logger.getLogger(AuthenticationFilter.class.getName());
 
 	final Access access;
 
-	public OpenstackAuthenticationFilter(Access access) {
+	public AuthenticationFilter(Access access) {
 		this.access = access;
 	}
 
 	public ClientResponse handle(ClientRequest request) {
-		Token token = null;
-		if (access != null) {
-			token = access.getToken();
-		}
-
-		String authTokenId = null;
-		if (token != null) {
-			authTokenId = token.getId();
-		}
+		String authTokenId = AuthenticationToken.getAuthenticationToken(access);
 
 		if (authTokenId != null && !authTokenId.isEmpty()) {
 			request.getHeaders().putSingle("X-Auth-Token", authTokenId);
 		}
 
 		ClientResponse response = getNext().handle(request);
-
 		return response;
 	}
 }

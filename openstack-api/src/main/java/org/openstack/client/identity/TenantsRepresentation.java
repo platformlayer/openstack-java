@@ -2,17 +2,16 @@ package org.openstack.client.identity;
 
 import java.util.List;
 
+import org.openstack.client.common.OpenstackSession;
 import org.openstack.model.identity.TenantList;
-
-import com.sun.jersey.api.client.Client;
 
 public class TenantsRepresentation {
 		
-	private Client client;
+	private OpenstackSession client;
 	
 	private TenantList model;
 
-	public TenantsRepresentation(Client client, TenantList model) {
+	public TenantsRepresentation(OpenstackSession client, TenantList model) {
 		this.client = client;
 		this.model = model;
 	}

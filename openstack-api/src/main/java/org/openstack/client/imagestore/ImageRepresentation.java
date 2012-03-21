@@ -1,14 +1,14 @@
 package org.openstack.client.imagestore;
 
+import org.openstack.client.common.OpenstackSession;
 import org.openstack.model.image.Image;
 
-import com.sun.jersey.api.client.Client;
 
 public class ImageRepresentation {
-    private final Client client;
+    private final OpenstackSession client;
     private final Image model;
 
-    public ImageRepresentation(Client client, Image model) {
+    public ImageRepresentation(OpenstackSession client, Image model) {
         this.client = client;
         this.model = model;
     }

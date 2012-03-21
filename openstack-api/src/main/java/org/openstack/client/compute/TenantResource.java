@@ -20,8 +20,6 @@ import org.openstack.client.compute.notavailable.NetworksResource;
 import org.openstack.client.compute.notavailable.UsersResource;
 import org.openstack.client.compute.notavailable.VirtualStorageArraysResource;
 
-import com.sun.jersey.api.client.Client;
-
 public class TenantResource extends Resource {
 
 	public TenantResource(OpenstackSession session, String resource) {

@@ -1,4 +1,4 @@
-package org.openstack.client.common;
+package org.openstack.client.transport;
 
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -15,21 +15,16 @@ import org.openstack.model.compute.ItemNotFound;
 import org.openstack.utils.Io;
 
 import com.google.common.base.Objects;
-import com.sun.jersey.api.client.ClientRequest;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.filter.ClientFilter;
 
-class OpenstackExceptionClientFilter extends ClientFilter {
-	static final Logger log = Logger.getLogger(OpenstackExceptionClientFilter.class.getName());
+public class ExceptionMapping {
+	static final Logger log = Logger.getLogger(ExceptionMapping.class.getName());
 
-	public ClientResponse handle(ClientRequest request) {
-		ClientResponse response = getNext().handle(request);
-
+	public static void mapResponse(Response response) {
 		int httpStatus = response.getStatus();
 		if (httpStatus == 404) {
 			String message = "Not found";
 			MediaType responseType = response.getType();
-			
+
 			if (responseType != null && responseType.isCompatible(MediaType.APPLICATION_XML_TYPE)) {
 				try {
 					// TODO(justinsb): This is only valid on compute (I think!)
@@ -84,6 +79,5 @@ class OpenstackExceptionClientFilter extends ClientFilter {
 
 			throw new OpenstackException(message);
 		}
-		return response;
 	}
 }

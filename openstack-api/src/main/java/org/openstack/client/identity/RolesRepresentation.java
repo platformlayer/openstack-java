@@ -2,17 +2,16 @@ package org.openstack.client.identity;
 
 import java.util.List;
 
+import org.openstack.client.common.OpenstackSession;
 import org.openstack.model.identity.RoleList;
-
-import com.sun.jersey.api.client.Client;
 
 public class RolesRepresentation {
 		
-	private Client client;
+	private OpenstackSession client;
 	
 	private RoleList model;
 
-	public RolesRepresentation(Client client, RoleList model) {
+	public RolesRepresentation(OpenstackSession client, RoleList model) {
 		this.client = client;
 		this.model = model;
 	}

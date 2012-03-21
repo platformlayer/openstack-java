@@ -9,7 +9,6 @@ import org.openstack.model.common.PagingListBase;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
-import com.sun.jersey.api.client.Client;
 
 /**
  * 
@@ -21,10 +20,10 @@ import com.sun.jersey.api.client.Client;
  *            Representation class
  */
 public abstract class PagingList<M, R> implements Iterable<R> {
-    protected final Client client;
+    protected final OpenstackSession client;
     private final PagingListBase<M> page;
 
-    public PagingList(Client client, PagingListBase<M> page) {
+    public PagingList(OpenstackSession client, PagingListBase<M> page) {
         this.client = client;
         this.page = page;
     }

@@ -1,11 +1,11 @@
 package org.openstack.client;
 
-import org.openstack.client.common.JerseyOpenstackSession;
 import org.openstack.client.common.OpenstackSession;
 import org.openstack.client.common.OpenstackSession.Feature;
 import org.openstack.client.compute.ServerResource;
 import org.openstack.client.compute.TenantResource;
 import org.openstack.client.identity.IdentityResource;
+import org.openstack.client.transport.jersey1.Jersey1OpenstackSession;
 import org.openstack.model.compute.Flavor;
 import org.openstack.model.compute.Image;
 import org.openstack.model.compute.Server;

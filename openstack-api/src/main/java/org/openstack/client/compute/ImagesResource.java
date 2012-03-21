@@ -6,8 +6,6 @@ import org.openstack.client.common.SimplePagingList;
 import org.openstack.model.compute.Image;
 import org.openstack.model.compute.ImageList;
 
-import com.sun.jersey.api.client.WebResource.Builder;
-
 public class ImagesResource extends Resource {
 
     public Iterable<Image> list(boolean detail) {

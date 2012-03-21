@@ -9,8 +9,6 @@ import org.openstack.model.compute.Server;
 import org.openstack.model.compute.ServerForCreate;
 import org.openstack.model.compute.ServerList;
 
-import com.sun.jersey.api.client.WebResource.Builder;
-
 public class ServersResource extends ComputeResourceBase {
 
 	/**

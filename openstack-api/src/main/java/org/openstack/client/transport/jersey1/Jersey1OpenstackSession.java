@@ -1,18 +1,26 @@
-package org.openstack.client.common;
+package org.openstack.client.transport.jersey1;
 
 import java.util.Map.Entry;
 
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
+
+import org.openstack.client.common.HeadResponse;
+import org.openstack.client.common.OpenstackSession;
+import org.openstack.client.common.RequestBuilder;
+import org.openstack.client.transport.ExceptionMapping;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
+import com.sun.jersey.api.client.filter.ClientFilter;
 import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
-public class JerseyOpenstackSession extends OpenstackSession {
+public class Jersey1OpenstackSession extends OpenstackSession {
+	public static final String KEY = "jersey1";
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,9 +30,8 @@ public class JerseyOpenstackSession extends OpenstackSession {
 	}
 
 	public class JerseyRequestBuilder extends RequestBuilder {
-
 		public JerseyRequestBuilder(String resourceUrl) {
-			super(JerseyOpenstackSession.this, resourceUrl);
+			super(Jersey1OpenstackSession.this, resourceUrl);
 		}
 
 		@Override
@@ -48,7 +55,7 @@ public class JerseyOpenstackSession extends OpenstackSession {
 		}
 
 		private Builder buildResource() {
-			Client jerseyClient = JerseyClient.INSTANCE.getJerseyClient();
+			Client jerseyClient = Jersey1Client.INSTANCE.getJerseyClient();
 			Builder builder;
 			{
 				WebResource resource = jerseyClient.resource(resourceUrl);
@@ -58,14 +65,23 @@ public class JerseyOpenstackSession extends OpenstackSession {
 					for (Entry<String, String> entry : queryParameters.entries()) {
 						queryParametersMap.add(entry.getKey(), entry.getValue());
 					}
-					resource = resource.queryParams(queryParametersMap );
+					resource = resource.queryParams(queryParametersMap);
 				}
 
 				if (verbose) {
 					resource.addFilter(new LoggingFilter(System.out));
 				}
 
-				resource.addFilter(new OpenstackExceptionClientFilter());
+				resource.addFilter(new ClientFilter() {
+					@Override
+					public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
+						ClientResponse response = getNext().handle(cr);
+
+						ExceptionMapping.mapResponse(new ResponseAdapter(response));
+
+						return response;
+					}
+				});
 
 				builder = resource.getRequestBuilder();
 			}

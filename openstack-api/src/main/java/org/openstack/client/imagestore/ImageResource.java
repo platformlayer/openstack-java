@@ -9,9 +9,6 @@ import org.openstack.client.common.HeadResponse;
 import org.openstack.client.common.RequestBuilder;
 import org.openstack.model.image.Image;
 
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource.Builder;
-
 public class ImageResource extends GlanceResourceBase {
     public void updateMetadata(Map<String, Object> metadata, boolean replace) {
     	RequestBuilder builder = resource();

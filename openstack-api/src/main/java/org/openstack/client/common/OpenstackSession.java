@@ -11,6 +11,8 @@ import javax.ws.rs.core.MediaType;
 import org.openstack.client.OpenstackCredentials;
 import org.openstack.client.OpenstackException;
 import org.openstack.client.storage.OpenstackStorageClient;
+import org.openstack.client.transport.jersey1.Jersey1OpenstackSession;
+import org.openstack.client.transport.jersey2.Jersey2OpenstackSession;
 import org.openstack.model.atom.Link;
 import org.openstack.model.compute.Flavor;
 import org.openstack.model.compute.Image;
@@ -29,7 +31,7 @@ public abstract class OpenstackSession implements Serializable {
 	static final Logger log = Logger.getLogger(OpenstackSession.class.getName());
 
 	public final Map<Object, Object> extensions = Maps.newHashMap();
-	
+
 	public enum Feature {
 
 		VERBOSE(false), FORCE_JSON(false), FORCE_XML(false);
@@ -316,7 +318,20 @@ public abstract class OpenstackSession implements Serializable {
 	}
 
 	public static OpenstackSession create() {
-		return new JerseyOpenstackSession();
+		return create(null);
+	}
+
+	public static OpenstackSession create(String transport) {
+		if (transport == null) {
+			transport = Jersey1OpenstackSession.KEY;
+		}
+		if (Jersey2OpenstackSession.KEY.equals(transport)) {
+			return new Jersey2OpenstackSession();
+		}
+		if (Jersey1OpenstackSession.KEY.equals(transport)) {
+			return new Jersey1OpenstackSession();
+		}
+		throw new UnsupportedOperationException("Unknown transport: " + transport);
 	}
 
 	public boolean hasStoredCredentials() {

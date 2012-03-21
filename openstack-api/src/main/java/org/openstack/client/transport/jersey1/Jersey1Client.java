@@ -1,10 +1,10 @@
-package org.openstack.client.common;
+package org.openstack.client.transport.jersey1;
 
 import org.codehaus.jackson.map.AnnotationIntrospector;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.introspect.JacksonAnnotationIntrospector;
-import org.codehaus.jackson.map.module.SimpleModule;
 import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
+import org.openstack.client.common.ObjectMapperProvider;
 import org.openstack.client.imagestore.KnownLengthInputStreamProvider;
 import org.openstack.client.internals.OpenstackSerializationModule;
 
@@ -15,13 +15,13 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import org.codehaus.jackson.map.SerializationConfig;
 
-public final class JerseyClient {
+final class Jersey1Client {
 
-	public static final JerseyClient INSTANCE = new JerseyClient();
+	public static final Jersey1Client INSTANCE = new Jersey1Client();
 	
 	final Client client;
 	
-	private JerseyClient() {
+	private Jersey1Client() {
 		ClientConfig config = new DefaultClientConfig();
 
         config.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
@@ -39,7 +39,7 @@ public final class JerseyClient {
         client = Client.create(config);
 	}
 	
-	public JerseyClient verbose(boolean verbose) {
+	public Jersey1Client verbose(boolean verbose) {
 		if(verbose) {
 			client.addFilter(new LoggingFilter(System.out));
 		}
