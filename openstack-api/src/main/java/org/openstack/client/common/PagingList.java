@@ -28,6 +28,10 @@ public abstract class PagingList<M, R> implements Iterable<R> {
         this.page = page;
     }
 
+	public PagingListBase<M> getCurrentPage() {
+		return page;
+	}
+
     @Override
     public Iterator<R> iterator() {
         return Iterators.transform(getModelsIterator(), new Function<M, R>() {

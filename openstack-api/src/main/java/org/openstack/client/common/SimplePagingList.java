@@ -24,6 +24,10 @@ public class SimplePagingList<M> implements Iterable<M> {
 		this.page = page;
 	}
 
+	public PagingListBase<M> getCurrentPage() {
+		return page;
+	}
+
 	@Override
 	public Iterator<M> iterator() {
 		return new ModelIterator(this);
