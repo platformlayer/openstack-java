@@ -12,7 +12,6 @@ import org.openstack.client.OpenstackCredentials;
 import org.openstack.client.OpenstackException;
 import org.openstack.client.storage.OpenstackStorageClient;
 import org.openstack.client.transport.jersey1.Jersey1OpenstackSession;
-import org.openstack.client.transport.jersey2.Jersey2OpenstackSession;
 import org.openstack.model.atom.Link;
 import org.openstack.model.compute.Flavor;
 import org.openstack.model.compute.Image;
@@ -325,13 +324,27 @@ public abstract class OpenstackSession implements Serializable {
 		if (transport == null) {
 			transport = Jersey1OpenstackSession.KEY;
 		}
-		if (Jersey2OpenstackSession.KEY.equals(transport)) {
-			return new Jersey2OpenstackSession();
-		}
 		if (Jersey1OpenstackSession.KEY.equals(transport)) {
 			return new Jersey1OpenstackSession();
 		}
-		throw new UnsupportedOperationException("Unknown transport: " + transport);
+
+		if ("jersey2".equals(transport)) {
+			transport = "org.openstack.client.transport.jersey2.Jersey2OpenstackSession";
+		}
+
+		try {
+			Class<?> transportClass = Class.forName(transport);
+			Object transportInstance = transportClass.newInstance();
+			return (OpenstackSession) transportInstance;
+		} catch (ClassNotFoundException e) {
+			throw new IllegalArgumentException("Error loading transport: " + transport, e);
+		} catch (InstantiationException e) {
+			throw new IllegalArgumentException("Error loading transport: " + transport, e);
+		} catch (IllegalAccessException e) {
+			throw new IllegalArgumentException("Error loading transport: " + transport, e);
+		}
+
+		// throw new UnsupportedOperationException("Unknown transport: " + transport);
 	}
 
 	public boolean hasStoredCredentials() {
