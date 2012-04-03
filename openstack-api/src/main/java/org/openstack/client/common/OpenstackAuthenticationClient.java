@@ -29,7 +29,7 @@ public class OpenstackAuthenticationClient {
 		Authentication authentication = new Authentication();
 		Authentication.PasswordCredentials passwordCredentials = new Authentication.PasswordCredentials();
 		passwordCredentials.setUsername(credentials.getUsername());
-		passwordCredentials.setPassword(credentials.getPassword());
+		passwordCredentials.setPassword(credentials.getSecret());
 		if (!Strings.isNullOrEmpty(credentials.getTenant())) {
 			authentication.tenantName = credentials.getTenant();
 		} else {

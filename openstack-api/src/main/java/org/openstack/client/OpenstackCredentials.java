@@ -1,32 +1,38 @@
 package org.openstack.client;
 
 import java.io.Serializable;
+import java.util.Properties;
 
 public class OpenstackCredentials implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	final String authUrl;
 	final String username;
-	final String password;
+	final String secret;
 	final String tenant;
 
-	public OpenstackCredentials(String authUrl, String username, String password, String tenant) {
+	public OpenstackCredentials(String authUrl, String username, String secret, String tenant) {
 		this.authUrl = authUrl;
 		this.username = username;
-		this.password = password;
+		this.secret = secret;
 		this.tenant = tenant;
 	}
 
-//	public OpenstackCredentials(String authUrl, String username, String password) {
-//		this(authUrl, username, password, null);
-//	}
+	public static OpenstackCredentials loadFromProperties(Properties properties) {
+		String authUrl = properties.getProperty(OpenstackProperties.AUTH_URL);
+		String username = properties.getProperty(OpenstackProperties.AUTH_USER);
+		String password = properties.getProperty(OpenstackProperties.AUTH_SECRET);
+		String tenant = properties.getProperty(OpenstackProperties.AUTH_TENANT);
+
+		return new OpenstackCredentials(authUrl, username, password, tenant);
+	}
 
 	public String getUsername() {
 		return username;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getSecret() {
+		return secret;
 	}
 
 	public String getTenant() {
@@ -36,8 +42,8 @@ public class OpenstackCredentials implements Serializable {
 	public String getAuthUrl() {
 		return authUrl;
 	}
-	
+
 	public OpenstackCredentials withTenant(String tenant) {
-		return new OpenstackCredentials(tenant, username, password, tenant);
+		return new OpenstackCredentials(tenant, username, secret, tenant);
 	}
 }

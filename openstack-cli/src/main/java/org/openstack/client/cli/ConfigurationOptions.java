@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.kohsuke.args4j.Option;
+import org.openstack.client.OpenstackProperties;
 import org.openstack.client.OpenstackService;
 import org.openstack.client.common.DirectOpenstackService;
 import org.openstack.client.common.OpenstackSession;
@@ -71,10 +72,10 @@ public class ConfigurationOptions extends CliOptions {
 					} catch (IOException e) {
 						throw new IOException("Error reading configuration file", e);
 					}
-					String server = properties.getProperty("openstack.auth");
-					String username = properties.getProperty("openstack.username");
-					String password = properties.getProperty("openstack.password");
-					String tenantId = properties.getProperty("openstack.tenant");
+					String server = properties.getProperty(OpenstackProperties.AUTH_URL);
+					String username = properties.getProperty(OpenstackProperties.AUTH_USER);
+					String password = properties.getProperty(OpenstackProperties.AUTH_SECRET);
+					String tenantId = properties.getProperty(OpenstackProperties.AUTH_TENANT);
 
 					OpenstackSessionInfo sessionInfo = new OpenstackSessionInfo(server, username, password, tenantId,
 							debug);
