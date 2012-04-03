@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-	<groupId>org.openstack</groupId>
-	<artifactId>openstack-java-sdk-parent</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>org.platformlayer</groupId>
+	<artifactId>openstack-java-parent</artifactId>
+	<version>0.1-SNAPSHOT</version>
  </parent>
 
     <artifactId>shared-cli</artifactId>
@@ -14,7 +14,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.openstack</groupId>
+            <groupId>org.platformlayer</groupId>
             <artifactId>nailgun</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
@@ -32,18 +32,19 @@
         	<artifactId>guava</artifactId>
         </dependency>
         
-        
+	<!-- TODO: Reintroduce python scripting -->        
         <!-- TODO: This is an old version of Jython, but the newer versions seem 
             not to be available in any maven repos -->
-        <dependency>
+<!--
+	<dependency>
             <groupId>org.python</groupId>
             <artifactId>jython</artifactId>
             <version>2.5.0</version>
             <scope>provided</scope>
         </dependency>
-
+-->
         <dependency>
-            <groupId>org.openstack</groupId>
+            <groupId>org.platformlayer</groupId>
             <artifactId>openstack-commons</artifactId>
         </dependency>
     </dependencies>

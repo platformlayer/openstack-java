@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <groupId>org.openstack</groupId>
-    <artifactId>openstack-java-sdk-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <groupId>org.platformlayer</groupId>
+    <artifactId>openstack-java-parent</artifactId>
+    <version>0.1-SNAPSHOT</version>
 
     <modules>
         <module>openstack-api</module>
@@ -22,19 +22,19 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.openstack</groupId>
+                <groupId>org.platformlayer</groupId>
                 <artifactId>openstack-commons</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.openstack</groupId>
+                <groupId>org.platformlayer</groupId>
                 <artifactId>shared-cli</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.openstack</groupId>
+                <groupId>org.platformlayer</groupId>
                 <artifactId>openstack-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -82,7 +82,7 @@
 <!--
         <extensions>
             <extension>
-                <groupId>org.openstack</groupId>
+                <groupId>org.platformlayer</groupId>
                 <artifactId>org.openstack.maven</artifactId>
             </extension>
         </extensions>
@@ -118,12 +118,12 @@
         <repository>
             <id>openstack-release</id>
             <name>OpenStack Release Repository</name>
-            <url>openstack://maven.openstack.org/release</url>
+            <url>openstack://maven.platformlayer.org/release</url>
         </repository>
         <snapshotRepository>
             <id>openstack-snapshot</id>
             <name>OpenStack Snapshot Repository</name>
-            <url>openstack://maven.openstack.org/snapshot</url>
+            <url>openstack://maven.platformlayer.org/snapshot</url>
         </snapshotRepository>
     </distributionManagement>
 

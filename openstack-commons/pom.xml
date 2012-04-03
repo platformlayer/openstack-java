@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.openstack</groupId>
-        <artifactId>openstack-java-sdk-parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <groupId>org.platformlayer</groupId>
+        <artifactId>openstack-java-parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>openstack-commons</artifactId>
