@@ -68,26 +68,28 @@ if [[ "$1" == "create-image" ]]; then
 	USE_NAILGUN=0
 fi
 
+# By default, we won't use nailgun (for easier setup)
 if [[ "${USE_NAILGUN}" == "" ]]; then
-	USE_NAILGUN=1
+	USE_NAILGUN=0
 fi
 
 if [[ "$DEFAULT_FORMAT" == "" ]]; then
 	DEFAULT_FORMAT="raw"
 fi
 
-NAILGUN=ng-nailgun
-if ! builtin type -p ${NAILGUN} &>/dev/null; then
-	NAILGUN=ng
+if [[ "${USE_NAILGUN}" == "1" ]]; then
+	NAILGUN=ng-nailgun
 	if ! builtin type -p ${NAILGUN} &>/dev/null; then
-		NAILGUN=${BASEDIR}/../nailgun/ng
+		NAILGUN=ng
 		if ! builtin type -p ${NAILGUN} &>/dev/null; then
-			echo "${NAILGUN} not found; try sudo apt-get install nailgun"
-			exit 1
+			NAILGUN=${BASEDIR}/../nailgun/ng
+			if ! builtin type -p ${NAILGUN} &>/dev/null; then
+				echo "${NAILGUN} not found; try sudo apt-get install nailgun"
+				exit 1
+			fi
 		fi
 	fi
 fi
-
 
 if [[ "$PROFILE" == "" ]]; then
 	PROFILE=openstack
@@ -101,10 +103,9 @@ if [[ "$CONFIG_FILE" == "" ]]; then
 	CONFIG_FILE=~/.credentials/${PROFILE}
 fi
 
-
-export NAILGUN_PORT=2102
-
 if [[ "${USE_NAILGUN}" == "1" ]]; then
+	export NAILGUN_PORT=2102
+
 	cmd=(${NAILGUN} org.openstack.client.cli.OpenstackCli)
 	args=(--format "${FORMAT}" --config -)
 else
