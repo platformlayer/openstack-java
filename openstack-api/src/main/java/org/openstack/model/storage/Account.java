@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
 public class Account {
-	@XmlElement(name="container")
+	@XmlElement(name = "container")
 	private List<Container> containers;
 
 	public List<Container> getContainers() {

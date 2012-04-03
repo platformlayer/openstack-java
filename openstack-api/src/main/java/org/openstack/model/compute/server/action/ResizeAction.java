@@ -7,14 +7,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="resize")
+@XmlRootElement(name = "resize")
 @XmlAccessorType(XmlAccessType.NONE)
 public class ResizeAction implements Serializable {
 
 	@XmlAttribute
 	private String flavorRef;
-	
-	@XmlAttribute(name="auto_disk_config")
+
+	@XmlAttribute(name = "auto_disk_config")
 	private String autoDiskConfig;
 
 	public String getFlavorRef() {
@@ -32,7 +32,5 @@ public class ResizeAction implements Serializable {
 	public void setAutoDiskConfig(String autoDiskConfig) {
 		this.autoDiskConfig = autoDiskConfig;
 	}
-	
-	
 
 }

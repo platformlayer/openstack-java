@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="revertResize")
+@XmlRootElement(name = "revertResize")
 public class RevertResize implements Serializable {
 
 }

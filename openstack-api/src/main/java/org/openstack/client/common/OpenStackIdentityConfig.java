@@ -54,5 +54,4 @@ public class OpenStackIdentityConfig implements Serializable {
 		return this;
 	}
 
-
 }

@@ -2,8 +2,8 @@ package com.fathomdb.cli;
 
 public interface CliHandler {
 
-    CliOptions buildOptionsBean();
+	CliOptions buildOptionsBean();
 
-    CliContext buildContext(CliOptions options) throws Exception;
+	CliContext buildContext(CliOptions options) throws Exception;
 
 }

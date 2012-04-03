@@ -11,18 +11,18 @@ import com.google.common.collect.Maps;
 
 public class KeypairFormatter extends SimpleFormatter<KeyPair> {
 
-    public KeypairFormatter() {
-        super(KeyPair.class);
-    }
+	public KeypairFormatter() {
+		super(KeyPair.class);
+	}
 
-    @Override
-    public void visit(KeyPair o, OutputSink sink) throws IOException {
-        LinkedHashMap<String, Object> values = Maps.newLinkedHashMap();
+	@Override
+	public void visit(KeyPair o, OutputSink sink) throws IOException {
+		LinkedHashMap<String, Object> values = Maps.newLinkedHashMap();
 
-        values.put("name", o.getName());
-        values.put("fingerprint", o.getFingerprint());
-        values.put("public_key", o.getPublicKey());
+		values.put("name", o.getName());
+		values.put("fingerprint", o.getFingerprint());
+		values.put("public_key", o.getPublicKey());
 
-        sink.outputRow(values);
-    }
+		sink.outputRow(values);
+	}
 }

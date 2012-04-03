@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="confirmResize")
+@XmlRootElement(name = "confirmResize")
 public class ConfirmResizeAction implements Serializable {
 
 }

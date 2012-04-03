@@ -5,16 +5,15 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
 public class Role implements Serializable {
-	
+
 	@XmlAttribute
 	private String id;
-	
+
 	@XmlAttribute
 	private String name;
 
@@ -44,6 +43,5 @@ public class Role implements Serializable {
 	public String toString() {
 		return "Role [id=" + id + ", name=" + name + "]";
 	}
-	
-}
 
+}

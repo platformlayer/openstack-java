@@ -15,11 +15,11 @@ import org.openstack.model.common.PagingListBase;
 @XmlAccessorType(XmlAccessType.NONE)
 public class FlavorList extends PagingListBase<Flavor> {
 
-    @XmlElement(name = "flavor")
-    private List<Flavor> list = new ArrayList<Flavor>();
+	@XmlElement(name = "flavor")
+	private List<Flavor> list = new ArrayList<Flavor>();
 
-    @Override
-    public Iterator<Flavor> iterateItemsOnPage() {
-        return list.iterator();
-    }
+	@Override
+	public Iterator<Flavor> iterateItemsOnPage() {
+		return list.iterator();
+	}
 }

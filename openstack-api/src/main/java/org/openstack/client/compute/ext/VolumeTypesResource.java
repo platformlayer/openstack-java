@@ -16,7 +16,7 @@ public class VolumeTypesResource extends Resource {
 	 * @return
 	 */
 	public String list() {
-		return  resource().get(String.class);
+		return resource().get(String.class);
 	}
 
 	/**
@@ -25,9 +25,9 @@ public class VolumeTypesResource extends Resource {
 	 * @param flavor
 	 * @return
 	 */
-//	public Flavor create(Flavor flavor) {
-//		return null;
-//	}
+	// public Flavor create(Flavor flavor) {
+	// return null;
+	// }
 
 	public ZoneResource zone(String id) {
 		return buildChildResource(id, ZoneResource.class);

@@ -15,10 +15,9 @@ import org.openstack.client.transport.jersey1.Jersey1OpenstackSession;
 import org.openstack.model.atom.Link;
 import org.openstack.model.compute.Flavor;
 import org.openstack.model.compute.Image;
-import org.openstack.model.compute.Server;
 import org.openstack.model.identity.Access;
-import org.openstack.model.identity.Service;
 import org.openstack.model.identity.Access.Token;
+import org.openstack.model.identity.Service;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
@@ -303,15 +302,17 @@ public abstract class OpenstackSession implements Serializable {
 	}
 
 	public Image resolveImage(Image image) throws OpenstackException {
-		if (image == null)
+		if (image == null) {
 			return null;
+		}
 
 		return getLinkResolver().resolveImage(image.getId(), image.getLinks());
 	}
 
 	public Flavor resolveFlavor(Flavor flavor) throws OpenstackException {
-		if (flavor == null)
+		if (flavor == null) {
 			return null;
+		}
 
 		return getLinkResolver().resolveFlavor(flavor.getId(), flavor.getLinks());
 	}

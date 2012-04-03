@@ -9,6 +9,7 @@ import com.fathomdb.cli.discovery.Discovery;
 public class FormatterRegistryBase implements FormatterRegistry {
 	final Map<Class<?>, Formatter> registry = new HashMap<Class<?>, Formatter>();
 
+	@Override
 	public Formatter getFormatter(Class<?> clazz) {
 		return registry.get(clazz);
 	}

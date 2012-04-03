@@ -5,9 +5,8 @@ import org.openstack.model.compute.Zone;
 import org.openstack.model.compute.ZoneList;
 
 /**
- * Enables zones-related functionality such as adding child zones, listing child
- * zones, getting the capabilities of the local zone, and returning build plans
- * to parent zones' schedulers
+ * Enables zones-related functionality such as adding child zones, listing child zones, getting the capabilities of the
+ * local zone, and returning build plans to parent zones' schedulers
  * 
  * @author sp
  * 

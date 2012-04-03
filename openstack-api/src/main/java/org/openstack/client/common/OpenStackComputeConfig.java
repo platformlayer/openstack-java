@@ -2,8 +2,6 @@ package org.openstack.client.common;
 
 import java.io.Serializable;
 
-import javax.ws.rs.core.MediaType;
-
 public class OpenStackComputeConfig implements Serializable {
 
 	public enum Feature {

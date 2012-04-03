@@ -34,7 +34,7 @@ public class ContainersResource extends StorageResourceBase {
 	public ContainerResource id(String id) {
 		return buildChildResource(id, ContainerResource.class);
 	}
-	
+
 	public void create(String containerName) {
 		// Should return 202
 		resource(containerName).put();

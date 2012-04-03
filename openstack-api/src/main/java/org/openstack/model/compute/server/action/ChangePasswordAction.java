@@ -7,11 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="changePassword")
+@XmlRootElement(name = "changePassword")
 @XmlAccessorType(XmlAccessType.NONE)
 public class ChangePasswordAction implements Serializable {
 
-	@XmlAttribute(required=true)
+	@XmlAttribute(required = true)
 	private String adminPass;
 
 	public String getAdminPass() {
@@ -21,5 +21,5 @@ public class ChangePasswordAction implements Serializable {
 	public void setAdminPass(String adminPass) {
 		this.adminPass = adminPass;
 	}
-	
+
 }

@@ -12,17 +12,17 @@ import com.google.common.collect.Maps;
 
 @XmlAccessorType(XmlAccessType.NONE)
 public class ImageProperties implements Serializable {
-    final Map<String, Object> properties = Maps.newHashMap();
+	final Map<String, Object> properties = Maps.newHashMap();
 
-    /**
-     * This gets mapped to any unrecognized elements (i.e. all the key/value pairs)
-     */
-    @JsonAnySetter
-    public void addProperty(String key, Object value) {
-        properties.put(key, value);
-    }
+	/**
+	 * This gets mapped to any unrecognized elements (i.e. all the key/value pairs)
+	 */
+	@JsonAnySetter
+	public void addProperty(String key, Object value) {
+		properties.put(key, value);
+	}
 
-    public Map<String, Object> asMap() {
-        return properties;
-    }
+	public Map<String, Object> asMap() {
+		return properties;
+	}
 }

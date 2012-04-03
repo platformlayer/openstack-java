@@ -8,9 +8,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -24,69 +22,68 @@ public class Image implements Serializable {
 
 	@XmlAttribute
 	private String id;
-	
+
 	@XmlAttribute
 	private String name;
-	
+
 	@XmlAttribute
 	private String status;
-	
-	
-	//2011-12-26T02:09:15Z
+
+	// 2011-12-26T02:09:15Z
 	@XmlAttribute
 	private String updated;
-	
+
 	@XmlAttribute
 	private String created;
-	
+
 	@XmlAttribute
 	private int minDisk;
-	
+
 	@XmlAttribute
 	private int progress;
-	
+
 	@XmlElement
 	private ImageMetadata metadata;
-	
+
 	@XmlAccessorType(XmlAccessType.NONE)
 	public static class ImageMetadata implements Iterable<ImageMetadata.ImageMetadataItem> {
 
-	    @XmlAccessorType(XmlAccessType.NONE)
-	    public static final class ImageMetadataItem  {
+		@XmlAccessorType(XmlAccessType.NONE)
+		public static final class ImageMetadataItem {
 
-	        @XmlAttribute
-	        private String key;
+			@XmlAttribute
+			private String key;
 
-	        @XmlValue
-	        private String value;
+			@XmlValue
+			private String value;
 
-	        public String getKey() {
-	            return key;
-	        }
+			public String getKey() {
+				return key;
+			}
 
-	        public void setKey(String key) {
-	            this.key = key;
-	        }
+			public void setKey(String key) {
+				this.key = key;
+			}
 
-	        public String getValue() {
-	            return value;
-	        }
+			public String getValue() {
+				return value;
+			}
 
-	        public void setValue(String value) {
-	            this.value = value;
-	        }
+			public void setValue(String value) {
+				this.value = value;
+			}
 
-	    }
+		}
 
-	    @XmlElement(name = "meta")
-	    private List<ImageMetadataItem> items;
+		@XmlElement(name = "meta")
+		private List<ImageMetadataItem> items;
 
-	    public List<ImageMetadataItem> getItems() {
-	    	if (items == null) {
-	    		items = Lists.newArrayList();
-	    	}
-	        return items;
-	    }
+		public List<ImageMetadataItem> getItems() {
+			if (items == null) {
+				items = Lists.newArrayList();
+			}
+			return items;
+		}
 
 		@Override
 		public Iterator<ImageMetadataItem> iterator() {
@@ -94,10 +91,9 @@ public class Image implements Serializable {
 		}
 	}
 
-	
-	//RAX-DCF="http://docs.rackspacecloud.com/servers/api/ext/diskConfig/v1.0"
-	
-	@XmlElement(name="link", namespace="http://www.w3.org/2005/Atom")
+	// RAX-DCF="http://docs.rackspacecloud.com/servers/api/ext/diskConfig/v1.0"
+
+	@XmlElement(name = "link", namespace = "http://www.w3.org/2005/Atom")
 	@JsonProperty("links")
 	private List<Link> links;
 
@@ -175,10 +171,9 @@ public class Image implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Image [id=" + id + ", name=" + name + ", status=" + status
-				+ ", updated=" + updated + ", created=" + created
-				+ ", minDisk=" + minDisk + ", progress=" + progress
-				+ ", metadata=" + metadata + ", links=" + links + "]";
+		return "Image [id=" + id + ", name=" + name + ", status=" + status + ", updated=" + updated + ", created="
+				+ created + ", minDisk=" + minDisk + ", progress=" + progress + ", metadata=" + metadata + ", links="
+				+ links + "]";
 	}
-	
+
 }

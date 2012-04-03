@@ -9,12 +9,12 @@ public class TenantResource extends Resource {
 		return resource().get(Tenant.class);
 	}
 
-//	public Tenant update() {
-//		return resource().put(Tenant.class);
-//	}
+	// public Tenant update() {
+	// return resource().put(Tenant.class);
+	// }
 
 	public void delete() {
-		 resource().delete();
+		resource().delete();
 	}
 
 }

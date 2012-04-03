@@ -49,8 +49,9 @@ public class Container {
 	}
 
 	public List<StorageObject> getObjects() {
-		if (objects == null)
+		if (objects == null) {
 			objects = Lists.newArrayList();
+		}
 		return objects;
 	}
 

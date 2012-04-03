@@ -8,20 +8,20 @@ import org.openstack.model.compute.ImageList;
 
 public class ImagesResource extends Resource {
 
-    public Iterable<Image> list(boolean detail) {
-    	RequestBuilder r = detail ? resource("detail") : resource();
-    	ImageList page = r.get(ImageList.class);
-    	
-    	// Does this actually page?
-        return new SimplePagingList<Image>(session, page);
-    }
+	public Iterable<Image> list(boolean detail) {
+		RequestBuilder r = detail ? resource("detail") : resource();
+		ImageList page = r.get(ImageList.class);
 
-    public Iterable<Image> list() {
-    	return list(true);
-    }
+		// Does this actually page?
+		return new SimplePagingList<Image>(session, page);
+	}
 
-    public ImageResource image(String id) {
-        return buildChildResource(id, ImageResource.class);
-    }
+	public Iterable<Image> list() {
+		return list(true);
+	}
+
+	public ImageResource image(String id) {
+		return buildChildResource(id, ImageResource.class);
+	}
 
 }

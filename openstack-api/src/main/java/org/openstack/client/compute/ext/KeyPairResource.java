@@ -19,7 +19,6 @@ public class KeyPairResource extends Resource {
 		return MediaType.APPLICATION_JSON_TYPE;
 	}
 
-
 	public void delete() {
 		resource().delete();
 	}

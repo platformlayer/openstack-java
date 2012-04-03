@@ -29,8 +29,9 @@ public class CachingLinkResolver extends SimpleLinkResolver {
 		}
 
 		for (Flavor flavor : flavorCache) {
-			if (Objects.equal(flavor.getId(), flavorId))
+			if (Objects.equal(flavor.getId(), flavorId)) {
 				return flavor;
+			}
 		}
 
 		return null;
@@ -43,8 +44,9 @@ public class CachingLinkResolver extends SimpleLinkResolver {
 		}
 
 		for (Image image : imageCache) {
-			if (Objects.equal(image.getId(), imageId))
+			if (Objects.equal(image.getId(), imageId)) {
 				return image;
+			}
 		}
 
 		return null;

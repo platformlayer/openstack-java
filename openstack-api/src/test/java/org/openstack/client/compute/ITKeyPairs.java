@@ -22,19 +22,12 @@ public class ITKeyPairs extends ComputeApiTest {
 	}
 
 	/*
-	@Test
-	public void deleteAllKeypairs() throws OpenstackException {
-		OpenstackComputeClient nova = getComputeClient();
-		Iterable<KeyPair> keyPairs = nova.root().keyPairs().list();
-		for (KeyPair keyPair : keyPairs) {
-			try {
-				nova.root().keyPairs().keypair(keyPair.getName()).delete();
-			} catch (Exception e) {
-
-			}
-		}
-	}
-	*/
+	 * @Test public void deleteAllKeypairs() throws OpenstackException { OpenstackComputeClient nova =
+	 * getComputeClient(); Iterable<KeyPair> keyPairs = nova.root().keyPairs().list(); for (KeyPair keyPair : keyPairs)
+	 * { try { nova.root().keyPairs().keypair(keyPair.getName()).delete(); } catch (Exception e) {
+	 * 
+	 * } } }
+	 */
 
 	private void assertKeyPairEquals(KeyPair actual, KeyPair expected) {
 		Assert.assertEquals(actual.getName(), expected.getName());
@@ -148,8 +141,9 @@ public class ITKeyPairs extends ComputeApiTest {
 
 	private KeyPair findKeyPair(OpenstackComputeClient nova, String name) {
 		for (KeyPair keyPair : nova.root().keyPairs().list()) {
-			if (keyPair.getName().equals(name))
+			if (keyPair.getName().equals(name)) {
 				return keyPair;
+			}
 		}
 		return null;
 	}

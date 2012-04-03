@@ -39,8 +39,9 @@ public class SimplePagingList<M> implements Iterable<M> {
 
 	public SimplePagingList<M> getNextPage() {
 		List<Link> links = page.getLinks();
-		if (links == null || links.isEmpty())
+		if (links == null || links.isEmpty()) {
 			return null;
+		}
 		// TODO: Make an abstract method once we have an example!
 		// throw new UnsupportedOperationException();
 		return null;

@@ -2,14 +2,9 @@ package org.openstack.client.internals;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.TypeVariable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 
 import javax.xml.bind.annotation.XmlAnyAttribute;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,7 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.namespace.QName;
 
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.openstack.client.internals.SimpleClassInfo.FieldInfo;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
@@ -55,8 +49,9 @@ public class SimpleClassInfo {
 			XmlRootElement xmlRootElement = clazz.getAnnotation(XmlRootElement.class);
 			if (xmlRootElement != null) {
 				jsonName = xmlRootElement.name();
-				if ("##default".equals(jsonName))
+				if ("##default".equals(jsonName)) {
 					jsonName = null;
+				}
 			}
 		}
 
@@ -68,8 +63,9 @@ public class SimpleClassInfo {
 	}
 
 	private static String firstToLowerCase(String s) {
-		if (s == null || s.isEmpty())
+		if (s == null || s.isEmpty()) {
 			return s;
+		}
 
 		return Character.toLowerCase(s.charAt(0)) + s.substring(1);
 	}
@@ -164,8 +160,9 @@ public class SimpleClassInfo {
 				JsonProperty annotation = field.getAnnotation(JsonProperty.class);
 				if (annotation != null) {
 					jsonName = annotation.value();
-					if ("".equals(jsonName))
+					if ("".equals(jsonName)) {
 						jsonName = null;
+					}
 				}
 			}
 
@@ -173,8 +170,9 @@ public class SimpleClassInfo {
 				XmlElementWrapper xmlElementWrapperAnnotation = field.getAnnotation(XmlElementWrapper.class);
 				if (xmlElementWrapperAnnotation != null) {
 					jsonName = xmlElementWrapperAnnotation.name();
-					if ("##default".equals(jsonName))
+					if ("##default".equals(jsonName)) {
 						jsonName = null;
+					}
 				}
 			}
 
@@ -182,8 +180,9 @@ public class SimpleClassInfo {
 				XmlElement xmlElementAnnotation = field.getAnnotation(XmlElement.class);
 				if (xmlElementAnnotation != null) {
 					jsonName = xmlElementAnnotation.name();
-					if ("##default".equals(jsonName))
+					if ("##default".equals(jsonName)) {
 						jsonName = null;
+					}
 				}
 			}
 
@@ -191,8 +190,9 @@ public class SimpleClassInfo {
 				XmlAttribute xmlAttributeAnnotation = field.getAnnotation(XmlAttribute.class);
 				if (xmlAttributeAnnotation != null) {
 					jsonName = xmlAttributeAnnotation.name();
-					if ("##default".equals(jsonName))
+					if ("##default".equals(jsonName)) {
 						jsonName = null;
+					}
 				}
 			}
 

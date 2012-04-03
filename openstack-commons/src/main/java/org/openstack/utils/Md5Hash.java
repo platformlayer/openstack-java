@@ -4,9 +4,9 @@ import java.security.MessageDigest;
 
 public class Md5Hash extends MessageDigestBase {
 
-    @Override
-    protected MessageDigest buildDigest() {
-        return buildDigest("MD5");
-    }
+	@Override
+	protected MessageDigest buildDigest() {
+		return buildDigest("MD5");
+	}
 
 }

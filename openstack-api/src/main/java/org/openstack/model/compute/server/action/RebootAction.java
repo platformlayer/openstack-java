@@ -7,11 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="reboot")
+@XmlRootElement(name = "reboot")
 @XmlAccessorType(XmlAccessType.NONE)
 public class RebootAction implements Serializable {
 
-	@XmlAttribute(required=true)
+	@XmlAttribute(required = true)
 	private String type;
 
 	public String getType() {
@@ -21,7 +21,5 @@ public class RebootAction implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
-	
+
 }

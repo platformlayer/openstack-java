@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 public interface Repl extends Closeable {
-    // void runCommands(List<String> commands);
-    boolean runCommand(List<String> arguments);
+	// void runCommands(List<String> commands);
+	boolean runCommand(List<String> arguments);
 
-    void runRepl() throws IOException;
+	void runRepl() throws IOException;
 }

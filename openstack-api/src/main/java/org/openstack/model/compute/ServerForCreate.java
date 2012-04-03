@@ -1,7 +1,6 @@
 package org.openstack.model.compute;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -17,7 +16,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
-
 
 @XmlRootElement(name = "server")
 @XmlAccessorType(XmlAccessType.NONE)
@@ -85,24 +83,23 @@ public class ServerForCreate implements Serializable {
 	private String zone;
 
 	// OSAPI-BUG: I think this is only valid in JSON
-	@XmlAttribute(name="key_name")
+	@XmlAttribute(name = "key_name")
 	private String keyName;
 
 	// We have a problem here - config_drive can be both a boolean and an image ref...
 	// But booleans can't be quoted!
-	@XmlAttribute(name="config_drive")
+	@XmlAttribute(name = "config_drive")
 	private boolean configDrive;
 
 	@XmlElement
 	private Metadata metadata;
 
 	@XmlElementWrapper(name = "personality")
-	@XmlElement(name="file")
+	@XmlElement(name = "file")
 	private List<File> personality;
 
 	/**
-	 * This security groups are not created on the fly. They must be exist in
-	 * the tenant.
+	 * This security groups are not created on the fly. They must be exist in the tenant.
 	 */
 	@XmlElementWrapper(name = "security_groups")
 	@XmlElement(name = "security_group")
@@ -210,11 +207,9 @@ public class ServerForCreate implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ServerForCreate [name=" + name + ", imageRef=" + imageRef
-				+ ", flavorRef=" + flavorRef + ", accessIpV4=" + accessIpV4
-				+ ", accessIpV6=" + accessIpV6 + ", zone=" + zone
-				+ ", keyName=" + keyName + ", metadata=" + metadata
-				+ ", personality=" + personality + ", securityGroups="
+		return "ServerForCreate [name=" + name + ", imageRef=" + imageRef + ", flavorRef=" + flavorRef
+				+ ", accessIpV4=" + accessIpV4 + ", accessIpV6=" + accessIpV6 + ", zone=" + zone + ", keyName="
+				+ keyName + ", metadata=" + metadata + ", personality=" + personality + ", securityGroups="
 				+ securityGroups + "]";
 	}
 

@@ -1,4 +1,5 @@
 package com.fathomdb.cli.output;
+
 //package org.platformlayer.cli.output;
 //
 //import java.io.IOException;
@@ -37,4 +38,4 @@ package com.fathomdb.cli.output;
 //    @Override
 //    public void finishOutput() {
 //    }
-//}
+// }

@@ -56,12 +56,12 @@ public class AsyncServerOperation implements Future<Server> {
 
 				// Some versions (Diablo?) would return additional information in the status
 				// e.g. BUILD(networking). We need to split this out.
-				//String subStatus = null;
+				// String subStatus = null;
 				if (status.contains("(")) {
 					int leftBracketIndex = status.indexOf('(');
 					int rightBracketIndex = status.indexOf(')');
 					if (leftBracketIndex != -1 && rightBracketIndex > leftBracketIndex) {
-						//subStatus = status.substring(leftBracketIndex + 1, rightBracketIndex);
+						// subStatus = status.substring(leftBracketIndex + 1, rightBracketIndex);
 						status = status.substring(0, leftBracketIndex);
 					}
 				}
@@ -81,8 +81,9 @@ public class AsyncServerOperation implements Future<Server> {
 					log.fine("Continuing polling; server is not found (treated as DELETED)");
 				}
 
-				if (System.currentTimeMillis() > timeoutAt)
+				if (System.currentTimeMillis() > timeoutAt) {
 					throw new OpenstackException("Server did not transition to expected state within timeout");
+				}
 
 				try {
 					Thread.sleep(POLL_INTERVAL_MILLISECONDS);
@@ -162,10 +163,12 @@ public class AsyncServerOperation implements Future<Server> {
 	}
 
 	public static AsyncServerOperation wrapServerCreate(OpenstackComputeClient client, Server server) {
-		return new AsyncServerOperation(client, server, server.getId(), Lists.newArrayList("BUILD"), Lists.newArrayList("ACTIVE"));
+		return new AsyncServerOperation(client, server, server.getId(), Lists.newArrayList("BUILD"),
+				Lists.newArrayList("ACTIVE"));
 	}
 
 	public static AsyncServerOperation wrapServerDelete(OpenstackComputeClient client, Server server) {
-		return new AsyncServerOperation(client, server, server.getId(), Lists.newArrayList("ACTIVE"), Lists.newArrayList("DELETED"));
+		return new AsyncServerOperation(client, server, server.getId(), Lists.newArrayList("ACTIVE"),
+				Lists.newArrayList("DELETED"));
 	}
 }

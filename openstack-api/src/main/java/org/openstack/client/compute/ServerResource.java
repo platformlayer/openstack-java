@@ -353,7 +353,7 @@ public class ServerResource extends ComputeResourceBase {
 		GetConsoleOutputAction action = new GetConsoleOutputAction();
 		action.setLength(length);
 
-		// XML output is not escaped correctly.  Bug #939386
+		// XML output is not escaped correctly. Bug #939386
 		Output output = executeAction(Output.class, action, MediaType.APPLICATION_JSON_TYPE);
 		return output.getContent();
 	}

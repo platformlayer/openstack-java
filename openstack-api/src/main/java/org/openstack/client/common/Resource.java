@@ -27,9 +27,10 @@ public class Resource {
 	}
 
 	protected void initialize(OpenstackSession session, String resource) {
-		if (this.session != null)
+		if (this.session != null) {
 			throw new IllegalStateException("Double initialization");
-		
+		}
+
 		this.session = session;
 		this.resource = resource;
 	}
@@ -83,7 +84,7 @@ public class Resource {
 	protected <T extends Resource> T buildChildResource(String relativePath, Class<T> clazz) {
 		T instance = (T) resources.get(relativePath);
 		try {
-			instance = (T) clazz.newInstance();
+			instance = clazz.newInstance();
 		} catch (InstantiationException e) {
 			throw new IllegalStateException("Error creating resource instance", e);
 		} catch (IllegalAccessException e) {

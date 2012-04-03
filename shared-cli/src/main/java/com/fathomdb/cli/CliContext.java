@@ -5,10 +5,10 @@ import com.fathomdb.cli.formatter.FormatterRegistry;
 
 public interface CliContext {
 
-    CommandRegistry getCommandRegistry();
+	CommandRegistry getCommandRegistry();
 
-    FormatterRegistry getFormatterRegistry();
+	FormatterRegistry getFormatterRegistry();
 
-    void connect() throws Exception;
+	void connect() throws Exception;
 
 }

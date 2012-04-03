@@ -51,35 +51,47 @@ public class OpenstackSessionInfo {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		OpenstackSessionInfo other = (OpenstackSessionInfo) obj;
 		if (authUrl == null) {
-			if (other.authUrl != null)
+			if (other.authUrl != null) {
 				return false;
-		} else if (!authUrl.equals(other.authUrl))
+			}
+		} else if (!authUrl.equals(other.authUrl)) {
 			return false;
-		if (debug != other.debug)
+		}
+		if (debug != other.debug) {
 			return false;
+		}
 		if (password == null) {
-			if (other.password != null)
+			if (other.password != null) {
 				return false;
-		} else if (!password.equals(other.password))
+			}
+		} else if (!password.equals(other.password)) {
 			return false;
+		}
 		if (tenantId == null) {
-			if (other.tenantId != null)
+			if (other.tenantId != null) {
 				return false;
-		} else if (!tenantId.equals(other.tenantId))
+			}
+		} else if (!tenantId.equals(other.tenantId)) {
 			return false;
+		}
 		if (username == null) {
-			if (other.username != null)
+			if (other.username != null) {
 				return false;
-		} else if (!username.equals(other.username))
+			}
+		} else if (!username.equals(other.username)) {
 			return false;
+		}
 		return true;
 	}
 }

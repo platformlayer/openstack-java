@@ -8,5 +8,5 @@ public abstract class KeystoneIntegrationTest extends AbstractOpenStackTest {
 	protected OpenstackAuthenticationClient getAuthenticationClient() {
 		return context.session.getAuthenticationClient();
 	}
-	
+
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import com.fathomdb.cli.output.OutputSink;
 
 public interface Formatter {
-    List<Class<?>> getHandledClasses();
+	List<Class<?>> getHandledClasses();
 
-    void visitObject(Object o, OutputSink sink) throws IOException;
+	void visitObject(Object o, OutputSink sink) throws IOException;
 }

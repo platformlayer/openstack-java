@@ -16,7 +16,7 @@ public class RandomUtil {
 	public char pick(String s) {
 		return s.charAt(random.nextInt(s.length()));
 	}
-	
+
 	public String randomAsciiString(int length) {
 		char[] chars = new char[length];
 		for (int i = 0; i < length; i++) {
@@ -24,7 +24,7 @@ public class RandomUtil {
 		}
 		return new String(chars);
 	}
-	
+
 	public String randomAlphanumericString(int length) {
 		char[] chars = new char[length];
 		for (int i = 0; i < length; i++) {
@@ -32,7 +32,7 @@ public class RandomUtil {
 		}
 		return new String(chars);
 	}
-	
+
 	public String randomAlphanumericString(int minLength, int maxLength) {
 		int length = uniform(minLength, maxLength);
 		return randomAlphanumericString(length);

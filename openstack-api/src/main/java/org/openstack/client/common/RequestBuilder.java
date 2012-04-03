@@ -26,7 +26,7 @@ public abstract class RequestBuilder {
 	protected Object body;
 
 	protected Multimap<String, String> queryParameters = HashMultimap.create();
-	
+
 	private final OpenstackSession session;
 
 	public RequestBuilder(OpenstackSession session, String resourceUrl) {
@@ -57,9 +57,11 @@ public abstract class RequestBuilder {
 
 	public RequestBuilder setContentType(MediaType contentType) {
 		if (this.contentType != null) {
-			if (this.contentType.equals(contentType))
+			if (this.contentType.equals(contentType)) {
 				return this;
-			throw new IllegalStateException("Attempt to change contentType from " + this.contentType + " to " + contentType);
+			}
+			throw new IllegalStateException("Attempt to change contentType from " + this.contentType + " to "
+					+ contentType);
 		}
 
 		this.contentType = contentType;

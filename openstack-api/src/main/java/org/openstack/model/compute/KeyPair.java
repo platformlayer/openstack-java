@@ -9,25 +9,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 // TODO: Rename to KeyPairInfo?
 
-@XmlRootElement(name="keypair", namespace="")
+@XmlRootElement(name = "keypair", namespace = "")
 @XmlAccessorType(XmlAccessType.NONE)
 public class KeyPair implements Serializable {
-	
-	@XmlElement(required=true, namespace="")
+
+	@XmlElement(required = true, namespace = "")
 	private String name;
-	
-	@XmlElement(name="public_key", namespace="")
+
+	@XmlElement(name = "public_key", namespace = "")
 	private String publicKey;
-	
-	@XmlElement(namespace="")
+
+	@XmlElement(namespace = "")
 	private String fingerprint;
 
-	@XmlElement(name="user_id")
+	@XmlElement(name = "user_id")
 	private String userId;
-	
-	@XmlElement(name="private_key")
+
+	@XmlElement(name = "private_key")
 	private String privateKey;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -54,8 +54,7 @@ public class KeyPair implements Serializable {
 
 	@Override
 	public String toString() {
-		return "KeyPair [name=" + name + ", publicKey=" + publicKey
-				+ ", fingerprint=" + fingerprint + "]";
+		return "KeyPair [name=" + name + ", publicKey=" + publicKey + ", fingerprint=" + fingerprint + "]";
 	}
 
 	public String getPrivateKey() {
@@ -65,5 +64,5 @@ public class KeyPair implements Serializable {
 	public void setPrivateKey(String privateKey) {
 		this.privateKey = privateKey;
 	}
-	
+
 }

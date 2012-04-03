@@ -3,17 +3,11 @@ package org.openstack.client.internals;
 import java.io.IOException;
 import java.util.List;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.JsonToken;
-import org.codehaus.jackson.map.BeanProperty;
 import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.SerializerProvider;
 import org.codehaus.jackson.map.deser.std.StdDeserializer;
-import org.codehaus.jackson.map.ser.std.SerializerBase;
-import org.codehaus.jackson.type.JavaType;
 import org.openstack.model.compute.Addresses;
 import org.openstack.model.compute.Addresses.Network;
 import org.openstack.model.compute.Addresses.Network.Ip;

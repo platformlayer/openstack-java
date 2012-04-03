@@ -7,25 +7,25 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(namespace="")
+@XmlRootElement(namespace = "")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Console implements Serializable {
 
 	@XmlAttribute
 	private String id;
-	
-	@XmlAttribute(name="console_type")
+
+	@XmlAttribute(name = "console_type")
 	private String type;
-	
+
 	@XmlAttribute
 	private String password;
-	
-	@XmlAttribute(name="instance_name")
+
+	@XmlAttribute(name = "instance_name")
 	private String instanceName;
-	
-	@XmlAttribute(name="host")
+
+	@XmlAttribute(name = "host")
 	private String rxtxFactor;
-	
+
 	@XmlAttribute
 	private int port;
 
@@ -79,9 +79,8 @@ public class Console implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Console [id=" + id + ", type=" + type + ", password="
-				+ password + ", instanceName=" + instanceName + ", rxtxFactor="
-				+ rxtxFactor + ", port=" + port + "]";
+		return "Console [id=" + id + ", type=" + type + ", password=" + password + ", instanceName=" + instanceName
+				+ ", rxtxFactor=" + rxtxFactor + ", port=" + port + "]";
 	}
-	
+
 }

@@ -8,39 +8,38 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
-@XmlRootElement(namespace="")
+@XmlRootElement(namespace = "")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Volume implements Serializable {
-	
+
 	@XmlAttribute
 	private Integer id;
-	
+
 	@XmlAttribute
 	private Integer status;
 
-	@XmlAttribute(name="size")
+	@XmlAttribute(name = "size")
 	private Integer sizeInGB;
-	
-	@XmlAttribute(name="availabilityZone")
+
+	@XmlAttribute(name = "availabilityZone")
 	private Integer availabilityZone;
-	
-	@XmlAttribute(name="volumeType")
+
+	@XmlAttribute(name = "volumeType")
 	private String type;
-	
-	@XmlAttribute(name="createdAt")
+
+	@XmlAttribute(name = "createdAt")
 	private String created;
-	
-	@XmlAttribute(name="displayName")
+
+	@XmlAttribute(name = "displayName")
 	private String name;
-	
-	@XmlAttribute(name="displayDescription")
+
+	@XmlAttribute(name = "displayDescription")
 	private String description;
-	
-	@XmlAttribute(name="snapshotId")
+
+	@XmlAttribute(name = "snapshotId")
 	private String snapshotId;
-	
-	@XmlElement(name="metadata")
+
+	@XmlElement(name = "metadata")
 	private Metadata metadata;
 
 	public Integer getId() {
@@ -125,13 +124,9 @@ public class Volume implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Volume [id=" + id + ", status=" + status + ", sizeInGB="
-				+ sizeInGB + ", availabilityZone=" + availabilityZone
-				+ ", type=" + type + ", created=" + created + ", name=" + name
-				+ ", description=" + description + ", snapshotId=" + snapshotId
-				+ ", metadata=" + metadata + "]";
+		return "Volume [id=" + id + ", status=" + status + ", sizeInGB=" + sizeInGB + ", availabilityZone="
+				+ availabilityZone + ", type=" + type + ", created=" + created + ", name=" + name + ", description="
+				+ description + ", snapshotId=" + snapshotId + ", metadata=" + metadata + "]";
 	}
 
-	
-	
 }

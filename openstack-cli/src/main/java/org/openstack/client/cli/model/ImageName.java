@@ -28,8 +28,9 @@ public class ImageName extends StringWrapper {
 			}
 		}
 
-		if (matches.size() == 0)
+		if (matches.size() == 0) {
 			return null;
+		}
 
 		if (matches.size() != 1) {
 			throw new IllegalArgumentException("Image name is ambiguous");

@@ -3,6 +3,7 @@ package org.openstack.client.cli;
 import java.util.Map;
 
 import org.openstack.client.common.OpenstackSession;
+
 import com.google.common.collect.Maps;
 
 public class SessionCache {

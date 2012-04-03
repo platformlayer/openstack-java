@@ -12,48 +12,48 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.NONE)
 public class Authentication implements Serializable {
 
-    @XmlAccessorType(XmlAccessType.NONE)
-    public static class PasswordCredentials implements Serializable {
+	@XmlAccessorType(XmlAccessType.NONE)
+	public static class PasswordCredentials implements Serializable {
 
-        @XmlAttribute
-        private String username;
+		@XmlAttribute
+		private String username;
 
-        @XmlAttribute
-        private String password;
+		@XmlAttribute
+		private String password;
 
-        public String getUsername() {
-            return username;
-        }
+		public String getUsername() {
+			return username;
+		}
 
-        public void setUsername(String username) {
-            this.username = username;
-        }
+		public void setUsername(String username) {
+			this.username = username;
+		}
 
-        public String getPassword() {
-            return password;
-        }
+		public String getPassword() {
+			return password;
+		}
 
-        public void setPassword(String password) {
-            this.password = password;
-        }
+		public void setPassword(String password) {
+			this.password = password;
+		}
 
-    }
+	}
 
-    @XmlElement
-    private PasswordCredentials passwordCredentials;
+	@XmlElement
+	private PasswordCredentials passwordCredentials;
 
-    @XmlAttribute()
-    public String tenantName;
+	@XmlAttribute()
+	public String tenantName;
 
-    // @XmlAttribute()
-    // public String tenantId;
+	// @XmlAttribute()
+	// public String tenantId;
 
-    public PasswordCredentials getPasswordCredentials() {
-        return passwordCredentials;
-    }
+	public PasswordCredentials getPasswordCredentials() {
+		return passwordCredentials;
+	}
 
-    public void setPasswordCredentials(PasswordCredentials passwordCredentials) {
-        this.passwordCredentials = passwordCredentials;
-    }
+	public void setPasswordCredentials(PasswordCredentials passwordCredentials) {
+		this.passwordCredentials = passwordCredentials;
+	}
 
 }

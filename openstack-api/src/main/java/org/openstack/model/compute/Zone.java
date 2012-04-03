@@ -8,17 +8,16 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
-@XmlRootElement(name="zone", namespace="http://docs.rackspacecloud.com/servers/api/v1.0")
+@XmlRootElement(name = "zone", namespace = "http://docs.rackspacecloud.com/servers/api/v1.0")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Zone implements Serializable {
-	
+
 	@XmlAttribute
 	private String id;
-	
+
 	@XmlAttribute
 	private String name;
-	
+
 	@XmlElement
 	private Metadata metadata = new Metadata();
 
@@ -45,5 +44,5 @@ public class Zone implements Serializable {
 	public void setMetadata(Metadata metadata) {
 		this.metadata = metadata;
 	}
-	
+
 }

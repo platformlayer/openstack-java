@@ -16,14 +16,13 @@ import org.openstack.model.common.PagingListBase;
 @XmlAccessorType(XmlAccessType.NONE)
 public class ImageList extends PagingListBase<Image> {
 
-    @XmlElementWrapper(name = "images")
-    @XmlElement(name = "image")
-    public List<Image> images = new ArrayList<Image>();
+	@XmlElementWrapper(name = "images")
+	@XmlElement(name = "image")
+	public List<Image> images = new ArrayList<Image>();
 
-    @Override
-    public Iterator<Image> iterateItemsOnPage() {
-        return images.iterator();
-    }
-
+	@Override
+	public Iterator<Image> iterateItemsOnPage() {
+		return images.iterator();
+	}
 
 }

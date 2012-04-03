@@ -4,9 +4,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.security.DigestException;
 import java.util.List;
 import java.util.Map;
 
@@ -76,7 +74,7 @@ public class ITGlance extends GlanceIntegrationTest {
 
 		Image template = new Image();
 		template.setName(random.randomAlphanumericString(1, 64).trim());
-		template.setDiskFormat(diskFormat );
+		template.setDiskFormat(diskFormat);
 		template.setContainerFormat(containerFormat);
 
 		Image uploaded = glance.root().images().addImage(stream, imageLength, template);
@@ -119,8 +117,9 @@ public class ITGlance extends GlanceIntegrationTest {
 			// Wait for up to 60 seconds for the image to be deleted
 			allImages = Lists.newArrayList(glance.root().images().list());
 			foundInAll = findImageById(allImages, uploaded.getId());
-			if (foundInAll == null)
+			if (foundInAll == null) {
 				break;
+			}
 			Thread.sleep(1000);
 		}
 
@@ -134,7 +133,7 @@ public class ITGlance extends GlanceIntegrationTest {
 		}
 	}
 
-	@Test(expectedExceptions= { OpenstackException.class, SkipException.class} )
+	@Test(expectedExceptions = { OpenstackException.class, SkipException.class })
 	public void testNullFormatsFails() throws Exception {
 		skipIfNoGlance();
 
@@ -181,8 +180,9 @@ public class ITGlance extends GlanceIntegrationTest {
 
 	private Image findImageById(List<Image> images, String id) {
 		for (Image image : images) {
-			if (id.equals(image.getId()))
+			if (id.equals(image.getId())) {
 				return image;
+			}
 		}
 		return null;
 	}

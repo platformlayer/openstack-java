@@ -15,37 +15,37 @@ import com.google.common.collect.Lists;
 @XmlRootElement(name = "access")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Access implements Serializable {
-    @XmlElement(nillable = true, name = "service")
-    @XmlElementWrapper(name = "serviceCatalog")
-    private List<Service> serviceCatalog;
+	@XmlElement(nillable = true, name = "service")
+	@XmlElementWrapper(name = "serviceCatalog")
+	private List<Service> serviceCatalog;
 
-    @XmlAccessorType(XmlAccessType.NONE)
-    public static class Token implements Serializable {
+	@XmlAccessorType(XmlAccessType.NONE)
+	public static class Token implements Serializable {
 
-        @XmlAttribute
-        private String id;
+		@XmlAttribute
+		private String id;
 
-        @XmlAttribute
-        private String expires;
+		@XmlAttribute
+		private String expires;
 
-        @XmlElement
-        private Tenant tenant;
+		@XmlElement
+		private Tenant tenant;
 
-        public String getId() {
-            return id;
-        }
+		public String getId() {
+			return id;
+		}
 
-        public void setId(String id) {
-            this.id = id;
-        }
+		public void setId(String id) {
+			this.id = id;
+		}
 
-        public String getExpires() {
-            return expires;
-        }
+		public String getExpires() {
+			return expires;
+		}
 
-        public void setExpires(String expires) {
-            this.expires = expires;
-        }
+		public void setExpires(String expires) {
+			this.expires = expires;
+		}
 
 		public Tenant getTenant() {
 			return tenant;
@@ -55,36 +55,36 @@ public class Access implements Serializable {
 			this.tenant = tenant;
 		}
 
-        @Override
-        public String toString() {
-            return "Token [id=" + id + ", expires=" + expires + "]";
-        }
-    }
+		@Override
+		public String toString() {
+			return "Token [id=" + id + ", expires=" + expires + "]";
+		}
+	}
 
-    @XmlElement
-    private Token token;
+	@XmlElement
+	private Token token;
 
-    @XmlElement
-    public User user;
+	@XmlElement
+	public User user;
 
-    public Token getToken() {
-        return token;
-    }
+	public Token getToken() {
+		return token;
+	}
 
-    public void setToken(Token token) {
-        this.token = token;
-    }
+	public void setToken(Token token) {
+		this.token = token;
+	}
 
-    @Override
-    public String toString() {
-        return "Access [token=" + token + "]";
-    }
+	@Override
+	public String toString() {
+		return "Access [token=" + token + "]";
+	}
 
-    public List<Service> getServiceCatalog() {
-        if (serviceCatalog == null) {
-            serviceCatalog = Lists.newArrayList();
-        }
-        return serviceCatalog;
-    }
+	public List<Service> getServiceCatalog() {
+		if (serviceCatalog == null) {
+			serviceCatalog = Lists.newArrayList();
+		}
+		return serviceCatalog;
+	}
 
 }

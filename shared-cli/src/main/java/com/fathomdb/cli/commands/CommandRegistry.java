@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface CommandRegistry {
 
-    CommandRunner getCommandRunner(String command);
+	CommandRunner getCommandRunner(String command);
 
-    List<String> listCommands();
+	List<String> listCommands();
 
 }

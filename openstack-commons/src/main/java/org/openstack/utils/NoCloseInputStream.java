@@ -11,11 +11,11 @@ import java.io.InputStream;
  */
 public class NoCloseInputStream extends FilterInputStream {
 
-    public NoCloseInputStream(InputStream is) {
-        super(is);
-    }
+	public NoCloseInputStream(InputStream is) {
+		super(is);
+	}
 
-    @Override
-    public void close() throws IOException {
-    }
+	@Override
+	public void close() throws IOException {
+	}
 }

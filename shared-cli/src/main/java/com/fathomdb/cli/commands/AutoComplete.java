@@ -10,56 +10,56 @@ import com.fathomdb.cli.autocomplete.AutoCompletor;
 import com.fathomdb.cli.autocomplete.SimpleArgumentAutoCompleter;
 
 public class AutoComplete extends CommandRunnerBase {
-    @Argument
-    public List<String> args;
+	@Argument
+	public List<String> args;
 
-    public AutoComplete() {
-        super("auto", "complete");
-    }
+	public AutoComplete() {
+		super("auto", "complete");
+	}
 
-    @Override
-    public Object runCommand() throws Exception {
-        int cword = Integer.parseInt(args.get(0));
-        List<String> words = args.subList(1, args.size());
+	@Override
+	public Object runCommand() throws Exception {
+		int cword = Integer.parseInt(args.get(0));
+		List<String> words = args.subList(1, args.size());
 
-        AutoCompletion autoComplete = new AutoCompletion();
-        autoComplete.context = context;
-        autoComplete.wordIndex = cword - 1;
-        autoComplete.words = words;
+		AutoCompletion autoComplete = new AutoCompletion();
+		autoComplete.context = context;
+		autoComplete.wordIndex = cword - 1;
+		autoComplete.words = words;
 
-        if (cword == 1) {
-            List<String> commands = context.getCommandRegistry().listCommands();
+		if (cword == 1) {
+			List<String> commands = context.getCommandRegistry().listCommands();
 
-            commands.remove("auto-complete");
+			commands.remove("auto-complete");
 
-            SimpleArgumentAutoCompleter.addSuffix(commands, " ");
+			SimpleArgumentAutoCompleter.addSuffix(commands, " ");
 
-            String prefix = words.size() == 0 ? "" : words.get(0);
-            autoComplete.addAll(commands, prefix);
-        }
+			String prefix = words.size() == 0 ? "" : words.get(0);
+			autoComplete.addAll(commands, prefix);
+		}
 
-        if (words.size() >= 1) {
-            String command = words.get(0);
+		if (words.size() >= 1) {
+			String command = words.get(0);
 
-            CommandRunner commandRunner = context.getCommandRegistry().getCommandRunner(command);
-            if (commandRunner != null) {
-                AutoCompletor completor = commandRunner.getAutoCompleter();
-                if (completor != null) {
-                    completor.doComplete(autoComplete);
-                }
-            }
-        }
+			CommandRunner commandRunner = context.getCommandRegistry().getCommandRunner(command);
+			if (commandRunner != null) {
+				AutoCompletor completor = commandRunner.getAutoCompleter();
+				if (completor != null) {
+					completor.doComplete(autoComplete);
+				}
+			}
+		}
 
-        autoComplete.finish();
-        return autoComplete;
-    }
+		autoComplete.finish();
+		return autoComplete;
+	}
 
-    @Override
-    public void formatRaw(Object o, PrintWriter writer) {
-        AutoCompletion items = (AutoCompletion) o;
-        for (String item : items.getCompletions()) {
-            writer.println(item);
-        }
-    }
+	@Override
+	public void formatRaw(Object o, PrintWriter writer) {
+		AutoCompletion items = (AutoCompletion) o;
+		for (String item : items.getCompletions()) {
+			writer.println(item);
+		}
+	}
 
 }

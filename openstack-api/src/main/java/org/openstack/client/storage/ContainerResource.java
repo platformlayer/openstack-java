@@ -4,7 +4,6 @@ import org.openstack.client.OpenstackException;
 import org.openstack.client.OpenstackNotFoundException;
 import org.openstack.client.common.HeadResponse;
 import org.openstack.model.storage.ContainerProperties;
-import org.openstack.model.storage.ObjectProperties;
 
 public class ContainerResource extends StorageResourceBase {
 	public void delete() {

@@ -17,5 +17,5 @@ public class AuthenticationToken {
 
 		return authTokenId;
 	}
-	
+
 }

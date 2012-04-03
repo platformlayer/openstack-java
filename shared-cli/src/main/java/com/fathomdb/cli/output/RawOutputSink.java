@@ -6,33 +6,33 @@ import java.util.Map;
 
 public class RawOutputSink implements OutputSink {
 
-    private final PrintWriter out;
+	private final PrintWriter out;
 
-    public RawOutputSink(PrintWriter out) {
-        this.out = out;
-    }
+	public RawOutputSink(PrintWriter out) {
+		this.out = out;
+	}
 
-    @Override
-    public void visitObject(Object o) throws IOException {
-        throw new UnsupportedOperationException();
-    }
+	@Override
+	public void visitObject(Object o) throws IOException {
+		throw new UnsupportedOperationException();
+	}
 
-    @Override
-    public void outputRow(Map<String, Object> values) {
-        throw new UnsupportedOperationException();
-    }
+	@Override
+	public void outputRow(Map<String, Object> values) {
+		throw new UnsupportedOperationException();
+	}
 
-    @Override
-    public void flush() {
-        out.flush();
-    }
+	@Override
+	public void flush() {
+		out.flush();
+	}
 
-    @Override
-    public void finishOutput() {
-    }
+	@Override
+	public void finishOutput() {
+	}
 
-    public PrintWriter getWriter() {
-        return out;
-    }
+	public PrintWriter getWriter() {
+		return out;
+	}
 
 }

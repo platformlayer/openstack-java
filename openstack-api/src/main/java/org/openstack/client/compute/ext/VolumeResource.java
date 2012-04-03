@@ -14,7 +14,7 @@ public class VolumeResource extends Resource {
 	}
 
 	public void delete() {
-		 resource().delete();
+		resource().delete();
 	}
-	
+
 }

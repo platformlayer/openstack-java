@@ -1,11 +1,9 @@
 package org.openstack.client.storage;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -14,7 +12,6 @@ import javax.ws.rs.core.MultivaluedMap;
 import org.openstack.client.OpenstackException;
 import org.openstack.client.common.RequestBuilder;
 import org.openstack.client.imagestore.KnownLengthInputStream;
-import org.openstack.model.storage.Container;
 import org.openstack.model.storage.ObjectProperties;
 import org.openstack.model.storage.StorageObject;
 import org.openstack.utils.Io;
@@ -45,8 +42,9 @@ public class ObjectsResource extends StorageResourceBase {
 		String listing = requestBuilder.get(String.class);
 		List<StorageObject> list = Lists.newArrayList();
 		for (String line : Splitter.on("\n").split(listing)) {
-			if (line.isEmpty())
+			if (line.isEmpty()) {
 				continue;
+			}
 
 			StorageObject storageObject = new StorageObject();
 			storageObject.setName(line);
@@ -97,8 +95,9 @@ public class ObjectsResource extends StorageResourceBase {
 
 	public RequestBuilder buildPutRequest(ObjectProperties properties) {
 		String name = properties.getName();
-		if (Strings.isNullOrEmpty(name))
+		if (Strings.isNullOrEmpty(name)) {
 			throw new IllegalArgumentException("Must set name");
+		}
 
 		RequestBuilder builder = resource(name, MediaType.APPLICATION_OCTET_STREAM_TYPE);
 

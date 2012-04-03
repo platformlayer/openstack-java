@@ -26,6 +26,7 @@ public abstract class OpenstackCliCommandRunnerBase extends CommandRunnerBase {
 	// return getContext().getOpenstackSession();
 	// }
 
+	@Override
 	protected OpenstackCliContext getContext() {
 		return (OpenstackCliContext) super.getContext();
 	}

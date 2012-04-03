@@ -33,8 +33,9 @@ public class StoragePath extends StringWrapper {
 	public String getObjectPath() {
 		String key = getKey();
 		int firstSlash = key.indexOf('/');
-		if (firstSlash == -1)
+		if (firstSlash == -1) {
 			return null;
+		}
 		return key.substring(firstSlash + 1);
 	}
 }

@@ -12,16 +12,16 @@ import org.openstack.client.OpenstackException;
 import org.openstack.client.common.OpenstackSession;
 import org.openstack.client.common.RequestBuilder;
 
-@XmlRootElement(name="link")
+@XmlRootElement(name = "link")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Link implements Serializable {
 
 	@XmlAttribute
 	private String rel;
-	
+
 	@XmlAttribute
 	private String href;
-	
+
 	@XmlAttribute
 	private String type;
 
@@ -48,11 +48,12 @@ public class Link implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	public <T> T follow(OpenstackSession session, String method, Class<T> c) {
 		// TODO: Handle method?
 		try {
-			RequestBuilder request = session.resource(href).addAcceptType(MediaType.APPLICATION_XML_TYPE).setContentType(MediaType.APPLICATION_XML_TYPE);
+			RequestBuilder request = session.resource(href).addAcceptType(MediaType.APPLICATION_XML_TYPE)
+					.setContentType(MediaType.APPLICATION_XML_TYPE);
 			return request.get(c);
 		} catch (Exception e) {
 			throw new OpenstackException(e.getMessage(), e);
@@ -63,5 +64,5 @@ public class Link implements Serializable {
 	public String toString() {
 		return "Link [rel=" + rel + ", href=" + href + ", type=" + type + "]";
 	}
-	
+
 }

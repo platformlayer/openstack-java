@@ -1,6 +1,5 @@
 package org.openstack.client.cli.commands;
 
-
 public class ListGlanceImages extends OpenstackCliCommandRunnerBase {
 
 	public ListGlanceImages() {

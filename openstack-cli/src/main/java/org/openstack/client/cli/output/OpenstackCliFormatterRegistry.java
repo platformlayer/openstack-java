@@ -4,9 +4,9 @@ import com.fathomdb.cli.formatter.FormatterRegistryBase;
 
 public class OpenstackCliFormatterRegistry extends FormatterRegistryBase {
 
-    public OpenstackCliFormatterRegistry() {
-        addDefaultFormatters();
-        discoverFormatters(getClass().getPackage());
-    }
+	public OpenstackCliFormatterRegistry() {
+		addDefaultFormatters();
+		discoverFormatters(getClass().getPackage());
+	}
 
 }

@@ -30,11 +30,13 @@ public class CreateSecurityGroupRule extends OpenstackCliCommandRunnerBase {
 
 		CreateSecurityGroupRuleRequest newRule = new CreateSecurityGroupRuleRequest();
 		newRule.setCidr(cidr);
-		if (fromPort == null)
+		if (fromPort == null) {
 			fromPort = -1;
+		}
 		newRule.setFromPort(fromPort);
-		if (toPort == null)
+		if (toPort == null) {
 			toPort = fromPort;
+		}
 		newRule.setToPort(toPort);
 		newRule.setIpProtocol(protocol);
 		newRule.setParentGroupId(securityGroupId);

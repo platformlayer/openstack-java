@@ -4,7 +4,7 @@ import org.openstack.client.common.Resource;
 import org.openstack.model.compute.Zone;
 
 public class ZoneResource extends Resource {
-	
+
 	/**
 	 * Return name and capabilities for this zone.
 	 * 

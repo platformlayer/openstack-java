@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="addFloatingIp")
+@XmlRootElement(name = "addFloatingIp")
 @XmlAccessorType(XmlAccessType.NONE)
 public class AddFloatingIpAction implements Serializable {
 
@@ -21,5 +21,5 @@ public class AddFloatingIpAction implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 }

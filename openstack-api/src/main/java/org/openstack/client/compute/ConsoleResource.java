@@ -5,7 +5,7 @@ import org.openstack.client.common.Resource;
 import org.openstack.model.compute.Console;
 
 public class ConsoleResource extends Resource {
-	
+
 	public ConsoleResource(OpenstackSession session, String resource) {
 		super(session, resource);
 	}
@@ -13,10 +13,9 @@ public class ConsoleResource extends Resource {
 	public Console show() {
 		return resource().get(Console.class);
 	}
-	
-//	public void delete() {
-//		 resource().post(String.class);
-//	}
-	
-}
 
+	// public void delete() {
+	// resource().post(String.class);
+	// }
+
+}

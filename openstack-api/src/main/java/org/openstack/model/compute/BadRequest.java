@@ -7,5 +7,5 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
 public class BadRequest extends ErrorResponse {
-	
+
 }

@@ -32,7 +32,7 @@ public class OpenstackCache {
 	private <V> Iterable<V> getCachedList(Class<V> modelClass, boolean useCache) throws OpenstackException {
 		List<V> cached = useCache ? (List<V>) cachedLists.get(modelClass) : null;
 		if (cached == null) {
-			cached = (List<V>) Lists.newArrayList(service.listItems(modelClass, true));
+			cached = Lists.newArrayList(service.listItems(modelClass, true));
 			cachedLists.put(modelClass, cached);
 		}
 		return cached;

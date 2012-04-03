@@ -66,8 +66,9 @@ public class ComputeApiTest extends AbstractOpenStackTest {
 	}
 
 	protected void skipIfNoSecurityGroups() {
-		if (!supportsSecurityGroups())
+		if (!supportsSecurityGroups()) {
 			throw new SkipException("Security group support not found");
+		}
 	}
 
 	protected void skipIfNoKeyPairs() {
@@ -93,8 +94,9 @@ public class ComputeApiTest extends AbstractOpenStackTest {
 			extensions = getComputeClient().root().extensions().list().getList();
 		}
 		for (Extension extension : extensions) {
-			if (namespace.equals(extension.getNamespace()))
+			if (namespace.equals(extension.getNamespace())) {
 				return true;
+			}
 		}
 		return false;
 	}

@@ -13,23 +13,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.openstack.model.compute.Metadata;
 import org.openstack.model.compute.ServerForCreate;
 
-@XmlRootElement(name="rebuild")
+@XmlRootElement(name = "rebuild")
 @XmlAccessorType(XmlAccessType.NONE)
 public class RebuildAction implements Serializable {
 
 	@XmlAttribute
 	private String name;
-	
-	@XmlAttribute(name="auto_disk_config")
+
+	@XmlAttribute(name = "auto_disk_config")
 	private String autoDiskConfig;
-	
+
 	@XmlElement
 	private Metadata metadata;
-	
+
 	@XmlElementWrapper(name = "personality")
 	@XmlElement(name = "file")
 	private List<ServerForCreate.File> personality;
-	
+
 	@XmlElement
 	private String imageRef;
 

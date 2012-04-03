@@ -14,13 +14,13 @@ public class Fault implements Serializable {
 
 	@XmlAttribute
 	private int code;
-	
+
 	@XmlAttribute
 	private String created;
-	
+
 	@XmlElement
 	private String message;
-	
+
 	@XmlElement
 	private String details;
 
@@ -58,8 +58,7 @@ public class Fault implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Fault [code=" + code + ", created=" + created + ", message="
-				+ message + ", details=" + details + "]";
+		return "Fault [code=" + code + ", created=" + created + ", message=" + message + ", details=" + details + "]";
 	}
-	
+
 }

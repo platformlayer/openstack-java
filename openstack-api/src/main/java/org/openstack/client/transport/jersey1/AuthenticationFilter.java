@@ -18,6 +18,7 @@ class AuthenticationFilter extends ClientFilter {
 		this.access = access;
 	}
 
+	@Override
 	public ClientResponse handle(ClientRequest request) {
 		String authTokenId = AuthenticationToken.getAuthenticationToken(access);
 

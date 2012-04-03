@@ -9,9 +9,9 @@ public class RoleResource extends Resource {
 		return resource().get(Role.class);
 	}
 
-//	public Role update() {
-//		return JerseyClient.INSTANCE.get().resource(resource).accept(MediaType.APPLICATION_XML).put(Role.class);
-//	}
+	// public Role update() {
+	// return JerseyClient.INSTANCE.get().resource(resource).accept(MediaType.APPLICATION_XML).put(Role.class);
+	// }
 
 	public void delete() {
 		resource().delete();

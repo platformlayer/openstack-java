@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="console", namespace="")
+@XmlRootElement(name = "console", namespace = "")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Console implements Serializable {
 
@@ -37,6 +37,5 @@ public class Console implements Serializable {
 	public String toString() {
 		return "Console [url=" + url + ", type=" + type + "]";
 	}
-	
-	
+
 }

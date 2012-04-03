@@ -9,12 +9,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="floating_ips", namespace="")
+@XmlRootElement(name = "floating_ips", namespace = "")
 @XmlAccessorType(XmlAccessType.NONE)
 public class FloatingIpList implements Iterable<FloatingIp> {
 
 	@XmlElementWrapper(name = "floating_ips")
-    @XmlElement(name = "floating_ip")
+	@XmlElement(name = "floating_ip")
 	private List<FloatingIp> list;
 
 	public List<FloatingIp> getList() {
@@ -29,6 +29,5 @@ public class FloatingIpList implements Iterable<FloatingIp> {
 	public Iterator<FloatingIp> iterator() {
 		return getList().iterator();
 	}
-	
-}
 
+}

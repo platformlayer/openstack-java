@@ -57,7 +57,7 @@ public class CliBase {
 			}
 		}
 
-		String[] argsArray = (String[]) args.toArray(new String[args.size()]);
+		String[] argsArray = args.toArray(new String[args.size()]);
 		int returnCode = mainWithReturnCode(argsArray, true);
 		System.exit(returnCode);
 	}
@@ -135,8 +135,9 @@ public class CliBase {
 			}
 
 			if (!options.arguments.isEmpty()) {
-				if (!repl.runCommand(options.arguments))
+				if (!repl.runCommand(options.arguments)) {
 					retcode = 1;
+				}
 			} else {
 				repl.runRepl();
 			}

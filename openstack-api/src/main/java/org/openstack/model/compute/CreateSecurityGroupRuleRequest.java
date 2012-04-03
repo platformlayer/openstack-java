@@ -10,79 +10,77 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "security_group_rule")
 @XmlAccessorType(XmlAccessType.NONE)
 public class CreateSecurityGroupRuleRequest implements Serializable {
-		
-		@XmlElement(name="parent_group_id", required=true)
-		private Integer parentGroupId;
-		
-		@XmlElement(name="from_port")
-		private Integer fromPort;
-		
-		@XmlElement(name="to_port")
-		private Integer toPort;
-		
-		@XmlElement(name="ip_protocol")
-		private String ipProtocol;
-		
-		@XmlElement
-		private String cidr;
-		
-		@XmlElement(name="group_id")
-		private Integer groupId;
 
-		public Integer getParentGroupId() {
-			return parentGroupId;
-		}
+	@XmlElement(name = "parent_group_id", required = true)
+	private Integer parentGroupId;
 
-		public void setParentGroupId(Integer parentGroupId) {
-			this.parentGroupId = parentGroupId;
-		}
+	@XmlElement(name = "from_port")
+	private Integer fromPort;
 
-		public Integer getFromPort() {
-			return fromPort;
-		}
+	@XmlElement(name = "to_port")
+	private Integer toPort;
 
-		public void setFromPort(Integer fromPort) {
-			this.fromPort = fromPort;
-		}
+	@XmlElement(name = "ip_protocol")
+	private String ipProtocol;
 
-		public Integer getToPort() {
-			return toPort;
-		}
+	@XmlElement
+	private String cidr;
 
-		public void setToPort(Integer toPort) {
-			this.toPort = toPort;
-		}
+	@XmlElement(name = "group_id")
+	private Integer groupId;
 
-		public String getIpProtocol() {
-			return ipProtocol;
-		}
+	public Integer getParentGroupId() {
+		return parentGroupId;
+	}
 
-		public void setIpProtocol(String ipProtocol) {
-			this.ipProtocol = ipProtocol;
-		}
+	public void setParentGroupId(Integer parentGroupId) {
+		this.parentGroupId = parentGroupId;
+	}
 
-		public String getCidr() {
-			return cidr;
-		}
+	public Integer getFromPort() {
+		return fromPort;
+	}
 
-		public void setCidr(String cidr) {
-			this.cidr = cidr;
-		}
+	public void setFromPort(Integer fromPort) {
+		this.fromPort = fromPort;
+	}
 
-		public Integer getGroupId() {
-			return groupId;
-		}
+	public Integer getToPort() {
+		return toPort;
+	}
 
-		public void setGroupId(Integer groupId) {
-			this.groupId = groupId;
-		}
+	public void setToPort(Integer toPort) {
+		this.toPort = toPort;
+	}
 
-		@Override
-		public String toString() {
-			return "SecurityGroupRule [parentGroupId=" + parentGroupId
-					+ ", fromPort=" + fromPort + ", toPort=" + toPort
-					+ ", ipProtocol=" + ipProtocol + ", cidr=" + cidr
-					+ ", groupId=" + groupId + "]";
-		}
-	
+	public String getIpProtocol() {
+		return ipProtocol;
+	}
+
+	public void setIpProtocol(String ipProtocol) {
+		this.ipProtocol = ipProtocol;
+	}
+
+	public String getCidr() {
+		return cidr;
+	}
+
+	public void setCidr(String cidr) {
+		this.cidr = cidr;
+	}
+
+	public Integer getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
+	}
+
+	@Override
+	public String toString() {
+		return "SecurityGroupRule [parentGroupId=" + parentGroupId + ", fromPort=" + fromPort + ", toPort=" + toPort
+				+ ", ipProtocol=" + ipProtocol + ", cidr=" + cidr + ", groupId=" + groupId + "]";
+	}
+
 }

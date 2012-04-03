@@ -6,9 +6,8 @@ import org.openstack.client.common.Resource;
  * Admin-only host administration
  * 
  * @author sp
- *
+ * 
  */
 public class HostsResource extends Resource {
-
 
 }

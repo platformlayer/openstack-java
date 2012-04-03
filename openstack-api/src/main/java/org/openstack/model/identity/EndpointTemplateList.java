@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.openstack.model.common.ListWithAtomLinks;
 
-@XmlRootElement(name="endpointTemplates", namespace="http://docs.openstack.org/identity/api/ext/OS-KSCATALOG/v1.0")
+@XmlRootElement(name = "endpointTemplates", namespace = "http://docs.openstack.org/identity/api/ext/OS-KSCATALOG/v1.0")
 @XmlAccessorType(XmlAccessType.NONE)
 public class EndpointTemplateList extends ListWithAtomLinks {
 
-	@XmlElement(name="endpointTemplate", namespace="http://docs.openstack.org/identity/api/ext/OS-KSCATALOG/v1.0")
+	@XmlElement(name = "endpointTemplate", namespace = "http://docs.openstack.org/identity/api/ext/OS-KSCATALOG/v1.0")
 	private List<EndpointTemplate> list;
 
 	public List<EndpointTemplate> getList() {
@@ -23,5 +23,5 @@ public class EndpointTemplateList extends ListWithAtomLinks {
 	public void setList(List<EndpointTemplate> list) {
 		this.list = list;
 	}
-	
+
 }

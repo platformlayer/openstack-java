@@ -1,6 +1,7 @@
 package org.openstack.client.storage;
 
 import static org.testng.Assert.assertEquals;
+
 import java.io.InputStream;
 import java.util.Map;
 

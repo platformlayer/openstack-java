@@ -7,11 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="os-getConsoleOutput")
+@XmlRootElement(name = "os-getConsoleOutput")
 @XmlAccessorType(XmlAccessType.NONE)
 public class GetConsoleOutputAction implements Serializable {
 
-	@XmlElement(required=true)
+	@XmlElement(required = true)
 	private Integer length;
 
 	public Integer getLength() {
@@ -21,5 +21,5 @@ public class GetConsoleOutputAction implements Serializable {
 	public void setLength(Integer length) {
 		this.length = length;
 	}
-	
+
 }

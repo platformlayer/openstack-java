@@ -60,8 +60,9 @@ public class ConfigurationOptions extends CliOptions {
 							throw new IllegalArgumentException("Must pass config file over stdin in server mode");
 						}
 						File file = new File(configFile);
-						if (!file.exists())
+						if (!file.exists()) {
 							throw new FileNotFoundException("Configuration file not found: " + file);
+						}
 
 						is = new FileInputStream(file);
 					}

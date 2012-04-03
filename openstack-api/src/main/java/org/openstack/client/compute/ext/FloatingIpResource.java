@@ -7,16 +7,16 @@ import org.openstack.model.compute.FloatingIp;
  * Keypair Support
  * 
  * @author sp
- *
+ * 
  */
 public class FloatingIpResource extends Resource {
 
 	public FloatingIp show() {
-		return resource().get(FloatingIp.class);	
+		return resource().get(FloatingIp.class);
 	}
-	
+
 	public void delete() {
-		 resource().delete();	
+		resource().delete();
 	}
 
 }

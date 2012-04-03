@@ -6,15 +6,13 @@ import java.util.logging.Logger;
 
 import javax.ws.rs.core.MediaType;
 
-import org.openstack.client.OpenstackException;
 import org.openstack.client.OpenstackAuthenticationException;
+import org.openstack.client.OpenstackException;
 import org.openstack.client.OpenstackForbiddenException;
 import org.openstack.client.OpenstackNotFoundException;
 import org.openstack.model.compute.BadRequest;
 import org.openstack.model.compute.ItemNotFound;
 import org.openstack.utils.Io;
-
-import com.google.common.base.Objects;
 
 public class ExceptionMapping {
 	static final Logger log = Logger.getLogger(ExceptionMapping.class.getName());

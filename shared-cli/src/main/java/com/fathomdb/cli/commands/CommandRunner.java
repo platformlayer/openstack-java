@@ -7,15 +7,15 @@ import com.fathomdb.cli.CliContext;
 import com.fathomdb.cli.autocomplete.AutoCompletor;
 
 public interface CommandRunner {
-    CommandRunner clone(CliContext context);
+	CommandRunner clone(CliContext context);
 
-    Object runCommand() throws Exception;
+	Object runCommand() throws Exception;
 
-    List<CommandSpecifier> getHandledComands();
+	List<CommandSpecifier> getHandledComands();
 
-    void parseArguments(List<String> args) throws Exception;
+	void parseArguments(List<String> args) throws Exception;
 
-    void formatRaw(Object o, PrintWriter writer);
+	void formatRaw(Object o, PrintWriter writer);
 
-    AutoCompletor getAutoCompleter();
+	AutoCompletor getAutoCompleter();
 }

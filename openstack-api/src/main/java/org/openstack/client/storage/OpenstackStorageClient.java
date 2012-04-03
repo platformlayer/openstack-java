@@ -34,23 +34,26 @@ public class OpenstackStorageClient {
 	public OpenstackSession getSession() {
 		return session;
 	}
-	
-	public ObjectProperties putObject(String containerName, String objectName, File file) throws OpenstackException, IOException {
+
+	public ObjectProperties putObject(String containerName, String objectName, File file) throws OpenstackException,
+			IOException {
 		ObjectProperties properties = new ObjectProperties();
 		properties.setName(objectName);
 		return root().containers().id(containerName).objects().putObject(file, properties);
 	}
 
-	public ObjectProperties putObject(String containerName, String objectName, byte[] data) throws OpenstackException, IOException {
+	public ObjectProperties putObject(String containerName, String objectName, byte[] data) throws OpenstackException,
+			IOException {
 		return putObject(containerName, objectName, new ByteArrayInputStream(data), data.length);
 	}
-	
-	public ObjectProperties putObject(String containerName, String objectName, InputStream objectData, long contentLength) throws OpenstackException, IOException {
+
+	public ObjectProperties putObject(String containerName, String objectName, InputStream objectData,
+			long contentLength) throws OpenstackException, IOException {
 		ObjectProperties properties = new ObjectProperties();
 		properties.setName(objectName);
 		return root().containers().id(containerName).objects().putObject(objectData, contentLength, properties);
 	}
-	
+
 	public ObjectProperties getObject(String containerName, String objectName, File destFile) throws IOException {
 		ObjectResource objectResource = buildObjectResource(containerName, objectName);
 
@@ -63,7 +66,7 @@ public class OpenstackStorageClient {
 		} finally {
 			Io.safeClose(objectStream);
 		}
-		
+
 		return metadata;
 	}
 

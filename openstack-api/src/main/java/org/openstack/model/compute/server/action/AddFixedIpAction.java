@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="addFixedIp")
+@XmlRootElement(name = "addFixedIp")
 @XmlAccessorType(XmlAccessType.NONE)
 public class AddFixedIpAction implements Serializable {
 
@@ -21,5 +21,5 @@ public class AddFixedIpAction implements Serializable {
 	public void setNetworkId(String networkId) {
 		this.networkId = networkId;
 	}
-	
+
 }

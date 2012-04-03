@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlValue;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-@XmlRootElement(name="output", namespace="")
+@XmlRootElement(name = "output", namespace = "")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Output implements Serializable {
 
@@ -24,5 +24,5 @@ public class Output implements Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 }

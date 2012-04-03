@@ -11,20 +11,20 @@ import com.google.common.collect.Maps;
 
 public class GlanceImageFormatter extends SimpleFormatter<Image> {
 
-    public GlanceImageFormatter() {
-        super(Image.class);
-    }
+	public GlanceImageFormatter() {
+		super(Image.class);
+	}
 
-    @Override
-    public void visit(Image o, OutputSink sink) throws IOException {
-        LinkedHashMap<String, Object> values = Maps.newLinkedHashMap();
+	@Override
+	public void visit(Image o, OutputSink sink) throws IOException {
+		LinkedHashMap<String, Object> values = Maps.newLinkedHashMap();
 
-        values.put("id", o.getId());
-        values.put("name", o.getName());
-        values.put("diskFormat", o.getDiskFormat());
-        values.put("containerFormat", o.getContainerFormat());
-        values.put("size", o.getSize());
+		values.put("id", o.getId());
+		values.put("name", o.getName());
+		values.put("diskFormat", o.getDiskFormat());
+		values.put("containerFormat", o.getContainerFormat());
+		values.put("size", o.getSize());
 
-        sink.outputRow(values);
-    }
+		sink.outputRow(values);
+	}
 }

@@ -18,7 +18,7 @@ public class StorageObject {
 	@XmlElement
 	private Long bytes;
 
-	@XmlElement(name="content_type")
+	@XmlElement(name = "content_type")
 	private String contentType;
 
 	@XmlElement(name = "last_modified")

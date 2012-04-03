@@ -7,7 +7,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -39,8 +38,9 @@ public class KeyPairList implements Serializable, Iterable<KeyPair> {
 	}
 
 	public List<KeyPairListItem> getList() {
-		if (list == null)
+		if (list == null) {
 			list = Lists.newArrayList();
+		}
 		return list;
 	}
 

@@ -13,81 +13,80 @@ import com.google.common.collect.Lists;
 @XmlAccessorType(XmlAccessType.NONE)
 public class Addresses implements Serializable {
 
-    @XmlAccessorType(XmlAccessType.NONE)
-    public static class Network implements Serializable {
+	@XmlAccessorType(XmlAccessType.NONE)
+	public static class Network implements Serializable {
 
-        @XmlAccessorType(XmlAccessType.NONE)
-        public static class Ip implements Serializable {
+		@XmlAccessorType(XmlAccessType.NONE)
+		public static class Ip implements Serializable {
 
-            @XmlAttribute
-            private String version;
+			@XmlAttribute
+			private String version;
 
-            @XmlAttribute
-            private String addr;
+			@XmlAttribute
+			private String addr;
 
-            public String getVersion() {
-                return version;
-            }
+			public String getVersion() {
+				return version;
+			}
 
-            public void setVersion(String version) {
-                this.version = version;
-            }
+			public void setVersion(String version) {
+				this.version = version;
+			}
 
-            public String getAddr() {
-                return addr;
-            }
+			public String getAddr() {
+				return addr;
+			}
 
-            public void setAddr(String addr) {
-                this.addr = addr;
-            }
+			public void setAddr(String addr) {
+				this.addr = addr;
+			}
 
-            @Override
-            public String toString() {
-                return "Ip [version=" + version + ", addr=" + addr + "]";
-            }
+			@Override
+			public String toString() {
+				return "Ip [version=" + version + ", addr=" + addr + "]";
+			}
 
-        }
+		}
 
-        @XmlAttribute
-        private String id;
+		@XmlAttribute
+		private String id;
 
-        @XmlElement(name = "ip")
-        private List<Ip> ips;
+		@XmlElement(name = "ip")
+		private List<Ip> ips;
 
-        public String getId() {
-            return id;
-        }
+		public String getId() {
+			return id;
+		}
 
-        public void setId(String id) {
-            this.id = id;
-        }
+		public void setId(String id) {
+			this.id = id;
+		}
 
-        public List<Ip> getIps() {
-        	if (ips == null) {
-        		ips = Lists.newArrayList();
-        	}
-            return ips;
-        }
+		public List<Ip> getIps() {
+			if (ips == null) {
+				ips = Lists.newArrayList();
+			}
+			return ips;
+		}
 
-        public void setIps(List<Ip> ips) {
-            this.ips = ips;
-        }
+		public void setIps(List<Ip> ips) {
+			this.ips = ips;
+		}
 
-        @Override
-        public String toString() {
-            return "Network [id=" + id + ", ips=" + ips + "]";
-        }
+		@Override
+		public String toString() {
+			return "Network [id=" + id + ", ips=" + ips + "]";
+		}
 
-    }
+	}
 
-    
-    @XmlElement(name = "network")
-    private List<Network> networks;
+	@XmlElement(name = "network")
+	private List<Network> networks;
 
-    @Override
-    public String toString() {
-        return "Addresses [networks=" + networks + "]";
-    }
+	@Override
+	public String toString() {
+		return "Addresses [networks=" + networks + "]";
+	}
 
 	public List<Network> getNetworks() {
 		if (networks == null) {

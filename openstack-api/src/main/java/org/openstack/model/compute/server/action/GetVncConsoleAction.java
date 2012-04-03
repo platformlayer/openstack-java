@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="os-getVNCConsole")
+@XmlRootElement(name = "os-getVNCConsole")
 @XmlAccessorType(XmlAccessType.NONE)
 public class GetVncConsoleAction implements Serializable {
 
@@ -15,9 +15,9 @@ public class GetVncConsoleAction implements Serializable {
 	 * 'xvpvnc' for XVP-like vnc clients
 	 * 
 	 * 'novnc' for HTML5 websockets
-	 *
+	 * 
 	 */
-	@XmlElement(required=true)
+	@XmlElement(required = true)
 	private String type;
 
 	public String getType() {
@@ -27,7 +27,5 @@ public class GetVncConsoleAction implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
-	
+
 }

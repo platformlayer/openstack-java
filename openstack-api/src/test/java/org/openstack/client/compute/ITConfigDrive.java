@@ -1,7 +1,6 @@
 package org.openstack.client.compute;
 
 import java.io.File;
-import java.util.UUID;
 
 import org.openstack.client.common.OpenstackComputeClient;
 import org.openstack.model.compute.Flavor;
@@ -20,7 +19,7 @@ public class ITConfigDrive extends ComputeApiTest {
 	public void testCreateAndDeleteServer() throws Exception {
 		OpenstackComputeClient nova = getComputeClient();
 
-		//Image image = getUecImage();
+		// Image image = getUecImage();
 		Image image = findImageByName("DebianSqueeze_20120226");
 		if (image == null) {
 			throw new SkipException("Cannot find image for test");

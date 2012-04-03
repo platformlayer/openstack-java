@@ -10,11 +10,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.openstack.model.common.ListWithAtomLinks;
 
-@XmlRootElement(name="consoles", namespace="")
+@XmlRootElement(name = "consoles", namespace = "")
 @XmlAccessorType(XmlAccessType.NONE)
 public class ConsoleList extends ListWithAtomLinks {
 
-	@XmlElement(name="console", namespace="")
+	@XmlElement(name = "console", namespace = "")
 	private List<Console> list = new ArrayList<Console>();
 
 	public List<Console> getList() {
@@ -24,5 +24,5 @@ public class ConsoleList extends ListWithAtomLinks {
 	public void setList(List<Console> list) {
 		this.list = list;
 	}
-	
+
 }

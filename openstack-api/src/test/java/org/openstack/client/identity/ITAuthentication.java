@@ -46,15 +46,15 @@ public class ITAuthentication extends KeystoneIntegrationTest {
 
 		// Check it still works
 		List<Flavor> flavors2 = Lists.newArrayList(session2.getComputeClient().root().flavors().list());
-		
+
 		sortFlavors(flavors1);
 		sortFlavors(flavors2);
-		
+
 		Assert.assertEquals(flavors1.size(), flavors2.size());
 		for (int i = 0; i < flavors1.size(); i++) {
 			Flavor flavor1 = flavors1.get(i);
 			Flavor flavor2 = flavors2.get(i);
-			
+
 			Assert.assertEquals(flavor1.getId(), flavor2.getId());
 		}
 	}

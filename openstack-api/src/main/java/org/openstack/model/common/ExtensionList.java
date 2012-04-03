@@ -14,18 +14,18 @@ import com.google.common.collect.Lists;
 @XmlAccessorType(XmlAccessType.NONE)
 public class ExtensionList implements Iterable<Extension> {
 
-    @XmlElement(name = "extension")
-    private List<Extension> list;
+	@XmlElement(name = "extension")
+	private List<Extension> list;
 
-    public List<Extension> getList() {
-        if (list == null) {
-            list = Lists.newArrayList();
-        }
-        return list;
-    }
+	public List<Extension> getList() {
+		if (list == null) {
+			list = Lists.newArrayList();
+		}
+		return list;
+	}
 
-    @Override
-    public Iterator<Extension> iterator() {
-        return list.iterator();
-    }
+	@Override
+	public Iterator<Extension> iterator() {
+		return list.iterator();
+	}
 }

@@ -1,7 +1,6 @@
 package org.openstack.model.compute;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,52 +17,52 @@ import com.google.common.collect.Lists;
 @XmlAccessorType(XmlAccessType.NONE)
 public class Metadata implements Serializable, Iterable<Metadata.Item> {
 
-    @XmlAccessorType(XmlAccessType.NONE)
-    public static final class Item implements Serializable {
+	@XmlAccessorType(XmlAccessType.NONE)
+	public static final class Item implements Serializable {
 
-        @XmlAttribute
-        private String key;
+		@XmlAttribute
+		private String key;
 
-        @XmlValue
-        private String value;
+		@XmlValue
+		private String value;
 
-        public String getKey() {
-            return key;
-        }
+		public String getKey() {
+			return key;
+		}
 
-        public void setKey(String key) {
-            this.key = key;
-        }
+		public void setKey(String key) {
+			this.key = key;
+		}
 
-        public String getValue() {
-            return value;
-        }
+		public String getValue() {
+			return value;
+		}
 
-        public void setValue(String value) {
-            this.value = value;
-        }
+		public void setValue(String value) {
+			this.value = value;
+		}
 
-        public Item() {
+		public Item() {
 
-        }
+		}
 
-        public Item(String key, String value) {
-            super();
-            this.key = key;
-            this.value = value;
-        }
+		public Item(String key, String value) {
+			super();
+			this.key = key;
+			this.value = value;
+		}
 
-    }
+	}
 
-    @XmlElement(name = "item")
-    private List<Item> items;
+	@XmlElement(name = "item")
+	private List<Item> items;
 
-    public List<Item> getItems() {
-    	if (items == null) {
-    		items = Lists.newArrayList();
-    	}
-        return items;
-    }
+	public List<Item> getItems() {
+		if (items == null) {
+			items = Lists.newArrayList();
+		}
+		return items;
+	}
 
 	@Override
 	public Iterator<Item> iterator() {

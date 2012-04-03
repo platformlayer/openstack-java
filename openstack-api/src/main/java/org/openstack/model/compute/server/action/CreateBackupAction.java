@@ -7,23 +7,22 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.ws.Action;
 
 import org.openstack.model.compute.Metadata;
 
-@XmlRootElement(name="createBackup")
+@XmlRootElement(name = "createBackup")
 @XmlAccessorType(XmlAccessType.NONE)
 public class CreateBackupAction implements Serializable {
 
 	@XmlAttribute
 	private String name;
-	
-	@XmlAttribute(name="backup_type")
+
+	@XmlAttribute(name = "backup_type")
 	private String type;
-	
+
 	@XmlAttribute
 	private String rotation;
-	
+
 	@XmlElement
 	private Metadata metadata;
 
@@ -61,8 +60,8 @@ public class CreateBackupAction implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CreateBackupAction [name=" + name + ", type=" + type
-				+ ", rotation=" + rotation + ", metadata=" + metadata + "]";
+		return "CreateBackupAction [name=" + name + ", type=" + type + ", rotation=" + rotation + ", metadata="
+				+ metadata + "]";
 	}
-	
+
 }

@@ -11,7 +11,7 @@ import org.openstack.model.compute.VolumeList;
  * 
  */
 public class VolumesResource extends Resource {
-	
+
 	/**
 	 * Returns the list of volume types
 	 * 
@@ -28,9 +28,9 @@ public class VolumesResource extends Resource {
 	 * @param flavor
 	 * @return
 	 */
-//	public Volume create(Volume volume) {
-//		return null;
-//	}
+	// public Volume create(Volume volume) {
+	// return null;
+	// }
 
 	public VolumeResource volume(String id) {
 		return buildChildResource(id, VolumeResource.class);

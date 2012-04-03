@@ -11,16 +11,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
 public class Tenant implements Serializable {
-	
+
 	@XmlAttribute
 	private String id;
-	
+
 	@XmlAttribute
 	private String name;
-	
+
 	@XmlAttribute
 	private boolean enabled;
-	
+
 	@XmlElement
 	private String description;
 
@@ -58,9 +58,7 @@ public class Tenant implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Tenant [id=" + id + ", name=" + name + ", enabled=" + enabled
-				+ ", description=" + description + "]";
+		return "Tenant [id=" + id + ", name=" + name + ", enabled=" + enabled + ", description=" + description + "]";
 	}
-	
-}
 
+}

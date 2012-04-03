@@ -17,16 +17,16 @@ import org.openstack.utils.Io;
 
 public class ImagesResource extends GlanceResourceBase {
 
-    public Iterable<Image> list() {
-        return list(true);
-    }
+	public Iterable<Image> list() {
+		return list(true);
+	}
 
-    public Iterable<Image> list(boolean details) {
-        RequestBuilder imagesResource = details ? resource("detail") : resource();
+	public Iterable<Image> list(boolean details) {
+		RequestBuilder imagesResource = details ? resource("detail") : resource();
 
-         ImageList page = imagesResource.get(ImageList.class);
-         return new SimplePagingList<Image>(session, page);
-    }
+		ImageList page = imagesResource.get(ImageList.class);
+		return new SimplePagingList<Image>(session, page);
+	}
 
 	public ImageResource image(String imageId) {
 		return buildChildResource(imageId, ImageResource.class);

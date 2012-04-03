@@ -8,35 +8,37 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 public class PropertyUtils {
-    public static Properties loadProperties(File file) throws IOException {
-        Properties properties = new Properties();
-        FileInputStream is = new FileInputStream(file);
-        try {
-            properties.load(is);
-        } finally {
-            Io.safeClose(is);
-        }
-        return properties;
-    }
+	public static Properties loadProperties(File file) throws IOException {
+		Properties properties = new Properties();
+		FileInputStream is = new FileInputStream(file);
+		try {
+			properties.load(is);
+		} finally {
+			Io.safeClose(is);
+		}
+		return properties;
+	}
 
-    public static Properties getChildProperties(Properties base, String prefix) {
-        Properties children = new Properties();
+	public static Properties getChildProperties(Properties base, String prefix) {
+		Properties children = new Properties();
 
-        for (Map.Entry<Object, Object> entry : base.entrySet()) {
-            Object keyObject = entry.getKey();
-            if (!(keyObject instanceof String))
-                continue;
+		for (Map.Entry<Object, Object> entry : base.entrySet()) {
+			Object keyObject = entry.getKey();
+			if (!(keyObject instanceof String)) {
+				continue;
+			}
 
-            String key = (String) keyObject;
-            if (!key.startsWith(prefix))
-                continue;
+			String key = (String) keyObject;
+			if (!key.startsWith(prefix)) {
+				continue;
+			}
 
-            String suffix = key.substring(prefix.length());
-            children.put(suffix, entry.getValue());
-        }
+			String suffix = key.substring(prefix.length());
+			children.put(suffix, entry.getValue());
+		}
 
-        return children;
-    }
+		return children;
+	}
 
 	public static void copyToMap(Properties properties, Map<String, String> dest) {
 		for (Entry<Object, Object> entry : properties.entrySet()) {
