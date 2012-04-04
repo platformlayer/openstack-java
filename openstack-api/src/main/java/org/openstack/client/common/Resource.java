@@ -91,15 +91,18 @@ public class Resource {
 			throw new IllegalStateException("Error creating resource instance", e);
 		}
 
-		// TODO: Make this encoding less of a hack
-		String encoded = relativePath;
-		encoded = URLEncoder.encode(encoded);
-		encoded = encoded.replace("+", "%20");
-		encoded = encoded.replace("%2F", "/");
+		String encoded = encodeForUrl(relativePath);
 
 		String childResourcePath = UrlUtils.join(resource, encoded);
 		instance.initialize(session, childResourcePath);
 		return instance;
 	}
 
+	public static final String encodeForUrl(String s) {
+		// TODO: Make this encoding less of a hack
+		String encoded = URLEncoder.encode(s);
+		encoded = encoded.replace("+", "%20");
+		encoded = encoded.replace("%2F", "/");
+		return encoded;
+	}
 }

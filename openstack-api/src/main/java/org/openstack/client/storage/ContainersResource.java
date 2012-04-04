@@ -37,7 +37,7 @@ public class ContainersResource extends StorageResourceBase {
 
 	public void create(String containerName) {
 		// Should return 202
-		resource(containerName).put();
+		resource(encodeForUrl(containerName)).put();
 	}
 
 }

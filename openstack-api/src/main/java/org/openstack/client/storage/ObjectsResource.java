@@ -99,7 +99,8 @@ public class ObjectsResource extends StorageResourceBase {
 			throw new IllegalArgumentException("Must set name");
 		}
 
-		RequestBuilder builder = resource(name, MediaType.APPLICATION_OCTET_STREAM_TYPE);
+		String encoded = encodeForUrl(name);
+		RequestBuilder builder = resource(encoded, MediaType.APPLICATION_OCTET_STREAM_TYPE);
 
 		if (properties.getContentType() != null) {
 			MediaType contentType = MediaType.valueOf(properties.getContentType());
