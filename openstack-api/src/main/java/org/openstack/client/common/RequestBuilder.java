@@ -55,6 +55,11 @@ public abstract class RequestBuilder {
 		return this;
 	}
 
+    public RequestBuilder clearContentType() {
+        this.contentType = null;
+        return this;
+    }
+
 	public RequestBuilder setContentType(MediaType contentType) {
 		if (this.contentType != null) {
 			if (this.contentType.equals(contentType)) {

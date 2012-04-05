@@ -4,9 +4,9 @@ import java.util.Map;
 
 import org.openstack.client.OpenstackService;
 import org.openstack.client.compute.TenantResource;
-import org.openstack.client.extensions.Extension;
 import org.openstack.client.imagestore.GlanceRootResource;
 import org.openstack.client.storage.OpenstackStorageClient;
+import org.openstack.model.common.Extension;
 import org.openstack.model.compute.Flavor;
 import org.openstack.model.compute.FloatingIp;
 import org.openstack.model.compute.Image;
@@ -41,6 +41,7 @@ public class DirectOpenstackService implements OpenstackService {
 
 	@Override
 	public <T> Iterable<T> listItems(Class<T> itemClass, boolean details) {
+	    // TODO: Yuk...
 		if (itemClass == Server.class) {
 			return (Iterable<T>) computeRoot().servers().list(details);
 		}

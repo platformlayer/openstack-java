@@ -8,12 +8,14 @@ import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
 import org.openstack.client.common.ObjectMapperProvider;
 import org.openstack.client.imagestore.KnownLengthInputStreamProvider;
 import org.openstack.client.internals.OpenstackSerializationModule;
+import org.openstack.client.ssl.SSL;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
+import com.sun.jersey.client.urlconnection.HTTPSProperties;
 
 final class Jersey1Client {
 
@@ -24,6 +26,8 @@ final class Jersey1Client {
 	private Jersey1Client() {
 		ClientConfig config = new DefaultClientConfig();
 
+		config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES, new HTTPSProperties(SSL.getHostnameVerifier(), SSL.getContext()));
+		
 		config.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 
 		ObjectMapper objectMapper = buildObjectMapper();

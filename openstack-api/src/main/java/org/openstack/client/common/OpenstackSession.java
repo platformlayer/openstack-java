@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import javax.ws.rs.core.MediaType;
 
+import org.openstack.client.CloudCapabilities;
 import org.openstack.client.OpenstackCredentials;
 import org.openstack.client.OpenstackException;
 import org.openstack.client.storage.OpenstackStorageClient;
@@ -63,6 +64,8 @@ public abstract class OpenstackSession implements Serializable {
 
 	private OpenstackCredentials credentials;
 
+	transient CloudCapabilities capabilities;
+	
 	public OpenstackSession() {
 
 		// calculate the bitmap
@@ -362,4 +365,11 @@ public abstract class OpenstackSession implements Serializable {
 	public Access getAccess() {
 		return access;
 	}
+
+    public CloudCapabilities getCapabilities() {
+        if (capabilities == null) {
+            capabilities = new CloudCapabilities(this);
+        }
+        return capabilities;
+    }
 }

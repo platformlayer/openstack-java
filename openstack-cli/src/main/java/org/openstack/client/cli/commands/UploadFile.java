@@ -11,47 +11,46 @@ import org.openstack.model.storage.ObjectProperties;
 import org.openstack.utils.NoCloseInputStream;
 
 public class UploadFile extends OpenstackCliCommandRunnerBase {
-	@Argument(index = 0)
-	public StoragePath path;
+    @Argument(index = 0)
+    public StoragePath path;
 
-	@Argument(index = 1, multiValued = true)
-	public List<String> properties;
+    @Argument(index = 1, multiValued = true)
+    public List<String> properties;
 
-	public UploadFile() {
-		super("upload", "file");
-	}
+    public UploadFile() {
+        super("upload", "file");
+    }
 
-	@Override
-	public Object runCommand() throws Exception {
-		OpenstackStorageClient client = getStorageClient();
+    @Override
+    public Object runCommand() throws Exception {
+        OpenstackStorageClient client = getStorageClient();
 
-		String[] tokens = path.getKey().split("/");
-		if (tokens.length != 2) {
-			throw new IllegalArgumentException("Cannot parse: " + path.getKey());
-		}
-		ObjectsResource objects = client.root().containers().id(tokens[0]).objects();
+        String containerName = path.getContainer();
+        String objectPath = path.getObjectPath();
 
-		ObjectProperties objectProperties = new ObjectProperties();
-		objectProperties.setName(tokens[1]);
+        ObjectsResource objects = client.root().containers().id(containerName).objects();
 
-		if (properties != null) {
-			for (String property : properties) {
-				int equalsIndex = property.indexOf('=');
-				if (equalsIndex == -1) {
-					throw new IllegalArgumentException("Can't parse: " + property);
-				}
+        ObjectProperties objectProperties = new ObjectProperties();
+        objectProperties.setName(objectPath);
 
-				String key = property.substring(0, equalsIndex);
-				String value = property.substring(equalsIndex + 1);
+        if (properties != null) {
+            for (String property : properties) {
+                int equalsIndex = property.indexOf('=');
+                if (equalsIndex == -1) {
+                    throw new IllegalArgumentException("Can't parse: " + property);
+                }
 
-				objectProperties.getCustomProperties().put(key, value);
-			}
-		}
+                String key = property.substring(0, equalsIndex);
+                String value = property.substring(equalsIndex + 1);
 
-		// This command will probably be faster _not_ in nailgun mode
-		InputStream stream = new NoCloseInputStream(System.in);
-		objects.putObject(stream, -1, objectProperties);
+                objectProperties.getCustomProperties().put(key, value);
+            }
+        }
 
-		return path.getKey();
-	}
+        // This command will probably be faster _not_ in nailgun mode
+        InputStream stream = new NoCloseInputStream(System.in);
+        objects.putObject(stream, -1, objectProperties);
+
+        return path.getKey();
+    }
 }

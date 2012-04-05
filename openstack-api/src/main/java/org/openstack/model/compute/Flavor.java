@@ -16,7 +16,15 @@ import org.openstack.model.atom.Link;
 @XmlAccessorType(XmlAccessType.NONE)
 public class Flavor implements Serializable {
 
-	@XmlAttribute
+	public static class DefaultNames {
+        public static final String M1_TINY = "m1.tiny";
+        public static final String M1_SMALL = "m1.small";
+        public static final String M1_MEDIUM = "m1.medium";
+        public static final String M1_LARGE = "m1.large";
+        public static final String M1_XLARGE = "m1.xlargs";
+	}
+
+    @XmlAttribute
 	private String id;
 
 	@XmlAttribute

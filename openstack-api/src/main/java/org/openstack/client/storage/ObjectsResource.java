@@ -105,6 +105,8 @@ public class ObjectsResource extends StorageResourceBase {
 		if (properties.getContentType() != null) {
 			MediaType contentType = MediaType.valueOf(properties.getContentType());
 			builder.setContentType(contentType);
+		} else {
+		    builder.clearContentType();
 		}
 
 		builder = SwiftHeaderUtils.setHeadersForProperties(builder, properties);
