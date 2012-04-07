@@ -1,10 +1,15 @@
 package org.openstack.model.common;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.openstack.model.atom.Link;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
@@ -23,6 +28,10 @@ public class Extension {
 
 	@XmlElement
 	private String description;
+
+	@XmlElementWrapper(name = "links")
+	@XmlElement(name = "link", namespace = "http://www.w3.org/2005/Atom")
+	private List<Link> links;
 
 	public String getAlias() {
 		return alias;

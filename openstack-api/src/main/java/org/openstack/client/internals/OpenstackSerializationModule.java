@@ -2,6 +2,7 @@ package org.openstack.client.internals;
 
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.module.SimpleModule;
+import org.openstack.model.common.ExtensionList;
 import org.openstack.model.compute.Addresses;
 import org.openstack.model.compute.BadRequest;
 import org.openstack.model.compute.SecurityGroup;
@@ -15,6 +16,9 @@ public class OpenstackSerializationModule extends SimpleModule {
 		super(OpenstackSerializationModule.class.getName(), new Version(1, 0, 0, null));
 		addSerializer(Addresses.class, new AddressesSerializer());
 		addDeserializer(Addresses.class, new AddressesDeserializer());
+
+		// Common
+		installSmartDeserializer(ExtensionList.class);
 
 		// Compute
 		installSmartDeserializer(SecurityGroup.class);
