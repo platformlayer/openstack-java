@@ -1,14 +1,10 @@
 #!/bin/bash
 
-PRG="$0"
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
-while [ -h "$PRG" ] ; do
-   PRG=`readlink "$PRG"`
-done
-
-pushd `dirname $PRG` > /dev/null
-BASEDIR=`pwd`
-popd > /dev/null
+BASE_DIR=${SCRIPT_DIR}/../
 
 DEFAULT_FORMAT=""
 
@@ -82,7 +78,7 @@ if [[ "${USE_NAILGUN}" == "1" ]]; then
 	if ! builtin type -p ${NAILGUN} &>/dev/null; then
 		NAILGUN=ng
 		if ! builtin type -p ${NAILGUN} &>/dev/null; then
-			NAILGUN=${BASEDIR}/../nailgun/ng
+			NAILGUN=${BASE_DIR}/../nailgun/ng
 			if ! builtin type -p ${NAILGUN} &>/dev/null; then
 				echo "${NAILGUN} not found; try sudo apt-get install nailgun"
 				exit 1
@@ -109,7 +105,7 @@ if [[ "${USE_NAILGUN}" == "1" ]]; then
 	cmd=(${NAILGUN} org.openstack.client.cli.OpenstackCli)
 	args=(--format "${FORMAT}" --config -)
 else
-	cmd=(java -jar ${BASEDIR}/openstack-cli-standalone.jar)
+	cmd=(java -jar ${SCRIPT_DIR}/openstack-cli-standalone.jar)
 	args=(--format "${FORMAT}" --config "${CONFIG_FILE}")
 fi
 
