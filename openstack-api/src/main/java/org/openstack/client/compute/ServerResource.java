@@ -30,6 +30,7 @@ import org.openstack.model.compute.server.action.MigrateAction;
 import org.openstack.model.compute.server.action.Output;
 import org.openstack.model.compute.server.action.PauseAction;
 import org.openstack.model.compute.server.action.RebootAction;
+import org.openstack.model.compute.server.action.RebootAction.RebootType;
 import org.openstack.model.compute.server.action.RebuildAction;
 import org.openstack.model.compute.server.action.RemoveFixedIpAction;
 import org.openstack.model.compute.server.action.RemoveFloatingIpAction;
@@ -155,8 +156,9 @@ public class ServerResource extends ComputeResourceBase {
 	 * @param type
 	 *            either REBOOT_SOFT for a software-level reboot, or REBOOT_HARD for a virtual power cycle hard reboot.
 	 */
-	public void reboot(String type) {
+	public void reboot(RebootType type) {
 		RebootAction rebootAction = new RebootAction();
+		rebootAction.setType(type);
 		executeAction(String.class, rebootAction);
 	}
 
