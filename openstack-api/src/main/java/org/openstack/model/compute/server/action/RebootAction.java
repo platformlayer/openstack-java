@@ -11,14 +11,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.NONE)
 public class RebootAction implements Serializable {
 
-	@XmlAttribute(required = true)
-	private String type;
+    public enum RebootType {
+        SOFT, HARD
+    }
 
-	public String getType() {
+	@XmlAttribute(required = true)
+	private RebootType type;
+
+	public RebootType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(RebootType type) {
 		this.type = type;
 	}
 
