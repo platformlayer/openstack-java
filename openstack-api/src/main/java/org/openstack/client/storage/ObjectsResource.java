@@ -14,6 +14,7 @@ import org.openstack.client.common.RequestBuilder;
 import org.openstack.client.imagestore.KnownLengthInputStream;
 import org.openstack.model.storage.ObjectProperties;
 import org.openstack.model.storage.StorageObject;
+import org.openstack.model.storage.StorageObjectList;
 import org.openstack.utils.Io;
 
 import com.google.common.base.Splitter;
@@ -27,6 +28,10 @@ public class ObjectsResource extends StorageResourceBase {
 	}
 
 	public Iterable<StorageObject> list(String prefix, String delimiter) {
+		return list(prefix, delimiter, true);
+	}
+
+	public Iterable<StorageObject> list(String prefix, String delimiter, boolean fetchMetadata) {
 		RequestBuilder requestBuilder = resource();
 
 		if (prefix != null) {
@@ -36,22 +41,31 @@ public class ObjectsResource extends StorageResourceBase {
 			requestBuilder.addQueryParameter("delimiter", delimiter);
 		}
 
-		requestBuilder.clearAcceptTypes();
-		requestBuilder.addAcceptType(MediaType.TEXT_PLAIN_TYPE);
+		if (fetchMetadata) {
+			requestBuilder.clearAcceptTypes();
+			requestBuilder.addAcceptType(MediaType.APPLICATION_JSON_TYPE);
 
-		String listing = requestBuilder.get(String.class);
-		List<StorageObject> list = Lists.newArrayList();
-		for (String line : Splitter.on("\n").split(listing)) {
-			if (line.isEmpty()) {
-				continue;
+			StorageObjectList storageObjectList = requestBuilder.get(StorageObjectList.class);
+
+			return storageObjectList.getObjects();
+		} else {
+			requestBuilder.clearAcceptTypes();
+			requestBuilder.addAcceptType(MediaType.TEXT_PLAIN_TYPE);
+
+			String listing = requestBuilder.get(String.class);
+			List<StorageObject> list = Lists.newArrayList();
+			for (String line : Splitter.on("\n").split(listing)) {
+				if (line.isEmpty()) {
+					continue;
+				}
+
+				StorageObject storageObject = new StorageObject();
+				storageObject.setName(line);
+				list.add(storageObject);
 			}
 
-			StorageObject storageObject = new StorageObject();
-			storageObject.setName(line);
-			list.add(storageObject);
+			return list;
 		}
-
-		return list;
 	}
 
 	public void addObject(File imageFile, ObjectProperties properties) throws IOException, OpenstackException {
