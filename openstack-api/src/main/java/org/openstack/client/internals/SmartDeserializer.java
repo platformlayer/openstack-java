@@ -10,19 +10,17 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.JsonToken;
 import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.deser.std.StdDeserializer;
 import org.openstack.client.internals.SimpleClassInfo.FieldInfo;
 
-import com.google.common.collect.Lists;
-
-public class SmartDeserializer<T> extends StdDeserializer<T> {
-	final Class<T> clazz;
-	private SimpleClassInfo classInfo;
+/**
+ * A JSON deserializer that can cope if an object is wrapped or not-wrapped
+ * 
+ * i.e.. { server: { } } or just { }
+ */
+public class SmartDeserializer<T> extends CustomDeserializer<T> {
 
 	public SmartDeserializer(Class<T> clazz) {
 		super(clazz);
-		this.clazz = clazz;
-		this.classInfo = SimpleClassInfo.get(clazz);
 	}
 
 	@Override
@@ -75,7 +73,8 @@ public class SmartDeserializer<T> extends StdDeserializer<T> {
 
 				if (fieldInfo.getCollectionItemType() != null) {
 					jp.nextToken();
-					List list = readArray(fieldInfo, jp, ctxt);
+					Class elementClass = fieldInfo.getCollectionItemType();
+					List list = readArray(elementClass, jp, ctxt);
 					fieldInfo.setValue(t, list);
 				} else {
 					jp.nextToken();
@@ -93,42 +92,6 @@ public class SmartDeserializer<T> extends StdDeserializer<T> {
 		}
 
 		return t;
-	}
-
-	private List readArray(FieldInfo fieldInfo, JsonParser jp, DeserializationContext ctxt)
-			throws JsonProcessingException, IOException {
-		Class elementClass = fieldInfo.getCollectionItemType();
-
-		List list = Lists.newArrayList();
-
-		JsonToken token = jp.getCurrentToken();
-		if (token != JsonToken.START_ARRAY) {
-			throw ctxt.wrongTokenException(jp, JsonToken.START_ARRAY, "Unexpected token");
-		}
-
-		while ((token = jp.nextToken()) != JsonToken.END_ARRAY) {
-			switch (token) {
-			case START_OBJECT:
-				Object o = jp.readValueAs(elementClass);
-				list.add(o);
-				break;
-
-			default:
-				throw ctxt.wrongTokenException(jp, JsonToken.START_OBJECT, "Unexpected token");
-			}
-		}
-
-		return list;
-	}
-
-	private static <T> T newInstance(Class<T> clazz) {
-		try {
-			return clazz.newInstance();
-		} catch (InstantiationException e) {
-			throw new IllegalStateException("Error building " + clazz, e);
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException("Error building " + clazz, e);
-		}
 	}
 
 }

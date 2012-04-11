@@ -1,9 +1,10 @@
 package org.openstack.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -19,7 +20,16 @@ public abstract class MessageDigestBase {
 		return hash;
 	}
 
-	public byte[] hash(InputStream is) throws IOException, DigestException {
+	public byte[] hash(File source) throws IOException {
+		FileInputStream fis = new FileInputStream(source);
+		try {
+			return hash(fis);
+		} finally {
+			Io.safeClose(fis);
+		}
+	}
+
+	public byte[] hash(InputStream is) throws IOException {
 		MessageDigest digest = buildDigest();
 
 		byte[] buffer = new byte[8192];

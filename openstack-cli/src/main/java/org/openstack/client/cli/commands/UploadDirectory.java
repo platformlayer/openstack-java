@@ -2,6 +2,8 @@ package org.openstack.client.cli.commands;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
 
 import org.kohsuke.args4j.Argument;
 import org.openstack.client.OpenstackException;
@@ -9,7 +11,12 @@ import org.openstack.client.cli.model.StoragePath;
 import org.openstack.client.storage.ObjectsResource;
 import org.openstack.client.storage.OpenstackStorageClient;
 import org.openstack.model.storage.ObjectProperties;
+import org.openstack.model.storage.StorageObject;
+import org.openstack.utils.Hex;
 import org.openstack.utils.Io;
+import org.openstack.utils.Md5Hash;
+
+import com.google.common.collect.Maps;
 
 public class UploadDirectory extends OpenstackCliCommandRunnerBase {
     @Argument(index = 0)
@@ -18,14 +25,26 @@ public class UploadDirectory extends OpenstackCliCommandRunnerBase {
     @Argument(index = 1)
     public StoragePath dest;
 
+    private Map<String, StorageObject> existing = Maps.newHashMap();
+
+    long uploaded = 0;
+    long unchanged = 0;
+    
     public UploadDirectory() {
         super("upload", "directory");
     }
 
     @Override
     public Object runCommand() throws Exception {
+        OpenstackStorageClient client = getStorageClient();
+
+        for (StorageObject object : client.listObjects(dest.getContainer(), dest.getObjectPath(), null)) {
+            String name = object.getName();
+            existing.put(name, object);
+        }
+
         uploadDirectory(Io.resolve(source), dest);
-        return "Done";
+        return "Uploaded: " + uploaded + " Unchanged=" + unchanged;
     }
 
     private void uploadDirectory(File source, StoragePath target) throws OpenstackException, IOException {
@@ -42,6 +61,15 @@ public class UploadDirectory extends OpenstackCliCommandRunnerBase {
     }
 
     private void uploadFile(File source, StoragePath target) throws OpenstackException, IOException {
+        StorageObject storageObject = existing.get(target.getObjectPath());
+        if (storageObject != null) {
+            if (isUnchanged(source, storageObject)) {
+                System.out.println("Unchanged: " + source);
+                unchanged += source.length();
+                return;
+            }
+        }
+
         OpenstackStorageClient client = getStorageClient();
 
         String containerName = target.getContainer();
@@ -54,6 +82,29 @@ public class UploadDirectory extends OpenstackCliCommandRunnerBase {
         objectProperties.setContentType(getContentType(source));
 
         objects.putObject(source, objectProperties);
+
+        System.out.println("Uploaded: " + source);
+        uploaded += source.length();
+    }
+
+    private boolean isUnchanged(File source, StorageObject storageObject) throws IOException {
+        if (storageObject.getHash() == null)
+            return false;
+
+        if (storageObject.getBytes() != source.length()) {
+            return false;
+        }
+
+        byte[] remoteHash = Hex.fromHex(storageObject.getHash());
+
+        Md5Hash hasher = new Md5Hash();
+        byte[] localHash = hasher.hash(source);
+
+        if (Arrays.equals(localHash, remoteHash)) {
+            return true;
+        }
+
+        return false;
     }
 
     private String getContentType(File file) {

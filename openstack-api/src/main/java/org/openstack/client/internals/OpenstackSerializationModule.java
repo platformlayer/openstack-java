@@ -8,6 +8,7 @@ import org.openstack.model.compute.SecurityGroup;
 import org.openstack.model.compute.SecurityGroupList;
 import org.openstack.model.compute.Server;
 import org.openstack.model.identity.Access;
+import org.openstack.model.storage.StorageObjectList;
 
 public class OpenstackSerializationModule extends SimpleModule {
 
@@ -24,6 +25,9 @@ public class OpenstackSerializationModule extends SimpleModule {
 
 		// Keystone (Redux)
 		installSmartDeserializer(Access.class);
+		
+		// Storagea
+		addDeserializer(StorageObjectList.class, new ArrayDeserializer<StorageObjectList>(StorageObjectList.class, "objects"));
 	}
 
 	private <T> void installSmartDeserializer(Class<T> c) {
