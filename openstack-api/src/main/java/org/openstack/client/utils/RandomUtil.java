@@ -2,6 +2,10 @@ package org.openstack.client.utils;
 
 import java.util.Random;
 
+/**
+ * Functions that generate random values; used mainly for unit tests, but used in multiple projects.
+ * 
+ */
 public class RandomUtil {
 	final Random random;
 

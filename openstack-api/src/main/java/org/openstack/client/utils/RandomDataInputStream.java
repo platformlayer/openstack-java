@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
+/**
+ * A stream of random data. More useful for unit tests, but we want to use this in multiple projects.
+ * 
+ */
 public class RandomDataInputStream extends InputStream implements Cloneable {
 	final int streamLength;
 	final long seed;
