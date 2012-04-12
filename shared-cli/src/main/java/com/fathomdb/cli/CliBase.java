@@ -10,6 +10,8 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.openstack.utils.Io;
 
+import com.fathomdb.cli.commands.CommandRegistry;
+import com.fathomdb.cli.commands.CommandRunner;
 import com.fathomdb.cli.output.OutputSink;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
@@ -76,12 +78,37 @@ public class CliBase {
 	private static int mainWithReturnCode(String[] args, boolean isServer) {
 		int retcode = 0;
 
+		CommandRegistry commandRegistry = handler.buildCommandRegistry();
+
+		int commandPosition = -1;
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i];
+			if (arg.startsWith("-")) {
+				continue;
+			}
+			CommandRunner commandRunner = commandRegistry.getCommandRunner(arg);
+			if (commandRunner != null) {
+				commandPosition = i;
+				break;
+			}
+		}
+
+		if (commandPosition == -1) {
+			System.err.println("Command not found / known.  Valid commands:");
+			for (String command : commandRegistry.listCommands()) {
+				System.err.println("\t" + command);
+			}
+			return 1;
+		}
+
 		CliOptions options = handler.buildOptionsBean();
 		options.setServerMode(isServer);
 
 		CmdLineParser parser = new CmdLineParser(options);
 		try {
-			parser.parseArgument(args);
+			List<String> systemArguments = Lists.newArrayList(args);
+			systemArguments = systemArguments.subList(0, commandPosition);
+			parser.parseArgument(systemArguments);
 		} catch (CmdLineException e) {
 			// Message is pre-formatted for us
 			printError(e.getMessage());
@@ -98,7 +125,7 @@ public class CliBase {
 		try {
 			CliContext context;
 			try {
-				context = handler.buildContext(options);
+				context = handler.buildContext(commandRegistry, options);
 			} catch (Exception e) {
 				printError("Error configuring context", e);
 				return 2;
@@ -134,8 +161,11 @@ public class CliBase {
 				System.exit(3);
 			}
 
-			if (!options.arguments.isEmpty()) {
-				if (!repl.runCommand(options.arguments)) {
+			List<String> commandArguments = Lists.newArrayList(args);
+			commandArguments = commandArguments.subList(commandPosition, commandArguments.size());
+
+			if (!commandArguments.isEmpty()) {
+				if (!repl.runCommand(commandArguments)) {
 					retcode = 1;
 				}
 			} else {

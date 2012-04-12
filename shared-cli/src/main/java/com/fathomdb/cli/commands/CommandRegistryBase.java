@@ -12,6 +12,7 @@ public class CommandRegistryBase implements CommandRegistry {
 
 	@Override
 	public CommandRunner getCommandRunner(String command) {
+		command = command.trim();
 		return registry.get(command.toLowerCase());
 	}
 

@@ -14,8 +14,9 @@ import com.fathomdb.cli.CliContextBase;
 public class OpenstackCliContext extends CliContextBase {
 	final ConfigurationOptions options;
 
-	public OpenstackCliContext(ConfigurationOptions options) throws IOException {
-		super(new OpenstackCliCommandRegistry(), new OpenstackCliFormatterRegistry());
+	public OpenstackCliContext(OpenstackCliCommandRegistry commandRegistry, ConfigurationOptions options)
+			throws IOException {
+		super(commandRegistry, new OpenstackCliFormatterRegistry());
 
 		this.options = options;
 	}

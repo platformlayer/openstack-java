@@ -8,6 +8,7 @@ import java.util.List;
 
 import jline.ConsoleReader;
 
+import org.kohsuke.args4j.CmdLineException;
 import org.openstack.utils.Io;
 import org.openstack.utils.Utf8;
 
@@ -18,13 +19,13 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
 class CliSimpleRepl implements Repl {
-	private static final String PROMPT = "platformlayer> ";
+	private static final String PROMPT = "> ";
 
 	private final CliContext context;
 	private final OutputSink outputSink;
 
-	private PrintWriter err;
-	private ConsoleReader reader;
+	private final PrintWriter err;
+	private final ConsoleReader reader;
 
 	public CliSimpleRepl(OutputSink outputSink, PrintWriter err, CliContext context) throws IOException {
 		this.outputSink = outputSink;
@@ -154,6 +155,10 @@ class CliSimpleRepl implements Repl {
 				commandRunner.parseArguments(args);
 			}
 			results = commandRunner.runCommand();
+		} catch (CmdLineException e) {
+			err.println(e.getMessage());
+			e.getParser().printUsage(err, null);
+			return false;
 		} catch (Exception e) {
 			err.println("Error running command: " + Joiner.on(" ").join(tokens));
 			e.printStackTrace(err);

@@ -1,6 +1,7 @@
 package org.openstack.client.cli;
 
 import org.kohsuke.args4j.CmdLineParser;
+import org.openstack.client.cli.commands.OpenstackCliCommandRegistry;
 import org.openstack.client.cli.model.ContainerName;
 import org.openstack.client.cli.model.FlavorName;
 import org.openstack.client.cli.model.GlanceImageName;
@@ -14,6 +15,7 @@ import com.fathomdb.cli.CliContext;
 import com.fathomdb.cli.CliHandler;
 import com.fathomdb.cli.CliOptions;
 import com.fathomdb.cli.StringWrapperOptionHandler;
+import com.fathomdb.cli.commands.CommandRegistry;
 import com.martiansoftware.nailgun.NGContext;
 
 public class OpenstackCli extends CliBase {
@@ -24,8 +26,14 @@ public class OpenstackCli extends CliBase {
 		}
 
 		@Override
-		public CliContext buildContext(CliOptions options) throws Exception {
-			return new OpenstackCliContext((ConfigurationOptions) options);
+		public CliContext buildContext(CommandRegistry commandRegistry, CliOptions options) throws Exception {
+			return new OpenstackCliContext((OpenstackCliCommandRegistry) commandRegistry,
+					(ConfigurationOptions) options);
+		}
+
+		@Override
+		public CommandRegistry buildCommandRegistry() {
+			return new OpenstackCliCommandRegistry();
 		}
 	}
 

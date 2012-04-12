@@ -60,7 +60,7 @@ if [[ "$1" == "run-vnc" ]]; then
 	DEFAULT_FORMAT="action"
 fi
 
-if [[ "$1" == "create-image" ]]; then
+if [[ "$1" == "create-image" || "$1" == "create-sshkey" ]]; then
 	USE_NAILGUN=0
 fi
 

@@ -1,6 +1,7 @@
 package org.openstack.client.cli.commands;
 
 import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.Option;
 import org.openstack.client.cli.OpenstackCliContext;
 import org.openstack.client.cli.model.FlavorName;
 import org.openstack.client.cli.model.ImageName;
@@ -9,14 +10,17 @@ import org.openstack.model.compute.Image;
 import org.openstack.model.compute.ServerForCreate;
 
 public class CreateInstance extends OpenstackCliCommandRunnerBase {
-	@Argument(index = 0)
+	@Argument(index = 0, usage = "Instance name")
 	public String instanceName;
 
-	@Argument(index = 1)
+	@Argument(index = 1, usage = "Image Name")
 	public ImageName imageName;
 
-	@Argument(index = 2)
+	@Argument(index = 2, usage = "Flavor Name")
 	public FlavorName flavorName;
+
+	@Option(name = "k", aliases = "--sshkey", usage = "SSH Key Name")
+	public String sshKey;
 
 	public CreateInstance() {
 		super("create", "instance");
@@ -42,6 +46,10 @@ public class CreateInstance extends OpenstackCliCommandRunnerBase {
 
 		serverForCreate.setImageRef(image.getId());
 		serverForCreate.setFlavorRef(flavorId);
+
+		if (sshKey != null) {
+			serverForCreate.setKeyName(sshKey);
+		}
 
 		return tenant.root().servers().create(serverForCreate);
 	}
