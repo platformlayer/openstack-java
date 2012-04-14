@@ -11,16 +11,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement()
 @XmlAccessorType(XmlAccessType.NONE)
 public class StorageObjectList {
-    @XmlElement
-    @XmlElementWrapper(name = "objects")
-    private List<StorageObject> objects;
+	@XmlElement
+	@XmlElementWrapper(name = "objects")
+	private List<StorageObject> objects;
 
-    public List<StorageObject> getObjects() {
-        return objects;
-    }
+	public List<StorageObject> getObjects() {
+		return objects;
+	}
 
-    public void setObjects(List<StorageObject> objects) {
-        this.objects = objects;
-    }
+	public void setObjects(List<StorageObject> objects) {
+		this.objects = objects;
+	}
 
 }

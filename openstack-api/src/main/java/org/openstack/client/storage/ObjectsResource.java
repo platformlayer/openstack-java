@@ -120,7 +120,7 @@ public class ObjectsResource extends StorageResourceBase {
 			MediaType contentType = MediaType.valueOf(properties.getContentType());
 			builder.setContentType(contentType);
 		} else {
-		    builder.clearContentType();
+			builder.clearContentType();
 		}
 
 		builder = SwiftHeaderUtils.setHeadersForProperties(builder, properties);

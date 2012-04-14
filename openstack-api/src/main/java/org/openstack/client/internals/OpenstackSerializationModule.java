@@ -29,9 +29,10 @@ public class OpenstackSerializationModule extends SimpleModule {
 
 		// Keystone (Redux)
 		installSmartDeserializer(Access.class);
-		
+
 		// Storagea
-		addDeserializer(StorageObjectList.class, new ArrayDeserializer<StorageObjectList>(StorageObjectList.class, "objects"));
+		addDeserializer(StorageObjectList.class, new ArrayDeserializer<StorageObjectList>(StorageObjectList.class,
+				"objects"));
 	}
 
 	private <T> void installSmartDeserializer(Class<T> c) {

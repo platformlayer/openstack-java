@@ -23,26 +23,23 @@ class SwiftHeaderUtils {
 	// http://code.google.com/p/guava-libraries/issues/detail?id=92
 	// That has taken 4 years to fix (sigh)
 	// Which means that someone shipped a patched version called sisu-guava,
-	//  but they didn't change the namespace (sigh)
+	// but they didn't change the namespace (sigh)
 	// And the signature changed so we get method-not-found errors at runtime (sigh)
 	// So we have to use the obsolete cache (sigh)
 	/*
-	static final LoadingCache<Class<?>, SimpleClassInfo> CLASS_INFO = CacheBuilder.newBuilder().build(
-			new CacheLoader<Class<?>, SimpleClassInfo>() {
+	 * static final LoadingCache<Class<?>, SimpleClassInfo> CLASS_INFO = CacheBuilder.newBuilder().build( new
+	 * CacheLoader<Class<?>, SimpleClassInfo>() {
+	 * 
+	 * @Override public SimpleClassInfo load(Class<?> c) throws Exception { return new SimpleClassInfo(c); } });
+	 */
+	static final ConcurrentMap<Class<?>, SimpleClassInfo> CLASS_INFO = new MapMaker()
+			.makeComputingMap(new Function<Class<?>, SimpleClassInfo>() {
 				@Override
-				public SimpleClassInfo load(Class<?> c) throws Exception {
+				public SimpleClassInfo apply(Class<?> c) {
 					return new SimpleClassInfo(c);
 				}
 			});
-	*/
-	static final ConcurrentMap<Class<?>, SimpleClassInfo> CLASS_INFO = new MapMaker().makeComputingMap(new Function<Class<?>, SimpleClassInfo>() {
-		@Override
-		public SimpleClassInfo apply(Class<?> c) {
-			return new SimpleClassInfo(c);
-		}
-	});
-			
-	
+
 	public static void unmarshalHeaders(HeadResponse response, Object properties, Map<String, String> customProperties,
 			String keyPrefix) {
 		for (Entry<String, List<String>> entry : response.getHeaders().entrySet()) {

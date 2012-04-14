@@ -19,116 +19,117 @@ import org.openstack.utils.Md5Hash;
 import com.google.common.collect.Maps;
 
 public class UploadDirectory extends OpenstackCliCommandRunnerBase {
-    @Argument(index = 0)
-    public String source;
+	@Argument(index = 0)
+	public String source;
 
-    @Argument(index = 1)
-    public StoragePath dest;
+	@Argument(index = 1)
+	public StoragePath dest;
 
-    private Map<String, StorageObject> existing = Maps.newHashMap();
+	private Map<String, StorageObject> existing = Maps.newHashMap();
 
-    long uploaded = 0;
-    long unchanged = 0;
-    
-    public UploadDirectory() {
-        super("upload", "directory");
-    }
+	long uploaded = 0;
+	long unchanged = 0;
 
-    @Override
-    public Object runCommand() throws Exception {
-        OpenstackStorageClient client = getStorageClient();
+	public UploadDirectory() {
+		super("upload", "directory");
+	}
 
-        for (StorageObject object : client.listObjects(dest.getContainer(), dest.getObjectPath(), null)) {
-            String name = object.getName();
-            existing.put(name, object);
-        }
+	@Override
+	public Object runCommand() throws Exception {
+		OpenstackStorageClient client = getStorageClient();
 
-        uploadDirectory(Io.resolve(source), dest);
-        return "Uploaded: " + uploaded + " Unchanged=" + unchanged;
-    }
+		for (StorageObject object : client.listObjects(dest.getContainer(), dest.getObjectPath(), null)) {
+			String name = object.getName();
+			existing.put(name, object);
+		}
 
-    private void uploadDirectory(File source, StoragePath target) throws OpenstackException, IOException {
-        for (File file : source.listFiles()) {
-            String name = file.getName();
-            StoragePath childTarget = new StoragePath(target, name);
+		uploadDirectory(Io.resolve(source), dest);
+		return "Uploaded: " + uploaded + " Unchanged=" + unchanged;
+	}
 
-            if (file.isDirectory()) {
-                uploadDirectory(file, childTarget);
-            } else {
-                uploadFile(file, childTarget);
-            }
-        }
-    }
+	private void uploadDirectory(File source, StoragePath target) throws OpenstackException, IOException {
+		for (File file : source.listFiles()) {
+			String name = file.getName();
+			StoragePath childTarget = new StoragePath(target, name);
 
-    private void uploadFile(File source, StoragePath target) throws OpenstackException, IOException {
-        StorageObject storageObject = existing.get(target.getObjectPath());
-        if (storageObject != null) {
-            if (isUnchanged(source, storageObject)) {
-                System.out.println("Unchanged: " + source);
-                unchanged += source.length();
-                return;
-            }
-        }
+			if (file.isDirectory()) {
+				uploadDirectory(file, childTarget);
+			} else {
+				uploadFile(file, childTarget);
+			}
+		}
+	}
 
-        OpenstackStorageClient client = getStorageClient();
+	private void uploadFile(File source, StoragePath target) throws OpenstackException, IOException {
+		StorageObject storageObject = existing.get(target.getObjectPath());
+		if (storageObject != null) {
+			if (isUnchanged(source, storageObject)) {
+				System.out.println("Unchanged: " + source);
+				unchanged += source.length();
+				return;
+			}
+		}
 
-        String containerName = target.getContainer();
-        String objectPath = target.getObjectPath();
+		OpenstackStorageClient client = getStorageClient();
 
-        ObjectsResource objects = client.root().containers().id(containerName).objects();
+		String containerName = target.getContainer();
+		String objectPath = target.getObjectPath();
 
-        ObjectProperties objectProperties = new ObjectProperties();
-        objectProperties.setName(objectPath);
-        objectProperties.setContentType(getContentType(source));
+		ObjectsResource objects = client.root().containers().id(containerName).objects();
 
-        objects.putObject(source, objectProperties);
+		ObjectProperties objectProperties = new ObjectProperties();
+		objectProperties.setName(objectPath);
+		objectProperties.setContentType(getContentType(source));
 
-        System.out.println("Uploaded: " + source);
-        uploaded += source.length();
-    }
+		objects.putObject(source, objectProperties);
 
-    private boolean isUnchanged(File source, StorageObject storageObject) throws IOException {
-        if (storageObject.getHash() == null)
-            return false;
+		System.out.println("Uploaded: " + source);
+		uploaded += source.length();
+	}
 
-        if (storageObject.getBytes() != source.length()) {
-            return false;
-        }
+	private boolean isUnchanged(File source, StorageObject storageObject) throws IOException {
+		if (storageObject.getHash() == null) {
+			return false;
+		}
 
-        byte[] remoteHash = Hex.fromHex(storageObject.getHash());
+		if (storageObject.getBytes() != source.length()) {
+			return false;
+		}
 
-        Md5Hash hasher = new Md5Hash();
-        byte[] localHash = hasher.hash(source);
+		byte[] remoteHash = Hex.fromHex(storageObject.getHash());
 
-        if (Arrays.equals(localHash, remoteHash)) {
-            return true;
-        }
+		Md5Hash hasher = new Md5Hash();
+		byte[] localHash = hasher.hash(source);
 
-        return false;
-    }
+		if (Arrays.equals(localHash, remoteHash)) {
+			return true;
+		}
 
-    private String getContentType(File file) {
-        String name = file.getName();
-        int lastDot = name.lastIndexOf('.');
-        if (lastDot != -1) {
-            String extension = name.substring(lastDot + 1);
-            extension = extension.toLowerCase();
-            if (extension.equals("png")) {
-                return "image/png";
-            } else if (extension.equals("xml")) {
-                return "application/xml";
-            } else if (extension.equals("css")) {
-                return "text/css";
-            } else if (extension.equals("js")) {
-                return "application/javascript";
-            } else if (extension.equals("html")) {
-                return "text/html";
-            } else if (extension.equals("swf")) {
-                return "application/x-shockwave-flash";
-            }
-        }
+		return false;
+	}
 
-        System.err.println("Cannot deduce MIME type for " + name);
-        return null;
-    }
+	private String getContentType(File file) {
+		String name = file.getName();
+		int lastDot = name.lastIndexOf('.');
+		if (lastDot != -1) {
+			String extension = name.substring(lastDot + 1);
+			extension = extension.toLowerCase();
+			if (extension.equals("png")) {
+				return "image/png";
+			} else if (extension.equals("xml")) {
+				return "application/xml";
+			} else if (extension.equals("css")) {
+				return "text/css";
+			} else if (extension.equals("js")) {
+				return "application/javascript";
+			} else if (extension.equals("html")) {
+				return "text/html";
+			} else if (extension.equals("swf")) {
+				return "application/x-shockwave-flash";
+			}
+		}
+
+		System.err.println("Cannot deduce MIME type for " + name);
+		return null;
+	}
 }

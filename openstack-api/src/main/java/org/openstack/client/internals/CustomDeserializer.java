@@ -18,9 +18,8 @@ public abstract class CustomDeserializer<T> extends StdDeserializer<T> {
 	public CustomDeserializer(Class<T> clazz) {
 		super(clazz);
 		this.clazz = clazz;
-	    this.classInfo = SimpleClassInfo.get(clazz);
+		this.classInfo = SimpleClassInfo.get(clazz);
 	}
-
 
 	protected <V> List<V> readArray(Class<V> elementClass, JsonParser jp, DeserializationContext ctxt)
 			throws JsonProcessingException, IOException {

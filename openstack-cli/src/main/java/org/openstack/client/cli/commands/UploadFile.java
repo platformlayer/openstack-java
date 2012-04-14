@@ -11,46 +11,46 @@ import org.openstack.model.storage.ObjectProperties;
 import org.openstack.utils.NoCloseInputStream;
 
 public class UploadFile extends OpenstackCliCommandRunnerBase {
-    @Argument(index = 0)
-    public StoragePath path;
+	@Argument(index = 0)
+	public StoragePath path;
 
-    @Argument(index = 1, multiValued = true)
-    public List<String> properties;
+	@Argument(index = 1, multiValued = true)
+	public List<String> properties;
 
-    public UploadFile() {
-        super("upload", "file");
-    }
+	public UploadFile() {
+		super("upload", "file");
+	}
 
-    @Override
-    public Object runCommand() throws Exception {
-        OpenstackStorageClient client = getStorageClient();
+	@Override
+	public Object runCommand() throws Exception {
+		OpenstackStorageClient client = getStorageClient();
 
-        String containerName = path.getContainer();
-        String objectPath = path.getObjectPath();
+		String containerName = path.getContainer();
+		String objectPath = path.getObjectPath();
 
-        ObjectsResource objects = client.root().containers().id(containerName).objects();
+		ObjectsResource objects = client.root().containers().id(containerName).objects();
 
-        ObjectProperties objectProperties = new ObjectProperties();
-        objectProperties.setName(objectPath);
+		ObjectProperties objectProperties = new ObjectProperties();
+		objectProperties.setName(objectPath);
 
-        if (properties != null) {
-            for (String property : properties) {
-                int equalsIndex = property.indexOf('=');
-                if (equalsIndex == -1) {
-                    throw new IllegalArgumentException("Can't parse: " + property);
-                }
+		if (properties != null) {
+			for (String property : properties) {
+				int equalsIndex = property.indexOf('=');
+				if (equalsIndex == -1) {
+					throw new IllegalArgumentException("Can't parse: " + property);
+				}
 
-                String key = property.substring(0, equalsIndex);
-                String value = property.substring(equalsIndex + 1);
+				String key = property.substring(0, equalsIndex);
+				String value = property.substring(equalsIndex + 1);
 
-                objectProperties.getCustomProperties().put(key, value);
-            }
-        }
+				objectProperties.getCustomProperties().put(key, value);
+			}
+		}
 
-        // This command will probably be faster _not_ in nailgun mode
-        InputStream stream = new NoCloseInputStream(System.in);
-        objects.putObject(stream, -1, objectProperties);
+		// This command will probably be faster _not_ in nailgun mode
+		InputStream stream = new NoCloseInputStream(System.in);
+		objects.putObject(stream, -1, objectProperties);
 
-        return path.getKey();
-    }
+		return path.getKey();
+	}
 }

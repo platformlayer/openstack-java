@@ -11,9 +11,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.NONE)
 public class RebootAction implements Serializable {
 
-    public enum RebootType {
-        SOFT, HARD
-    }
+	public enum RebootType {
+		SOFT, HARD
+	}
 
 	@XmlAttribute(required = true)
 	private RebootType type;

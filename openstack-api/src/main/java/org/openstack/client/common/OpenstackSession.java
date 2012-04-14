@@ -65,7 +65,7 @@ public abstract class OpenstackSession implements Serializable {
 	private OpenstackCredentials credentials;
 
 	transient CloudCapabilities capabilities;
-	
+
 	public OpenstackSession() {
 
 		// calculate the bitmap
@@ -366,10 +366,10 @@ public abstract class OpenstackSession implements Serializable {
 		return access;
 	}
 
-    public CloudCapabilities getCapabilities() {
-        if (capabilities == null) {
-            capabilities = new CloudCapabilities(this);
-        }
-        return capabilities;
-    }
+	public CloudCapabilities getCapabilities() {
+		if (capabilities == null) {
+			capabilities = new CloudCapabilities(this);
+		}
+		return capabilities;
+	}
 }

@@ -26,8 +26,9 @@ final class Jersey1Client {
 	private Jersey1Client() {
 		ClientConfig config = new DefaultClientConfig();
 
-		config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES, new HTTPSProperties(SSL.getHostnameVerifier(), SSL.getContext()));
-		
+		config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES,
+				new HTTPSProperties(SSL.getHostnameVerifier(), SSL.getContext()));
+
 		config.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 
 		ObjectMapper objectMapper = buildObjectMapper();

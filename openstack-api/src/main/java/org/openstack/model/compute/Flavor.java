@@ -17,14 +17,14 @@ import org.openstack.model.atom.Link;
 public class Flavor implements Serializable {
 
 	public static class DefaultNames {
-        public static final String M1_TINY = "m1.tiny";
-        public static final String M1_SMALL = "m1.small";
-        public static final String M1_MEDIUM = "m1.medium";
-        public static final String M1_LARGE = "m1.large";
-        public static final String M1_XLARGE = "m1.xlargs";
+		public static final String M1_TINY = "m1.tiny";
+		public static final String M1_SMALL = "m1.small";
+		public static final String M1_MEDIUM = "m1.medium";
+		public static final String M1_LARGE = "m1.large";
+		public static final String M1_XLARGE = "m1.xlargs";
 	}
 
-    @XmlAttribute
+	@XmlAttribute
 	private String id;
 
 	@XmlAttribute

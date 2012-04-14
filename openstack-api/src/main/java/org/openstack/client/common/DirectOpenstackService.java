@@ -41,7 +41,7 @@ public class DirectOpenstackService implements OpenstackService {
 
 	@Override
 	public <T> Iterable<T> listItems(Class<T> itemClass, boolean details) {
-	    // TODO: Yuk...
+		// TODO: Yuk...
 		if (itemClass == Server.class) {
 			return (Iterable<T>) computeRoot().servers().list(details);
 		}

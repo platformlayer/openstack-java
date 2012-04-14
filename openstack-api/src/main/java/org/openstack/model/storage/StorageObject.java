@@ -64,10 +64,10 @@ public class StorageObject {
 		this.lastModified = lastModified;
 	}
 
-    @Override
-    public String toString() {
-        return "StorageObject [name=" + name + ", hash=" + hash + ", size=" + bytes + ", contentType=" + contentType
-                + ", lastModified=" + lastModified + "]";
-    }
+	@Override
+	public String toString() {
+		return "StorageObject [name=" + name + ", hash=" + hash + ", size=" + bytes + ", contentType=" + contentType
+				+ ", lastModified=" + lastModified + "]";
+	}
 
 }
