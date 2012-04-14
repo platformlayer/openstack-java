@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.List;
 
 import jline.ConsoleReader;
@@ -131,16 +132,9 @@ class CliSimpleRepl implements Repl {
 
 		if (tokens.size() != 1) {
 			args = tokens.subList(1, tokens.size());
+		} else {
+			args = Collections.emptyList();
 		}
-
-		// int spaceIndex = verb.indexOf(' ');
-		// if (spaceIndex != -1) {
-		// arguments = verb.substring(spaceIndex + 1).trim();
-		// verb = verb.substring(0, spaceIndex);
-		//
-		// if (arguments.length() == 0)
-		// arguments = null;
-		// }
 
 		CommandRunner commandRunner = context.getCommandRegistry().getCommandRunner(verb);
 		if (commandRunner == null) {
@@ -151,9 +145,8 @@ class CliSimpleRepl implements Repl {
 		Object results;
 		try {
 			commandRunner = commandRunner.clone(context);
-			if (args != null) {
-				commandRunner.parseArguments(args);
-			}
+			commandRunner.parseArguments(args);
+
 			results = commandRunner.runCommand();
 		} catch (CmdLineException e) {
 			err.println(e.getMessage());
