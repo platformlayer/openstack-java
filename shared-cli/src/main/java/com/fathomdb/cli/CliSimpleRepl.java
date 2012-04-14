@@ -159,6 +159,9 @@ class CliSimpleRepl implements Repl {
 			err.println(e.getMessage());
 			e.getParser().printUsage(err, null);
 			return false;
+		} catch (CliException e) {
+			err.println(e.getMessage());
+			return false;
 		} catch (Exception e) {
 			err.println("Error running command: " + Joiner.on(" ").join(tokens));
 			e.printStackTrace(err);
