@@ -61,4 +61,16 @@ public class RandomUtil {
 		return new RandomDataInputStream(imageLength, seed);
 	}
 
+	public String randomText(int minLength, int maxLength) {
+		StringBuilder sb = new StringBuilder();
+		int length = uniform(minLength, maxLength);
+
+		while (sb.length() < length) {
+			sb.append(randomAlphanumericString(1, 12));
+			sb.append(" ");
+		}
+
+		sb.setLength(length);
+		return sb.toString();
+	}
 }
