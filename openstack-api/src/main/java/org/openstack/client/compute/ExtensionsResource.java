@@ -9,6 +9,8 @@ public class ExtensionsResource extends ComputeResourceBase {
 
 	@Override
 	protected MediaType getDefaultContentType() {
+		// Extensions namespace changed late in Essex release;
+		// HP public cloud has "wrong" namespace
 		return MediaType.APPLICATION_JSON_TYPE;
 	}
 
