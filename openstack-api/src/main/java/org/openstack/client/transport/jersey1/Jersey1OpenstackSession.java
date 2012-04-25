@@ -16,7 +16,6 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 import com.sun.jersey.api.client.filter.ClientFilter;
-import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 public class Jersey1OpenstackSession extends OpenstackSession {
@@ -69,7 +68,7 @@ public class Jersey1OpenstackSession extends OpenstackSession {
 				}
 
 				if (verbose) {
-					resource.addFilter(new LoggingFilter(System.out));
+					resource.addFilter(new SelectiveLoggingFilter(System.out));
 				}
 
 				resource.addFilter(new ClientFilter() {

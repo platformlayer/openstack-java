@@ -13,7 +13,6 @@ import org.openstack.client.ssl.SSL;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.client.urlconnection.HTTPSProperties;
 
@@ -46,7 +45,7 @@ final class Jersey1Client {
 
 	public Jersey1Client verbose(boolean verbose) {
 		if (verbose) {
-			client.addFilter(new LoggingFilter(System.out));
+			client.addFilter(new SelectiveLoggingFilter(System.out));
 		}
 		return this;
 	}
