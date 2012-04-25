@@ -163,12 +163,12 @@ public class MirrorImage extends OpenstackCliCommandRunnerBase {
 
 	private String extractName(URL imageUrl) {
 		String name = imageUrl.getPath();
-		int lastSlash = name.indexOf('/');
+		int lastSlash = name.lastIndexOf('/');
 		name = name.substring(lastSlash + 1);
 
-		int lastDot = name.indexOf('.');
-		if (lastDot != -1) {
-			name = name.substring(0, lastDot);
+		int firstDot = name.indexOf('.');
+		if (firstDot != -1) {
+			name = name.substring(0, firstDot);
 		}
 		return name;
 	}
