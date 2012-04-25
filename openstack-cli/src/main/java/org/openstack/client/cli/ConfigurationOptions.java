@@ -30,7 +30,7 @@ public class ConfigurationOptions extends CliOptions {
 	@Option(name = "-s", aliases = "--server", usage = "specify authentication server")
 	String server;
 
-	@Option(name = "-debug", usage = "enable debug output")
+	@Option(name = "-debug", aliases = "--debug", usage = "enable debug output")
 	boolean debug;
 
 	@Option(name = "-c", aliases = "--config", usage = "specify configuration file")
