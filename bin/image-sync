@@ -1,0 +1,22 @@
+#!/bin/bash
+
+BASE_URL=$1
+if [[ ${BASE_URL} == "" ]]; then
+	echo "Must specify <base-url>"
+	exit 1
+fi
+
+shift
+
+# Remove trailing slash
+BASE_URL="${BASE_URL%/}"
+
+IMAGELIST=`curl -s ${BASE_URL}/md5sum`
+
+IMAGES=`echo ${IMAGELIST} | grep properties | awk '{ print $2}'`
+
+for i in ${IMAGES}; do
+	URL=${BASE_URL}/$i
+	echo "Processing: ${URL}"
+	bin/os mirror-image --url ${URL} $@
+done
