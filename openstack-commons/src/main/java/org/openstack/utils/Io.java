@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -70,6 +71,15 @@ public class Io {
 			return readAll(in);
 		} finally {
 			safeClose(in);
+		}
+	}
+
+	public static String readAll(URL url) throws IOException {
+		InputStream is = url.openStream();
+		try {
+			return readAll(is);
+		} finally {
+			safeClose(is);
 		}
 	}
 
