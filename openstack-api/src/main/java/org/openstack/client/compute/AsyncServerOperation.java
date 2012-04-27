@@ -40,7 +40,7 @@ public class AsyncServerOperation implements Future<Server> {
 		this.finishStates = finishStates;
 	}
 
-	Server waitForState(long timeout, TimeUnit unit) throws OpenstackException {
+	Server waitForState(long timeout, TimeUnit unit) throws OpenstackException, TimeoutException {
 		try {
 			long timeoutAt = unit != null ? System.currentTimeMillis() + unit.toMillis(timeout) : Long.MAX_VALUE;
 			while (true) {
@@ -82,13 +82,14 @@ public class AsyncServerOperation implements Future<Server> {
 				}
 
 				if (System.currentTimeMillis() > timeoutAt) {
-					throw new OpenstackException("Server did not transition to expected state within timeout");
+					throw new TimeoutException("Server did not transition to expected state within timeout");
 				}
 
 				try {
 					Thread.sleep(POLL_INTERVAL_MILLISECONDS);
 				} catch (InterruptedException e) {
-					throw new OpenstackException(e.getMessage(), e);
+					Thread.currentThread().interrupt();
+					throw new IllegalStateException("Interrupted during wait", e);
 				}
 
 			}
@@ -125,9 +126,9 @@ public class AsyncServerOperation implements Future<Server> {
 	 * This method throws OpenStackComputeException instead of wrapping it in ExecutionException
 	 * 
 	 * @throws OpenstackException
+	 * @throws TimeoutException
 	 */
-	public Server waitComplete(long timeout, TimeUnit unit) throws InterruptedException, TimeoutException,
-			OpenstackException {
+	public Server waitComplete(long timeout, TimeUnit unit) throws OpenstackException, TimeoutException {
 		return this.waitForState(timeout, unit);
 	}
 

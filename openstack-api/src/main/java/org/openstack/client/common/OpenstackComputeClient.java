@@ -30,6 +30,12 @@ public class OpenstackComputeClient {
 		return AsyncServerOperation.wrapServerCreate(this, server);
 	}
 
+	public AsyncServerOperation deleteServer(String serverId) throws OpenstackException {
+		Server server = root().servers().server(serverId).show();
+		root().servers().server(serverId).delete();
+		return AsyncServerOperation.wrapServerDelete(this, server);
+	}
+
 	public OpenstackSession getSession() {
 		return session;
 	}
