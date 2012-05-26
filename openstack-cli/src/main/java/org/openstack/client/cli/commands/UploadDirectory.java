@@ -25,7 +25,7 @@ public class UploadDirectory extends OpenstackCliCommandRunnerBase {
 	@Argument(index = 1)
 	public StoragePath dest;
 
-	private Map<String, StorageObject> existing = Maps.newHashMap();
+	private final Map<String, StorageObject> existing = Maps.newHashMap();
 
 	long uploaded = 0;
 	long unchanged = 0;
