@@ -3,9 +3,12 @@ package org.openstack.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+
+import com.google.common.base.Splitter;
 
 public class PropertyUtils {
 	public static Properties loadProperties(File file) throws IOException {
@@ -44,5 +47,26 @@ public class PropertyUtils {
 		for (Entry<Object, Object> entry : properties.entrySet()) {
 			dest.put((String) entry.getKey(), (String) entry.getValue());
 		}
+	}
+
+	public static String serialize(Properties properties) throws IOException {
+		StringWriter writer = new StringWriter();
+		properties.store(writer, null);
+
+		// The properties serialization normally puts a comment at the top with the date
+		// That causes lots of false-positive changes; remove it
+		return stripComments(writer.toString());
+	}
+
+	private static String stripComments(String s) {
+		StringBuilder sb = new StringBuilder();
+		for (String line : Splitter.on("\n").split(s)) {
+			if (line.startsWith("#")) {
+				continue;
+			}
+			sb.append(line);
+			sb.append("\n");
+		}
+		return sb.toString();
 	}
 }
