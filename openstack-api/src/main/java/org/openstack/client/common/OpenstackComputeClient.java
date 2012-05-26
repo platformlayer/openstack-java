@@ -5,6 +5,7 @@ import org.openstack.client.compute.AsyncServerOperation;
 import org.openstack.client.compute.TenantResource;
 import org.openstack.model.compute.Server;
 import org.openstack.model.compute.ServerForCreate;
+import org.openstack.model.compute.server.action.RebootAction.RebootType;
 
 public class OpenstackComputeClient {
 
@@ -34,6 +35,13 @@ public class OpenstackComputeClient {
 		Server server = root().servers().server(serverId).show();
 		root().servers().server(serverId).delete();
 		return AsyncServerOperation.wrapServerDelete(this, server);
+	}
+
+	public AsyncServerOperation powerServerOn(String serverId) throws OpenstackException {
+		Server server = root().servers().server(serverId).show();
+
+		root().servers().server(serverId).reboot(RebootType.HARD);
+		return AsyncServerOperation.wrapServerPowerOn(this, server);
 	}
 
 	public OpenstackSession getSession() {

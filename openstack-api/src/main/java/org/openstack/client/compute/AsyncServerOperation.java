@@ -172,4 +172,9 @@ public class AsyncServerOperation implements Future<Server> {
 		return new AsyncServerOperation(client, server, server.getId(), Lists.newArrayList("ACTIVE"),
 				Lists.newArrayList("DELETED"));
 	}
+
+	public static AsyncServerOperation wrapServerPowerOn(OpenstackComputeClient client, Server server) {
+		return new AsyncServerOperation(client, server, server.getId(), Lists.newArrayList("SHUTOFF", "HARD_REBOOT"),
+				Lists.newArrayList("ACTIVE"));
+	}
 }
