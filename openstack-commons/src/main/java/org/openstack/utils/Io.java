@@ -2,6 +2,7 @@ package org.openstack.utils;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -102,6 +103,19 @@ public class Io {
 		} finally {
 			Io.safeClose(fos);
 		}
+	}
+
+	public static byte[] readBytesFully(DataInputStream input, int length) throws IOException {
+		byte[] buffer = new byte[length];
+		int offset = 0;
+		while (offset < length) {
+			int read = input.read(buffer, offset, length - offset);
+			if (read == -1) {
+				throw new IOException("Encounted EOF while reading buffer of size: " + length);
+			}
+			offset += read;
+		}
+		return buffer;
 	}
 
 }
