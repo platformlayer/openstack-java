@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.Queue;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -19,7 +21,6 @@ import org.openstack.utils.Io;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.sun.jersey.api.client.ClientResponse;
 
 public class ObjectsResource extends StorageResourceBase {
@@ -31,40 +32,112 @@ public class ObjectsResource extends StorageResourceBase {
 		return list(prefix, delimiter, true);
 	}
 
-	public Iterable<StorageObject> list(String prefix, String delimiter, boolean fetchMetadata) {
-		RequestBuilder requestBuilder = resource();
+	public Iterable<StorageObject> list(final String prefix, final String delimiter, final boolean fetchMetadata) {
+		return new Iterable<StorageObject>() {
+			@Override
+			public Iterator<StorageObject> iterator() {
+				return new FileIterator(prefix, delimiter, fetchMetadata);
+			}
+		};
+	}
 
-		if (prefix != null) {
-			requestBuilder.addQueryParameter("prefix", prefix);
+	class FileIterator implements Iterator<StorageObject> {
+		final String prefix;
+		final String delimiter;
+		final boolean fetchMetadata;
+
+		Queue<StorageObject> queue = null;
+
+		String marker;
+		boolean couldHaveMore = true;
+
+		public FileIterator(String prefix, String delimiter, boolean fetchMetadata) {
+			super();
+			this.prefix = prefix;
+			this.delimiter = delimiter;
+			this.fetchMetadata = fetchMetadata;
 		}
-		if (!Strings.isNullOrEmpty(delimiter)) {
-			requestBuilder.addQueryParameter("delimiter", delimiter);
-		}
 
-		if (fetchMetadata) {
-			requestBuilder.clearAcceptTypes();
-			requestBuilder.addAcceptType(MediaType.APPLICATION_JSON_TYPE);
-
-			StorageObjectList storageObjectList = requestBuilder.get(StorageObjectList.class);
-
-			return storageObjectList.getObjects();
-		} else {
-			requestBuilder.clearAcceptTypes();
-			requestBuilder.addAcceptType(MediaType.TEXT_PLAIN_TYPE);
-
-			String listing = requestBuilder.get(String.class);
-			List<StorageObject> list = Lists.newArrayList();
-			for (String line : Splitter.on("\n").split(listing)) {
-				if (line.isEmpty()) {
-					continue;
+		@Override
+		public boolean hasNext() {
+			if (queue == null || queue.isEmpty()) {
+				if (couldHaveMore) {
+					queue = nextPage(marker);
 				}
-
-				StorageObject storageObject = new StorageObject();
-				storageObject.setName(line);
-				list.add(storageObject);
+				if (queue == null || queue.isEmpty()) {
+					queue = null;
+				}
 			}
 
-			return list;
+			return (queue != null && !queue.isEmpty());
+		}
+
+		@Override
+		public StorageObject next() {
+			if (queue == null) {
+				throw new IllegalStateException();
+			}
+
+			StorageObject so = queue.remove();
+			marker = so.getName();
+			return so;
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+
+		Queue<StorageObject> nextPage(String marker) {
+			RequestBuilder requestBuilder = resource();
+
+			if (prefix != null) {
+				requestBuilder.addQueryParameter("prefix", prefix);
+			}
+			if (!Strings.isNullOrEmpty(delimiter)) {
+				requestBuilder.addQueryParameter("delimiter", delimiter);
+			}
+
+			if (!Strings.isNullOrEmpty(marker)) {
+				requestBuilder.addQueryParameter("marker", marker);
+			}
+
+			int limit = 10000;
+
+			if (fetchMetadata) {
+				requestBuilder.clearAcceptTypes();
+				requestBuilder.addAcceptType(MediaType.APPLICATION_JSON_TYPE);
+
+				StorageObjectList storageObjectList = requestBuilder.get(StorageObjectList.class);
+
+				ArrayDeque<StorageObject> list = new ArrayDeque<StorageObject>();
+				list.addAll(storageObjectList.getObjects());
+				if (list.size() != limit) {
+					couldHaveMore = false;
+				}
+				return list;
+			} else {
+				requestBuilder.clearAcceptTypes();
+				requestBuilder.addAcceptType(MediaType.TEXT_PLAIN_TYPE);
+
+				String listing = requestBuilder.get(String.class);
+				ArrayDeque<StorageObject> list = new ArrayDeque<StorageObject>();
+				for (String line : Splitter.on("\n").split(listing)) {
+					if (line.isEmpty()) {
+						continue;
+					}
+
+					StorageObject storageObject = new StorageObject();
+					storageObject.setName(line);
+					list.add(storageObject);
+				}
+
+				if (list.size() != limit) {
+					couldHaveMore = false;
+				}
+				return list;
+			}
+
 		}
 	}
 
