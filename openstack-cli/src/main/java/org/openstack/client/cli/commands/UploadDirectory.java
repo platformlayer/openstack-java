@@ -126,6 +126,8 @@ public class UploadDirectory extends OpenstackCliCommandRunnerBase {
 				return "text/html";
 			} else if (extension.equals("swf")) {
 				return "application/x-shockwave-flash";
+			} else if (extension.equals("zip")) {
+				return "application/zip";
 			}
 		}
 
