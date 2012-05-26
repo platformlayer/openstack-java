@@ -13,9 +13,9 @@ public class Md5HashTest {
 		byte[] actual = Hex.fromHex("3e25960a79dbc69b674cd4ec67a72c62");
 
 		byte[] bytes = Utf8.getBytes(s);
-		byte[] hash1 = new Md5Hash().hash(s);
-		byte[] hash2 = new Md5Hash().hash(bytes);
-		byte[] hash3 = new Md5Hash().hash(new ByteArrayInputStream(bytes));
+		byte[] hash1 = new Md5Hasher().hash(s);
+		byte[] hash2 = new Md5Hasher().hash(bytes);
+		byte[] hash3 = new Md5Hasher().hash(new ByteArrayInputStream(bytes));
 
 		Assert.assertEquals(actual, hash1);
 		Assert.assertEquals(actual, hash2);

@@ -2,7 +2,7 @@ package org.openstack.utils;
 
 import java.security.MessageDigest;
 
-public class Md5Hash extends MessageDigestBase {
+public class Md5Hasher extends MessageDigestBase {
 
 	@Override
 	protected MessageDigest buildDigest() {
