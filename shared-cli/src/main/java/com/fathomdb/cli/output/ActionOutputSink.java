@@ -2,11 +2,13 @@ package com.fathomdb.cli.output;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 
 import com.fathomdb.cli.formatter.DefaultFormatter;
 import com.fathomdb.cli.formatter.Formatter;
 import com.fathomdb.cli.formatter.FormatterRegistry;
+import com.google.common.base.Joiner;
 
 public class ActionOutputSink implements OutputSink {
 
@@ -33,7 +35,9 @@ public class ActionOutputSink implements OutputSink {
 			ClientActionFormatter<T> clientActionFormatter = (ClientActionFormatter<T>) formatter;
 			ClientAction clientAction = clientActionFormatter.formatAction(object);
 
-			out.println(clientAction.getAction().toString().toLowerCase() + " " + clientAction.getParameter());
+			List<String> parameters = clientAction.getParameters();
+
+			out.println(clientAction.getAction().toString().toLowerCase() + " " + Joiner.on(' ').join(parameters));
 		} else {
 			throw new UnsupportedOperationException("Cannot format for action");
 		}

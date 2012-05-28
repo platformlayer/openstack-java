@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import com.fathomdb.cli.output.ClientAction;
 import com.fathomdb.cli.output.ClientActionFormatter;
 import com.fathomdb.cli.output.OutputSink;
+import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
 
 public class ClientActionDefaultFormatter extends SimpleFormatter<ClientAction> implements
@@ -20,7 +21,7 @@ public class ClientActionDefaultFormatter extends SimpleFormatter<ClientAction> 
 		LinkedHashMap<String, Object> values = Maps.newLinkedHashMap();
 
 		values.put("action", o.getAction());
-		values.put("parameter", o.getParameter());
+		values.put("parameter", Joiner.on(' ').join(o.getParameters()));
 
 		sink.outputRow(values);
 	}
