@@ -118,4 +118,12 @@ public class Io {
 		return buffer;
 	}
 
+	public static void delete(File file) throws IOException {
+		if (file != null) {
+			if (!file.delete()) {
+				throw new IOException("Unable to delete file");
+			}
+		}
+	}
+
 }
