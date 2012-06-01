@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import org.openstack.client.common.OpenstackSession;
 import org.openstack.utils.Io;
+import org.testng.SkipException;
 
 public class OpenstackTestContext {
 
@@ -60,7 +61,10 @@ public class OpenstackTestContext {
 
 		boolean verbose = Boolean.parseBoolean(properties.getProperty("openstack.debug", "true"));
 
-		String url = properties.getProperty(OpenstackProperties.AUTH_URL, "http://127.0.0.1:5000/v2.0");
+		String url = properties.getProperty(OpenstackProperties.AUTH_URL, null); // "http://127.0.0.1:5000/v2.0");
+		if (url == null) {
+			throw new SkipException("Skipping test because openstack endpoint not set");
+		}
 		String username = properties.getProperty(OpenstackProperties.AUTH_USER, "demo");
 		String secret = properties.getProperty(OpenstackProperties.AUTH_SECRET, "supersecret");
 		String tenant = properties.getProperty(OpenstackProperties.AUTH_TENANT, "demo");
