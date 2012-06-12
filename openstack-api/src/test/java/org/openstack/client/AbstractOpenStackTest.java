@@ -25,8 +25,8 @@ public class AbstractOpenStackTest {
 	}
 
 	protected void assertStreamsTheSame(InputStream actual, InputStream expected) throws DigestException, IOException {
-		byte[] actualHash = new Md5Hash.Hasher().hash(actual);
-		byte[] expectedHash = new Md5Hash.Hasher().hash(expected);
+		Md5Hash actualHash = new Md5Hash.Hasher().hash(actual);
+		Md5Hash expectedHash = new Md5Hash.Hasher().hash(expected);
 
 		assertEquals(actualHash, expectedHash);
 	}

@@ -4,25 +4,27 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import org.openstack.utils.Io;
+import org.openstack.utils.Utf8;
 
-public abstract class MessageDigestBase {
-	public byte[] hash(String a) {
-		return hash(toBytesUtf8(a));
+public abstract class MessageDigestBase<T extends StronglyTypedHash> {
+	public T hash(String a) {
+		return hash(Utf8.getBytes(a));
 	}
 
-	public byte[] hash(byte[] data) {
+	public T hash(byte[] data) {
 		MessageDigest digest = buildDigest();
 
 		byte[] hash = digest.digest(data);
-		return hash;
+		return wrap(hash);
 	}
 
-	public byte[] hash(File source) throws IOException {
+	protected abstract T wrap(byte[] hash);
+
+	public T hash(File source) throws IOException {
 		FileInputStream fis = new FileInputStream(source);
 		try {
 			return hash(fis);
@@ -31,7 +33,7 @@ public abstract class MessageDigestBase {
 		}
 	}
 
-	public byte[] hash(InputStream is) throws IOException {
+	public T hash(InputStream is) throws IOException {
 		MessageDigest digest = buildDigest();
 
 		byte[] buffer = new byte[8192];
@@ -43,19 +45,11 @@ public abstract class MessageDigestBase {
 			digest.update(buffer, 0, available);
 		}
 		byte[] hash = digest.digest();
-		return hash;
+		return wrap(hash);
 
 	}
 
 	protected abstract MessageDigest buildDigest();
-
-	public static byte[] toBytesUtf8(String s) {
-		try {
-			return s.getBytes("UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new IllegalStateException("Error getting utf-8 bytes", e);
-		}
-	}
 
 	public static MessageDigest buildDigest(String name) {
 		try {

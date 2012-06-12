@@ -92,8 +92,8 @@ public class ITGlance extends GlanceIntegrationTest {
 
 		{
 			Md5Hash.Hasher md5 = new Md5Hash.Hasher();
-			byte[] hash = md5.hash(stream.clone());
-			assertEquals(uploaded.getChecksum(), Hex.encodeHexString(hash));
+			Md5Hash hash = md5.hash(stream.clone());
+			assertEquals(uploaded.getChecksum(), hash.toHex());
 		}
 
 		List<Image> allImages = Lists.newArrayList(glance.root().images().list());

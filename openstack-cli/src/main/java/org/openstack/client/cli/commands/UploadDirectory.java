@@ -2,7 +2,6 @@ package org.openstack.client.cli.commands;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
 
 import org.kohsuke.args4j.Argument;
@@ -13,9 +12,9 @@ import org.openstack.client.storage.OpenstackStorageClient;
 import org.openstack.crypto.Md5Hash;
 import org.openstack.model.storage.ObjectProperties;
 import org.openstack.model.storage.StorageObject;
-import org.openstack.utils.Hex;
 import org.openstack.utils.Io;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 
 public class UploadDirectory extends OpenstackCliCommandRunnerBase {
@@ -96,12 +95,12 @@ public class UploadDirectory extends OpenstackCliCommandRunnerBase {
 			return false;
 		}
 
-		byte[] remoteHash = Hex.fromHex(storageObject.getHash());
+		Md5Hash remoteHash = new Md5Hash(storageObject.getHash());
 
 		Md5Hash.Hasher hasher = new Md5Hash.Hasher();
-		byte[] localHash = hasher.hash(source);
+		Md5Hash localHash = hasher.hash(source);
 
-		if (Arrays.equals(localHash, remoteHash)) {
+		if (Objects.equal(localHash, remoteHash)) {
 			return true;
 		}
 
