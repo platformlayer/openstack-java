@@ -1,4 +1,4 @@
-package org.openstack.utils;
+package org.openstack.crypto;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import org.openstack.utils.Io;
 
 public abstract class MessageDigestBase {
 	public byte[] hash(String a) {

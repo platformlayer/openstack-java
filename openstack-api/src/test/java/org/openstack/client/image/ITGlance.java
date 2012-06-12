@@ -13,9 +13,9 @@ import org.openstack.client.OpenstackException;
 import org.openstack.client.OpenstackNotFoundException;
 import org.openstack.client.common.OpenstackImageClient;
 import org.openstack.client.utils.RandomDataInputStream;
+import org.openstack.crypto.Md5Hash;
 import org.openstack.model.image.Image;
 import org.openstack.model.image.ImageProperties;
-import org.openstack.utils.Md5Hasher;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
@@ -91,7 +91,7 @@ public class ITGlance extends GlanceIntegrationTest {
 		assertEquals(uploaded.getStatus(), "active");
 
 		{
-			Md5Hasher md5 = new Md5Hasher();
+			Md5Hash.Hasher md5 = new Md5Hash.Hasher();
 			byte[] hash = md5.hash(stream.clone());
 			assertEquals(uploaded.getChecksum(), Hex.encodeHexString(hash));
 		}
