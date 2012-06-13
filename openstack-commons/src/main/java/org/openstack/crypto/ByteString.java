@@ -76,11 +76,4 @@ public class ByteString {
 		return "ByteString [" + Hex.toHex(bytes) + "]";
 	}
 
-	/**
-	 * Do not modify returned array!
-	 */
-	public byte[] getBytes() {
-		return bytes;
-	}
-
 }
