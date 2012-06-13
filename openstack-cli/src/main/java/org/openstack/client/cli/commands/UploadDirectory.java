@@ -78,7 +78,7 @@ public class UploadDirectory extends OpenstackCliCommandRunnerBase {
 
 		ObjectProperties objectProperties = new ObjectProperties();
 		objectProperties.setName(objectPath);
-		objectProperties.setContentType(getContentType(source));
+		objectProperties.setContentType(MimeHelper.getContentType(source));
 
 		objects.putObject(source, objectProperties);
 
@@ -107,30 +107,4 @@ public class UploadDirectory extends OpenstackCliCommandRunnerBase {
 		return false;
 	}
 
-	private String getContentType(File file) {
-		String name = file.getName();
-		int lastDot = name.lastIndexOf('.');
-		if (lastDot != -1) {
-			String extension = name.substring(lastDot + 1);
-			extension = extension.toLowerCase();
-			if (extension.equals("png")) {
-				return "image/png";
-			} else if (extension.equals("xml")) {
-				return "application/xml";
-			} else if (extension.equals("css")) {
-				return "text/css";
-			} else if (extension.equals("js")) {
-				return "application/javascript";
-			} else if (extension.equals("html")) {
-				return "text/html";
-			} else if (extension.equals("swf")) {
-				return "application/x-shockwave-flash";
-			} else if (extension.equals("zip")) {
-				return "application/zip";
-			}
-		}
-
-		System.err.println("Cannot deduce MIME type for " + name);
-		return null;
-	}
 }
