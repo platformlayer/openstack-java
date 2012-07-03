@@ -11,7 +11,19 @@ public class FormatterRegistryBase implements FormatterRegistry {
 
 	@Override
 	public Formatter getFormatter(Class<?> clazz) {
-		return registry.get(clazz);
+		Formatter formatter = registry.get(clazz);
+		if (formatter != null) {
+			return formatter;
+		}
+
+		for (Class<?> interfaceClass : clazz.getInterfaces()) {
+			formatter = registry.get(interfaceClass);
+			if (formatter != null) {
+				return formatter;
+			}
+		}
+
+		return null;
 	}
 
 	protected void addDefaultFormatters() {
