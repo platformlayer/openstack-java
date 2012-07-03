@@ -1,33 +1,61 @@
 package org.openstack.crypto;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.InvalidKeyException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.SignatureException;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
 import org.openstack.utils.Io;
+
+import sun.security.x509.CertAndKeyGen;
+import sun.security.x509.X500Name;
 
 import com.google.common.collect.Lists;
 
 public class KeyStoreUtils {
 	public static KeyStore load(File keystoreFile, String keystoreSecret) throws KeyStoreException, IOException,
 			NoSuchAlgorithmException, CertificateException {
-		KeyStore keystore;
 		InputStream is = null;
 
 		try {
-			keystore = KeyStore.getInstance("JKS");
 			is = new FileInputStream(keystoreFile);
-			keystore.load(is, keystoreSecret.toCharArray());
+			return load(is, keystoreSecret);
 		} finally {
 			Io.safeClose(is);
 		}
+	}
+
+	public static KeyStore load(byte[] data, String keystoreSecret) throws KeyStoreException, IOException,
+			NoSuchAlgorithmException, CertificateException {
+		InputStream is = null;
+
+		try {
+			is = new ByteArrayInputStream(data);
+			return load(is, keystoreSecret);
+		} finally {
+			Io.safeClose(is);
+		}
+	}
+
+	public static KeyStore load(InputStream is, String keystoreSecret) throws KeyStoreException, IOException,
+			NoSuchAlgorithmException, CertificateException {
+		KeyStore keystore = create();
+		keystore.load(is, keystoreSecret.toCharArray());
 
 		return keystore;
 	}
@@ -42,5 +70,84 @@ public class KeyStoreUtils {
 		}
 
 		return ret;
+	}
+
+	private static KeyStore create() {
+		KeyStore keystore;
+		try {
+			keystore = KeyStore.getInstance("JKS");
+		} catch (KeyStoreException e) {
+			throw new IllegalStateException("Error building keystore", e);
+		}
+		return keystore;
+	}
+
+	public static KeyStore createEmpty(String keystoreSecret) throws KeyStoreException, NoSuchAlgorithmException,
+			CertificateException, IOException {
+		return load((InputStream) null, keystoreSecret);
+	}
+
+	public static List<Certificate[]> getCertificateChains(KeyStore keystore) throws KeyStoreException {
+		List<Certificate[]> chains = Lists.newArrayList();
+
+		for (String alias : getAliases(keystore)) {
+			Certificate[] certificateChain = keystore.getCertificateChain(alias);
+			if (certificateChain == null) {
+				continue;
+			}
+			chains.add(certificateChain);
+		}
+		return chains;
+	}
+
+	public static List<String> getKeyAliases(KeyStore keystore) throws KeyStoreException {
+		List<String> ret = Lists.newArrayList();
+
+		for (String alias : getAliases(keystore)) {
+			if (keystore.isKeyEntry(alias)) {
+				ret.add(alias);
+			}
+		}
+
+		return ret;
+	}
+
+	/*
+	 * Based on how keytool does it
+	 */
+	public static void createSelfSigned(KeyStore keystore, String alias, String keyPassword, X500Name x500Name,
+			int validityDays, String keyAlgorithmName, int keySize, String signatureAlgName)
+			throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException, CertificateException,
+			SignatureException, KeyStoreException {
+
+		String providerName = null;
+		CertAndKeyGen keypair = new CertAndKeyGen(keyAlgorithmName, signatureAlgName, providerName);
+
+		keypair.generate(keySize);
+		PrivateKey privKey = keypair.getPrivateKey();
+
+		X509Certificate[] chain = new X509Certificate[1];
+
+		Date startDate = new Date(System.currentTimeMillis() - 24L * 60L * 60L);
+		chain[0] = keypair.getSelfCertificate(x500Name, startDate, (validityDays + 1) * 24L * 60L * 60L);
+
+		keystore.setKeyEntry(alias, privKey, keyPassword.toCharArray(), chain);
+	}
+
+	public static void createSelfSigned(KeyStore keystore, String alias, String keyPassword, X500Name x500Name,
+			int validity) throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException,
+			CertificateException, SignatureException, KeyStoreException {
+		createSelfSigned(keystore, alias, keyPassword, x500Name, validity, "RSA", 2048, "SHA1WithRSA");
+	}
+
+	public static byte[] serialize(KeyStore keystore, String keystoreSecret) throws KeyStoreException,
+			NoSuchAlgorithmException, CertificateException, IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			keystore.store(baos, keystoreSecret.toCharArray());
+			return baos.toByteArray();
+		} finally {
+			Io.safeClose(baos);
+		}
 	}
 }
