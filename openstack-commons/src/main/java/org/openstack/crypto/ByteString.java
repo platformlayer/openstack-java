@@ -38,6 +38,10 @@ public class ByteString {
 		return new ByteString(keyData);
 	}
 
+	public byte[] toByteArray() {
+		return Arrays.copyOf(bytes, bytes.length);
+	}
+
 	// TODO: Is this needed or does the JVM do this for us?
 	@Override
 	public int hashCode() {

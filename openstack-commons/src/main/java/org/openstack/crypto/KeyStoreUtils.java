@@ -6,13 +6,18 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
+import java.security.KeyStore.Entry;
+import java.security.KeyStore.PrivateKeyEntry;
+import java.security.KeyStore.ProtectionParameter;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.SignatureException;
+import java.security.UnrecoverableEntryException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -28,6 +33,13 @@ import sun.security.x509.X500Name;
 import com.google.common.collect.Lists;
 
 public class KeyStoreUtils {
+	public static final String DEFAULT_KEYSTORE_SECRET = "notasecret";
+
+	public static KeyStore load(File keystoreFile) throws KeyStoreException, IOException, NoSuchAlgorithmException,
+			CertificateException {
+		return load(keystoreFile, DEFAULT_KEYSTORE_SECRET);
+	}
+
 	public static KeyStore load(File keystoreFile, String keystoreSecret) throws KeyStoreException, IOException,
 			NoSuchAlgorithmException, CertificateException {
 		InputStream is = null;
@@ -149,5 +161,26 @@ public class KeyStoreUtils {
 		} finally {
 			Io.safeClose(baos);
 		}
+	}
+
+	public static CertificateAndKey getCertificateAndKey(KeyStore keyStore, String alias, String password)
+			throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableEntryException {
+		if (!keyStore.isKeyEntry(alias)) {
+			return null;
+		}
+
+		ProtectionParameter protParam = new KeyStore.PasswordProtection(password.toCharArray());
+		Entry key = keyStore.getEntry(alias, protParam);
+		if (key == null || !(key instanceof PrivateKeyEntry)) {
+			return null;
+		}
+
+		return new KeystoreCertificateAndKey((PrivateKeyEntry) key);
+	}
+
+	public static void put(KeyStore keystore, String alias, CertificateAndKey certificateAndKey, String secret)
+			throws GeneralSecurityException {
+		keystore.setKeyEntry(alias, certificateAndKey.getPrivateKey(), secret.toCharArray(),
+				certificateAndKey.getCertificateChain());
 	}
 }
