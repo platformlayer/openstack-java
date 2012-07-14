@@ -2,8 +2,8 @@ package org.openstack.client.transport.jersey1;
 
 import java.util.logging.Logger;
 
-import org.openstack.client.transport.AuthenticationToken;
 import org.openstack.model.identity.Access;
+import org.openstack.model.identity.Access.Token;
 
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
@@ -20,7 +20,7 @@ class AuthenticationFilter extends ClientFilter {
 
 	@Override
 	public ClientResponse handle(ClientRequest request) {
-		String authTokenId = AuthenticationToken.getAuthenticationToken(access);
+		String authTokenId = getAuthenticationToken(access);
 
 		if (authTokenId != null && !authTokenId.isEmpty()) {
 			request.getHeaders().putSingle("X-Auth-Token", authTokenId);
@@ -29,4 +29,19 @@ class AuthenticationFilter extends ClientFilter {
 		ClientResponse response = getNext().handle(request);
 		return response;
 	}
+
+	public static String getAuthenticationToken(Access access) {
+		Token token = null;
+		if (access != null) {
+			token = access.getToken();
+		}
+
+		String authTokenId = null;
+		if (token != null) {
+			authTokenId = token.getId();
+		}
+
+		return authTokenId;
+	}
+
 }
