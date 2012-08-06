@@ -7,19 +7,25 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import com.google.common.base.Splitter;
+import com.google.common.collect.Maps;
 
 public class PropertyUtils {
 	public static Properties loadProperties(File file) throws IOException {
 		Properties properties = new Properties();
+		loadProperties(properties, file);
+		return properties;
+	}
+
+	public static void loadProperties(Properties properties, File file) throws IOException {
 		FileInputStream is = new FileInputStream(file);
 		try {
 			properties.load(is);
 		} finally {
 			Io.safeClose(is);
 		}
-		return properties;
 	}
 
 	public static Properties getChildProperties(Properties base, String prefix) {
