@@ -57,11 +57,27 @@ public class PropertyUtils {
 
 	public static String serialize(Properties properties) throws IOException {
 		StringWriter writer = new StringWriter();
-		properties.store(writer, null);
 
-		// The properties serialization normally puts a comment at the top with the date
-		// That causes lots of false-positive changes; remove it
-		return stripComments(writer.toString());
+		TreeMap<String, String> map = Maps.newTreeMap();
+		for (Entry<Object, Object> entry : properties.entrySet()) {
+			map.put((String) entry.getKey(), (String) entry.getValue());
+		}
+
+		for (Entry<String, String> entry : map.entrySet()) {
+			// TODO: Escaping??
+			writer.write(entry.getKey());
+			writer.write('=');
+			writer.write(entry.getValue());
+			writer.write('\n');
+		}
+
+		return writer.toString();
+
+		// properties.store(writer, null);
+		//
+		// // The properties serialization normally puts a comment at the top with the date
+		// // That causes lots of false-positive changes; remove it
+		// return stripComments(writer.toString());
 	}
 
 	private static String stripComments(String s) {
