@@ -7,10 +7,8 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.TreeMap;
 
 import com.google.common.base.Splitter;
-import com.google.common.collect.Maps;
 
 public class PropertyUtils {
 	public static Properties loadProperties(File file) throws IOException {

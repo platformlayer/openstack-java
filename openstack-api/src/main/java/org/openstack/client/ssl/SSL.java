@@ -16,7 +16,7 @@ public class SSL {
 			context = SSLContext.getInstance("TLS");
 			SecureRandom random = null;
 			KeyManager[] km = null;
-			TrustManager[] tm = { new AcceptingTrustManager() };
+			TrustManager[] tm = { new AcceptAllServerCertificatesTrustManager() };
 			context.init(km, tm, random);
 		} catch (Exception e) {
 			throw new IllegalStateException("Error initializing SSL", e);
