@@ -7,8 +7,10 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.TreeMap;
 
 import com.google.common.base.Splitter;
+import com.google.common.collect.Maps;
 
 public class PropertyUtils {
 	public static Properties loadProperties(File file) throws IOException {
@@ -54,28 +56,31 @@ public class PropertyUtils {
 	}
 
 	public static String serialize(Properties properties) throws IOException {
-		StringWriter writer = new StringWriter();
+		boolean useStandardSerialization = false;
+		if (useStandardSerialization) {
+			StringWriter writer = new StringWriter();
+			properties.store(writer, null);
 
-		TreeMap<String, String> map = Maps.newTreeMap();
-		for (Entry<Object, Object> entry : properties.entrySet()) {
-			map.put((String) entry.getKey(), (String) entry.getValue());
+			// The properties serialization normally puts a comment at the top with the date
+			// That causes lots of false-positive changes; remove it
+			return stripComments(writer.toString());
+		} else {
+			TreeMap<String, String> map = Maps.newTreeMap();
+			for (Entry<Object, Object> entry : properties.entrySet()) {
+				map.put((String) entry.getKey(), (String) entry.getValue());
+			}
+
+			StringWriter writer = new StringWriter();
+			for (Entry<String, String> entry : map.entrySet()) {
+				// TODO: Escaping??
+				writer.write(entry.getKey());
+				writer.write('=');
+				writer.write(entry.getValue());
+				writer.write('\n');
+			}
+
+			return writer.toString();
 		}
-
-		for (Entry<String, String> entry : map.entrySet()) {
-			// TODO: Escaping??
-			writer.write(entry.getKey());
-			writer.write('=');
-			writer.write(entry.getValue());
-			writer.write('\n');
-		}
-
-		return writer.toString();
-
-		// properties.store(writer, null);
-		//
-		// // The properties serialization normally puts a comment at the top with the date
-		// // That causes lots of false-positive changes; remove it
-		// return stripComments(writer.toString());
 	}
 
 	private static String stripComments(String s) {
