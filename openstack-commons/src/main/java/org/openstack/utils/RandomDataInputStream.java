@@ -1,4 +1,4 @@
-package org.openstack.client.utils;
+package org.openstack.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

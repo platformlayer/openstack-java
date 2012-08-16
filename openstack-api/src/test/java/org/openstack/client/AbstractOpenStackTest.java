@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.DigestException;
 
-import org.openstack.client.utils.RandomUtil;
 import org.openstack.crypto.Md5Hash;
+import org.openstack.utils.RandomUtil;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 

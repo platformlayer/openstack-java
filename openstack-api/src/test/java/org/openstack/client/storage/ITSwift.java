@@ -5,10 +5,10 @@ import static org.testng.Assert.assertEquals;
 import java.io.InputStream;
 import java.util.Map;
 
-import org.openstack.client.utils.RandomDataInputStream;
 import org.openstack.model.storage.Container;
 import org.openstack.model.storage.ObjectProperties;
 import org.openstack.model.storage.StorageObject;
+import org.openstack.utils.RandomDataInputStream;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
