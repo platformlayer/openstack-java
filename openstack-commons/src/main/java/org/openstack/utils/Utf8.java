@@ -9,7 +9,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 
 /**
  * Helper class that does String <-> UTF8 encoding
@@ -43,5 +47,16 @@ public class Utf8 {
 
 	public static OutputStreamWriter openWriter(OutputStream outputStream) {
 		return new OutputStreamWriter(outputStream, CHARSET);
+	}
+
+	public static String toString(ByteBuffer buffer) {
+		CharsetDecoder decoder = CHARSET.newDecoder();
+		CharBuffer chars;
+		try {
+			chars = decoder.decode(buffer);
+		} catch (CharacterCodingException e) {
+			throw new IllegalArgumentException("Error convert from UTF8", e);
+		}
+		return chars.toString();
 	}
 }
