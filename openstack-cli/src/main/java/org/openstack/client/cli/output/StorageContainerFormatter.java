@@ -1,6 +1,7 @@
 package org.openstack.client.cli.output;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 
 import org.openstack.model.storage.Container;

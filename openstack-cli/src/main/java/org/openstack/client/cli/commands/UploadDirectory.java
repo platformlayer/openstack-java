@@ -9,11 +9,11 @@ import org.openstack.client.OpenstackException;
 import org.openstack.client.cli.model.StoragePath;
 import org.openstack.client.storage.ObjectsResource;
 import org.openstack.client.storage.OpenstackStorageClient;
-import org.openstack.crypto.Md5Hash;
 import org.openstack.model.storage.ObjectProperties;
 import org.openstack.model.storage.StorageObject;
 import org.openstack.utils.Io;
 
+import com.fathomdb.hash.Md5Hash;
 import com.google.common.base.Objects;
 import com.google.common.collect.Maps;
 

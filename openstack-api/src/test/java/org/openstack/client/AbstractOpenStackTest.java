@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.DigestException;
 
-import org.openstack.crypto.Md5Hash;
+import com.fathomdb.hash.Md5Hash;
 import org.openstack.utils.RandomUtil;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;

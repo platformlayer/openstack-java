@@ -12,7 +12,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.openstack.client.OpenstackException;
 import org.openstack.client.OpenstackNotFoundException;
 import org.openstack.client.common.OpenstackImageClient;
-import org.openstack.crypto.Md5Hash;
+import com.fathomdb.hash.Md5Hash;
 import org.openstack.model.image.Image;
 import org.openstack.model.image.ImageProperties;
 import org.openstack.utils.RandomDataInputStream;

@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import org.openstack.utils.Hex;
 
+@Deprecated
+// Use protobuf version
 public class ByteString {
 	final byte[] bytes;
 	final int hash;

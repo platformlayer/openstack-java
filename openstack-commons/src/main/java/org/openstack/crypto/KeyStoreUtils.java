@@ -30,6 +30,7 @@ import org.openstack.utils.Io;
 import sun.security.x509.CertAndKeyGen;
 import sun.security.x509.X500Name;
 
+import com.fathomdb.crypto.CertificateAndKey;
 import com.google.common.collect.Lists;
 
 public class KeyStoreUtils {

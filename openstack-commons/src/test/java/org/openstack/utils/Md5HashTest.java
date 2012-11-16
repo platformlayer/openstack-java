@@ -2,7 +2,7 @@ package org.openstack.utils;
 
 import java.io.ByteArrayInputStream;
 
-import org.openstack.crypto.Md5Hash;
+import com.fathomdb.hash.Md5Hash;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

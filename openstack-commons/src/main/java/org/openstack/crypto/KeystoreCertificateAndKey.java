@@ -6,6 +6,8 @@ import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
+import com.fathomdb.crypto.CertificateAndKey;
+
 public class KeystoreCertificateAndKey implements CertificateAndKey {
 	final PrivateKeyEntry privateKeyEntry;
 
