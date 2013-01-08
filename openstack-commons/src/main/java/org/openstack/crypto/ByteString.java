@@ -3,7 +3,7 @@ package org.openstack.crypto;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import org.openstack.utils.Hex;
+import com.fathomdb.utils.Hex;
 
 @Deprecated
 // Use protobuf version

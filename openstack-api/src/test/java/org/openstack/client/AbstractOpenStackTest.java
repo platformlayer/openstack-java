@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.DigestException;
 
+import com.fathomdb.RandomUtil;
 import com.fathomdb.hash.Md5Hash;
-import org.openstack.utils.RandomUtil;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 

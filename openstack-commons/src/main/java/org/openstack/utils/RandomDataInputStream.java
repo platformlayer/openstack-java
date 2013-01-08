@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
+import com.fathomdb.RandomUtil;
+
 /**
  * A stream of random data. More useful for unit tests, but we want to use this in multiple projects.
  * 
@@ -14,6 +16,12 @@ public class RandomDataInputStream extends InputStream implements Cloneable {
 	int left;
 
 	final Random random;
+
+	public static RandomDataInputStream build(RandomUtil random, int maxLength) {
+		int imageLength = random.uniform(1, maxLength);
+		long seed = random.nextLong();
+		return new RandomDataInputStream(imageLength, seed);
+	}
 
 	public RandomDataInputStream(int length, long seed) {
 		this.streamLength = length;

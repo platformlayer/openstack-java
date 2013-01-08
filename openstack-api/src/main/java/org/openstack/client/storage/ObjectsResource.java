@@ -17,10 +17,10 @@ import org.openstack.client.imagestore.KnownLengthInputStream;
 import org.openstack.model.storage.ObjectProperties;
 import org.openstack.model.storage.StorageObject;
 import org.openstack.model.storage.StorageObjectList;
-import org.openstack.utils.Io;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.io.Closeables;
 import com.sun.jersey.api.client.ClientResponse;
 
 public class ObjectsResource extends StorageResourceBase {
@@ -146,7 +146,7 @@ public class ObjectsResource extends StorageResourceBase {
 		try {
 			putObject(fis, imageFile.length(), properties);
 		} finally {
-			Io.safeClose(fis);
+			Closeables.closeQuietly(fis);
 		}
 	}
 
@@ -155,7 +155,7 @@ public class ObjectsResource extends StorageResourceBase {
 		try {
 			return putObject(fis, srcFile.length(), properties);
 		} finally {
-			Io.safeClose(fis);
+			Closeables.closeQuietly(fis);
 		}
 	}
 

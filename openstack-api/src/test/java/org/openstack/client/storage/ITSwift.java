@@ -50,7 +50,7 @@ public class ITSwift extends StorageIntegrationTest {
 
 		ContainerResource containerResource = swift.root().containers().id(containerName);
 
-		RandomDataInputStream stream = random.randomStream(MAX_LENGTH);
+		RandomDataInputStream stream = RandomDataInputStream.build(random, MAX_LENGTH);
 
 		String objectName = random.randomAlphanumericString(4, 100);
 
@@ -85,7 +85,7 @@ public class ITSwift extends StorageIntegrationTest {
 		swift.root().containers().create(containerName);
 
 		ContainerResource containerResource = swift.root().containers().id(containerName);
-		RandomDataInputStream stream = random.randomStream(MAX_LENGTH);
+		RandomDataInputStream stream = RandomDataInputStream.build(random, MAX_LENGTH);
 
 		ObjectProperties expectedProperties = new ObjectProperties();
 		expectedProperties.setName(objectName);

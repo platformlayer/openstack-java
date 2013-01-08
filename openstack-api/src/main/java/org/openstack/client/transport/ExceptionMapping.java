@@ -14,6 +14,8 @@ import org.openstack.model.compute.BadRequest;
 import org.openstack.model.compute.ItemNotFound;
 import org.openstack.utils.Io;
 
+import com.google.common.io.Closeables;
+
 public class ExceptionMapping {
 	static final Logger log = Logger.getLogger(ExceptionMapping.class.getName());
 
@@ -43,7 +45,7 @@ public class ExceptionMapping {
 					// Ignore
 					log.log(Level.FINE, "Ignoring error reading 404 response body", e);
 				} finally {
-					Io.safeClose(inputStream);
+					Closeables.closeQuietly(inputStream);
 				}
 			}
 

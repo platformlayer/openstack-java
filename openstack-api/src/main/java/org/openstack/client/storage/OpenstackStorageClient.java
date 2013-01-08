@@ -9,7 +9,8 @@ import org.openstack.client.OpenstackException;
 import org.openstack.client.common.OpenstackSession;
 import org.openstack.model.storage.ObjectProperties;
 import org.openstack.model.storage.StorageObject;
-import org.openstack.utils.Io;
+
+import com.fathomdb.io.IoUtils;
 
 public class OpenstackStorageClient {
 
@@ -62,9 +63,9 @@ public class OpenstackStorageClient {
 
 		InputStream objectStream = objectResource.openStream();
 		try {
-			Io.copyStreams(objectStream, destFile);
+			IoUtils.copyStream(objectStream, destFile);
 		} finally {
-			Io.safeClose(objectStream);
+			IoUtils.safeClose(objectStream);
 		}
 
 		return metadata;

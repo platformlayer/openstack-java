@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.openstack.client.common.OpenstackSession;
-import org.openstack.utils.Io;
 import org.testng.SkipException;
+
+import com.google.common.io.Closeables;
 
 public class OpenstackTestContext {
 
@@ -52,7 +53,7 @@ public class OpenstackTestContext {
 			} catch (IOException e) {
 				throw new IllegalArgumentException("Error loading config file: " + configPath, e);
 			} finally {
-				Io.safeClose(fis);
+				Closeables.closeQuietly(fis);
 			}
 		}
 

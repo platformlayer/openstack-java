@@ -13,7 +13,8 @@ import org.openstack.client.common.SimplePagingList;
 import org.openstack.model.image.Image;
 import org.openstack.model.image.ImageList;
 import org.openstack.model.image.ImageUploadResponse;
-import org.openstack.utils.Io;
+
+import com.google.common.io.Closeables;
 
 public class ImagesResource extends GlanceResourceBase {
 
@@ -35,10 +36,9 @@ public class ImagesResource extends GlanceResourceBase {
 	public Image addImage(File imageFile, Image properties) throws IOException, OpenstackException {
 		FileInputStream fis = new FileInputStream(imageFile);
 		try {
-
 			return addImage(fis, imageFile.length(), properties);
 		} finally {
-			Io.safeClose(fis);
+			Closeables.closeQuietly(fis);
 		}
 	}
 

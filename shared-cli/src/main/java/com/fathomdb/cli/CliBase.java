@@ -8,13 +8,13 @@ import java.util.List;
 
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
-import org.openstack.utils.Io;
 
 import com.fathomdb.cli.commands.CommandRegistry;
 import com.fathomdb.cli.commands.CommandRunner;
 import com.fathomdb.cli.output.OutputSink;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
+import com.google.common.io.Closeables;
 import com.martiansoftware.nailgun.NGContext;
 import com.martiansoftware.nailgun.NGServer;
 
@@ -175,7 +175,7 @@ public class CliBase {
 			printError("Unexpected error", e);
 			return 2;
 		} finally {
-			Io.safeClose(repl);
+			Closeables.closeQuietly(repl);
 
 			CliContextBase.setThreadLocal(null);
 		}

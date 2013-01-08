@@ -1,18 +1,17 @@
 package org.openstack.utils;
 
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Reader;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.google.common.io.Closeables;
 
 /**
  * Utility functions to do with IO
@@ -20,27 +19,10 @@ import java.util.logging.Logger;
  * @author justinsb
  * 
  */
+@Deprecated
+// Use fathomdb-commons IoUtils instead
 public class Io {
 	static final Logger log = Logger.getLogger(Io.class.getName());
-
-	public static File resolve(String filename) {
-		if (filename.startsWith("~/")) {
-			filename = filename.replace("~/", System.getProperty("user.home") + File.separator);
-		}
-
-		return new File(filename);
-	}
-
-	public static void safeClose(Closeable closeable) {
-		if (closeable == null) {
-			return;
-		}
-		try {
-			closeable.close();
-		} catch (IOException e) {
-			logError("Ignoring unexpected error closing item", e);
-		}
-	}
 
 	static final void logError(String message, Throwable e) {
 		log.log(Level.SEVERE, message, e);
@@ -71,7 +53,7 @@ public class Io {
 		try {
 			return readAll(in);
 		} finally {
-			safeClose(in);
+			Closeables.closeQuietly(in);
 		}
 	}
 
@@ -80,28 +62,7 @@ public class Io {
 		try {
 			return readAll(is);
 		} finally {
-			safeClose(is);
-		}
-	}
-
-	public static void copyStreams(InputStream is, OutputStream os) throws IOException {
-		byte[] buffer = new byte[32768];
-		while (true) {
-			int bytesRead = is.read(buffer);
-			if (bytesRead == -1) {
-				break;
-			}
-
-			os.write(buffer, 0, bytesRead);
-		}
-	}
-
-	public static void copyStreams(InputStream is, File outputFile) throws IOException {
-		FileOutputStream fos = new FileOutputStream(outputFile);
-		try {
-			copyStreams(is, fos);
-		} finally {
-			Io.safeClose(fos);
+			Closeables.closeQuietly(is);
 		}
 	}
 

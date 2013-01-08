@@ -10,14 +10,14 @@ import java.util.List;
 import jline.ConsoleReader;
 
 import org.kohsuke.args4j.CmdLineException;
-import org.openstack.utils.Io;
-import org.openstack.utils.Utf8;
 
+import com.fathomdb.Utf8;
 import com.fathomdb.cli.commands.CommandRunner;
 import com.fathomdb.cli.output.OutputSink;
 import com.fathomdb.cli.output.RawOutputSink;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.google.common.io.Closeables;
 
 class CliSimpleRepl implements Repl {
 	private static final String PROMPT = "> ";
@@ -206,7 +206,7 @@ class CliSimpleRepl implements Repl {
 					}
 				}
 			} finally {
-				Io.safeClose(reader);
+				Closeables.closeQuietly(reader);
 			}
 		}
 		return true;
