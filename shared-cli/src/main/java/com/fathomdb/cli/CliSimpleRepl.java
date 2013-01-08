@@ -171,12 +171,13 @@ class CliSimpleRepl implements Repl {
 		if (outputSink instanceof RawOutputSink) {
 			commandRunner.formatRaw(results, ((RawOutputSink) outputSink).getWriter());
 		} else {
-			if (results instanceof Iterable) {
-				for (Object item : (Iterable) results) {
+			Object formatted = commandRunner.convertToOutputFormat(results);
+			if (formatted instanceof Iterable) {
+				for (Object item : (Iterable) formatted) {
 					outputSink.visitObject(item);
 				}
 			} else {
-				outputSink.visitObject(results);
+				outputSink.visitObject(formatted);
 			}
 		}
 

@@ -29,6 +29,11 @@ public abstract class CommandRunnerBase implements CommandRunner, Cloneable {
 		return context;
 	}
 
+	@Override
+	public Object convertToOutputFormat(Object results) {
+		return results;
+	}
+
 	protected CommandRunnerBase(String verb, String noun) {
 		this(CommandSpecifier.build(verb, noun));
 	}

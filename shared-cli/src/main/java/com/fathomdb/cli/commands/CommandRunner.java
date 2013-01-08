@@ -18,4 +18,6 @@ public interface CommandRunner {
 	void formatRaw(Object o, PrintWriter writer);
 
 	AutoCompletor getAutoCompleter();
+
+	Object convertToOutputFormat(Object results);
 }
