@@ -94,8 +94,12 @@ public class Ansi {
 		return doAction(TEXT_COLOR_BLUE);
 	}
 
-	public void println(String s) {
-		writer.writer.println(s);
+	public void print(String s) {
+		writer.writer.print(s);
+	}
+
+	public void println() {
+		writer.writer.println();
 	}
 
 	// public static final String ANSI_RESET = "\u001B[0m";
