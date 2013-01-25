@@ -10,6 +10,7 @@ import org.kohsuke.args4j.spi.OptionHandler;
 import org.kohsuke.args4j.spi.Setter;
 
 import com.fathomdb.cli.CliContext;
+import com.fathomdb.cli.OutputFormat;
 import com.fathomdb.cli.autocomplete.AutoCompletor;
 import com.fathomdb.cli.autocomplete.HasAutoCompletor;
 import com.fathomdb.cli.autocomplete.SimpleArgumentAutoCompleter;
@@ -21,6 +22,7 @@ public abstract class CommandRunnerBase implements CommandRunner, Cloneable {
 
 	final List<CommandSpecifier> commands;
 	CliContext context;
+	private OutputFormat format;
 
 	// @Option(name = "-h", aliases = "--help", usage = "displays this help command")
 	// protected boolean showHelp = false;
@@ -112,6 +114,16 @@ public abstract class CommandRunnerBase implements CommandRunner, Cloneable {
 
 		return new SimpleAutoCompleter(completers);
 	}
+
+	@Override
+	public void setOutputFormat(OutputFormat format) {
+		this.format = format;
+	}
+
+	public OutputFormat getOutputFormat() {
+		return format;
+	}
+
 	// protected static String getOptionsHelp(CmdLineParser parser) {
 	// StringWriter writer = new StringWriter();
 	// parser.printUsage(writer, null);

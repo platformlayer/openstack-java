@@ -146,7 +146,7 @@ public class CliBase {
 				// repl = new CliPythonRepl(outputSink, err, context);
 				// break;
 				default:
-					repl = new CliSimpleRepl(outputSink, err, context);
+					repl = new CliSimpleRepl(options.format, outputSink, err, context);
 					break;
 				}
 			} catch (IOException e) {

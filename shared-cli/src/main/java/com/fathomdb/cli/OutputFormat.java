@@ -13,9 +13,9 @@ public enum OutputFormat {
 	public OutputSink buildOutputSink(CliContext context, PrintWriter out) {
 		switch (this) {
 		case Json:
-			throw new UnsupportedOperationException("JSON format not yet implemented");
+			return new RawOutputSink(out);
 		case Xml:
-			throw new UnsupportedOperationException("XML format not yet implemented");
+			return new RawOutputSink(out);
 			// return new XmlOutputSink(out);
 		case Text:
 			return new TextOutputSink(context.getFormatterRegistry(), out, true);

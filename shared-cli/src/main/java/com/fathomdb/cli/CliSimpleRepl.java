@@ -28,7 +28,11 @@ class CliSimpleRepl implements Repl {
 	private final PrintWriter err;
 	private final ConsoleReader reader;
 
-	public CliSimpleRepl(OutputSink outputSink, PrintWriter err, CliContext context) throws IOException {
+	private final OutputFormat format;
+
+	public CliSimpleRepl(OutputFormat format, OutputSink outputSink, PrintWriter err, CliContext context)
+			throws IOException {
+		this.format = format;
 		this.outputSink = outputSink;
 		this.err = err;
 		this.context = context;
@@ -141,6 +145,8 @@ class CliSimpleRepl implements Repl {
 			err.println("Unknown command: " + verb + " (line=" + Joiner.on(" ").join(tokens) + ")");
 			return false;
 		}
+
+		commandRunner.setOutputFormat(format);
 
 		Object results;
 		try {

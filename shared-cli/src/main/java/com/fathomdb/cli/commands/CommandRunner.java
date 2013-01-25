@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import com.fathomdb.cli.CliContext;
+import com.fathomdb.cli.OutputFormat;
 import com.fathomdb.cli.autocomplete.AutoCompletor;
 
 public interface CommandRunner {
@@ -20,4 +21,6 @@ public interface CommandRunner {
 	AutoCompletor getAutoCompleter();
 
 	Object convertToOutputFormat(Object results);
+
+	void setOutputFormat(OutputFormat format);
 }
